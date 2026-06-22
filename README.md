@@ -12,27 +12,6 @@ The web app sources of record live under [legacy/davi-v2/src](legacy/davi-v2/src
 both the legacy RDA build and the new ISAK image pull from there, so changes
 to `index.html`, Cesium, milsymbol, etc. continue to flow into both paths.
 
-### Data backends
-
-DaVi reads two kinds of dataset:
-
-| Backend | Browser path | Server | Notes |
-|---|---|---|---|
-| Elasticsearch indexes | `/elasticsearch/*` | nginx → ES cluster IP | Original backend; `_cat/indices`, `_search`, `_mapping`. |
-| PostgreSQL tables (new) | `/postgres/*` | nginx → PostgREST → PG | OpenAPI discovery, `GET /{table}` for rows, `Accept: application/geo+json` for PostGIS tables, ilike-based keyword search. |
-
-Both surface in the side panel as parallel selection lists ("Index Browser"
-and "PostgreSQL Tables"). Selected datasets from either backend feed the same
-renderers, KW doc browser, and Cesium entities — no separate code paths for
-SIDC decoding, shape geometry, or labels. The Postgres adapter normalizes
-rows into the DaVi record shape (`{data, id}`), promoting any GeoJSON
-`geometry` Point to top-level `latitude`/`longitude` and lifting columns named
-`geom` / `geometry` / `shape` for the existing `extractShapeGeometry` /
-`extractSymbolMeta` pipeline.
-
-Live-feed polling and the empty-table watcher remain ES-only in this pass;
-PG live-poll wiring is a documented follow-up.
-
 ---
 
 ## ISAK deployment (current)
@@ -58,26 +37,6 @@ DO_INSTALL=1 \
   ES_HOST=elasticsearch.isak-data.svc.cluster.local \
   TILES_HOST=tiles.isak-data.svc.cluster.local \
   scripts/sideload.sh isak2.army.mil root dev
-```
-
-Postgres is opt-in. To bring up an in-chart PostgREST gateway pointed at an
-existing PG service:
-
-```bash
-helm upgrade --install davi ./charts/davi \
-  --namespace isak-davi --create-namespace \
-  --set hostname=isak2 --set domain=army.mil \
-  --set backends.postgres.host=postgres.isak-data.svc.cluster.local \
-  --set backends.postgres.db=davi \
-  --set backends.postgres.schema=davi \
-  --set postgrest.enabled=true \
-  --set postgrest.connectionString="postgres://davi_ro:<pw>@postgres.isak-data.svc.cluster.local:5432/davi"
-```
-
-Or skip the in-chart PostgREST and point at an external one:
-
-```bash
-  --set backends.postgres.gatewayHost=postgrest.isak-data.svc.cluster.local
 ```
 
 The script uses the default (public) `nginx` base in the [Dockerfile](Dockerfile),
@@ -145,15 +104,6 @@ charts/davi/
 - The chart assumes Elasticsearch and a vector-tile service already exist
   in-cluster. If a `backends.*.host` value is empty, the matching nginx
   `location` block is omitted and that feature degrades gracefully.
-- PostgREST is the only supported HTTP shim for Postgres in the chart;
-  set `postgrest.enabled=true` for the in-chart Deployment + Service, or
-  point `backends.postgres.gatewayHost` at an external PostgREST. The
-  client side recognizes both PostGIS geometry columns and plain
-  lat/lon / GeoJSON-jsonb tables; tables outside `backends.postgres.schema`
-  are invisible by design.
-- PG live-feed / scan-promotion / mapping-driven keyword search are
-  follow-up work; first pass uses sample-based detection and ilike on
-  every text column.
 - Until Harbor (ISAK Phase 3) is online, the DaVi image must be pre-loaded
   on the node (`ctr images import`) or pulled directly from Iron Bank.
 

@@ -20,19 +20,3 @@ helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | 
 app.kubernetes.io/name: {{ include "davi.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
-
-{{/*
-PostgREST gateway upstream resolution. The browser hits /postgres/* which
-nginx proxies to one of:
-  1. The in-chart PostgREST Service (when .Values.postgrest.enabled).
-  2. An external PostgREST service named in .Values.backends.postgres.gatewayHost.
-Returns "" if neither is configured (in which case the location block is
-omitted entirely from the nginx config).
-*/}}
-{{- define "davi.postgrestUpstream" -}}
-{{- if .Values.postgrest.enabled -}}
-http://{{ include "davi.fullname" . }}-postgrest:{{ .Values.postgrest.service.port }}
-{{- else if .Values.backends.postgres.gatewayHost -}}
-{{ .Values.backends.postgres.gatewayScheme }}://{{ .Values.backends.postgres.gatewayHost }}:{{ .Values.backends.postgres.gatewayPort }}
-{{- end -}}
-{{- end -}}
