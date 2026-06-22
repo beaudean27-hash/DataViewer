@@ -93,6 +93,8 @@ spec:
       securityContext:
         runAsNonRoot: true
         fsGroup: 2000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: davi
           image: registry1.dso.mil/ironbank/davi/davi:0.1.0
@@ -108,6 +110,8 @@ spec:
             readOnlyRootFilesystem: true
             capabilities:
               drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
           readinessProbe:
             httpGet: { path: /, port: http }
             initialDelaySeconds: 2
