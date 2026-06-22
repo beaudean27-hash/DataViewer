@@ -44,6 +44,11 @@ resources:
 podSecurityContext:
   fsGroup: 2000
   runAsNonRoot: true
+  # Required by Pod Security Admission "restricted" enforcement (set on
+  # isak-davi via cluster-wide PSA defaults). Omit and the ReplicaSet
+  # logs FailedCreate: violates PodSecurity "restricted:latest".
+  seccompProfile:
+    type: RuntimeDefault
 
 securityContext:
   runAsNonRoot: true
@@ -53,6 +58,8 @@ securityContext:
   readOnlyRootFilesystem: true
   capabilities:
     drop: ["ALL"]
+  seccompProfile:
+    type: RuntimeDefault
 
 # Upstream services the DaVi web app calls via same-origin paths.
 # Set to empty string to disable the corresponding location block.
