@@ -1,0 +1,32 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "cp": true,
+        "zip": true,
+        "sha256sum": true,
+        "unzip": true,
+        "/^node -e \"\nconst fs = require\\('fs'\\);\nconst src = fs\\.readFileSync\\('/workspaces/DataViewer/davi-v2/vendor/Cesium/milsymbol\\.js','utf8'\\);\nconst re = /t\\\\\\[\\\\\"\\(S-G-U\\[A-Z0-9-\\]\\+\\)\\\\\"\\\\\\]/g;\nlet m; const codes=new Set\\(\\);\nwhile\\(\\(m=re\\.exec\\(src\\)\\)!==null\\) codes\\.add\\(m\\[1\\]\\);\n// Find ADA, logistics, fire support, point codes\n\\[\\.\\.\\.codes\\]\\.filter\\(c => c\\.match\\(/U\\(AD\\|PT\\|FS\\|UU\\|CL\\|CS\\|CP\\|CC\\|FH\\|FR\\|FM\\)/\\)\\)\\.sort\\(\\)\\.forEach\\(c=>console\\.log\\(c\\)\\);\n\" 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node -e \"\nconst fs = require\\('fs'\\);\nconst src = fs\\.readFileSync\\('/workspaces/DataViewer/davi-v2/vendor/Cesium/milsymbol\\.js','utf8'\\);\nconst re = /t\\\\\\[\\\\\"\\(S-G-U\\[A-Z0-9-\\]\\+\\)\\\\\"\\\\\\]/g;\nlet m; const codes=new Set\\(\\);\nwhile\\(\\(m=re\\.exec\\(src\\)\\)!==null\\) codes\\.add\\(m\\[1\\]\\);\n// Verify all proposed replacements\nconst checks = \\['S-G-UCF---','S-G-UCFH--','S-G-UCFR--','S-G-UCFM--','S-G-UUSF--','S-G-UUAD--','S-G-UUL---'\\];\nchecks\\.forEach\\(c => console\\.log\\(c, codes\\.has\\(c\\) \\? '✓' : '✗'\\)\\);\n\" 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^cd /workspaces/DataViewer && node -e \"\nconst fs = require\\('fs'\\);\nlet j = fs\\.readFileSync\\('AFATDS_records\\.json','utf8'\\);\n\n// Map of bad codes → correct 2525B codes\nconst fixes = \\{\n  'SFGPUFA---------': 'SFGPUCF---------',  // Field Artillery \\(UCF\\)\n  'SFGPUFAH--------': 'SFGPUCFH--------',  // FA Howitzer\n  'SFGPUFAR--------': 'SFGPUCFR--------',  // FA Rocket/MLRS\n  'SFGPUFAM--------': 'SFGPUCFM--------',  // FA Mortar\n  'SFGPUFS---------': 'SFGPUUSF--------',  // Fire Support \\(UUSF\\)\n  'SFGPUFSF--------': 'SFGPUUSF--------',  // Forward Observer → Fire Support\n  'SHGPUFA---------': 'SHGPUCFH--------',  // Hostile FA Howitzer\n  'SHGPUAD---------': 'SHGPUUAD-------',   // Hostile Air Defense \\(UUAD\\)\n  'SHGPUCL---------': 'SHGPUUL---------',  // Hostile Logistics \\(UUL\\)\n  'SHGPUFAM--------': 'SHGPUCFM--------',  // Hostile FA Mortar\n  'SFGPUPT---------': 'SFGPUUSF--------',  // TRP → Fire Support\n\\};\n\nfor \\(const \\[bad, good\\] of Object\\.entries\\(fixes\\)\\) \\{\n  const count = \\(j\\.match\\(new RegExp\\(bad,'g'\\)\\)\\|\\|\\[\\]\\)\\.length;\n  j = j\\.replaceAll\\(bad, good\\);\n  console\\.log\\(bad, '->', good, '\\(', count, 'replacements\\)'\\);\n\\}\n\nfs\\.writeFileSync\\('AFATDS_records\\.json', j\\);\nconsole\\.log\\('Done\\.'\\);\n\" 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node -e \"\nconst fs = require\\('fs'\\);\nconst src = fs\\.readFileSync\\('/workspaces/DataViewer/davi-v2/vendor/Cesium/milsymbol\\.js','utf8'\\);\nconst re = /t\\\\\\[\\\\\"\\(S-G-U\\[A-Z0-9-\\]\\+\\)\\\\\"\\\\\\]/g;\nlet m; const codes=new Set\\(\\);\nwhile\\(\\(m=re\\.exec\\(src\\)\\)!==null\\) codes\\.add\\(m\\[1\\]\\);\n\n// Directly check the codes as they'd appear with dashes\nconst checks = \\['S-G-UUS---','S-G-UUSC--','S-G-UUM---','S-G-UULS--','S-G-UULF--','S-G-UUD---','S-G-UUMA--'\\];\nchecks\\.forEach\\(c => console\\.log\\(c, codes\\.has\\(c\\) \\? '✓ VALID' : '✗ MISSING'\\)\\);\n\" 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node -e \"\nconst fs = require\\('fs'\\);\nconst records = JSON\\.parse\\(fs\\.readFileSync\\('/workspaces/DataViewer/LOGSTAT_records\\.json','utf8'\\)\\);\n// Check MMC symbol\nconst mmc = records\\.find\\(r => r\\.Name\\.includes\\('MMC'\\)\\);\nconsole\\.log\\('MMC symbol:', mmc\\.OriginatorSymbolCode\\);\n// Check which have/don't have lat/lon\nrecords\\.forEach\\(r => console\\.log\\(r\\.Name\\.padEnd\\(40\\), r\\.Latitude \\? '✓ location' : '✗ no location'\\)\\);\n\" 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python3 -c \"\nimport json\nwith open\\('/workspaces/DataViewer/LOGSTAT_records\\.json','r'\\) as f:\n    records = json\\.load\\(f\\)\nprint\\('Total records:', len\\(records\\)\\)\nfor i, r in enumerate\\(records\\):\n    has_loc = 'Latitude' in r or 'Longitude' in r\n    name = r\\.get\\('OriginatorAlias', r\\.get\\('Name', '\\?'\\)\\)\n    urn = r\\.get\\('OriginatorURN', '\\?'\\)\n    code = r\\.get\\('OriginatorSymbolCode', '\\?'\\)\n    print\\(f'\\{i:2d\\} URN=\\{urn\\} has_loc=\\{has_loc\\} name=\\{name!r\\} code=\\{code\\}'\\)\n\" 2>&1$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

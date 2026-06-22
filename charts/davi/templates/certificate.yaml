@@ -1,0 +1,22 @@
+{{- if and .Values.ingress.enabled .Values.certificate.enabled -}}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "davi.fullname" . }}-tls
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+spec:
+  secretName: {{ include "davi.fullname" . }}-tls
+  issuerRef:
+    name: {{ .Values.certificate.issuerName }}
+    kind: {{ .Values.certificate.issuerKind }}
+  commonName: {{ include "davi.host" . | quote }}
+  dnsNames:
+    - {{ include "davi.host" . | quote }}
+  privateKey:
+    algorithm: RSA
+    size: 4096
+    rotationPolicy: Always
+  duration: {{ .Values.certificate.duration }}
+  renewBefore: {{ .Values.certificate.renewBefore }}
+{{- end }}

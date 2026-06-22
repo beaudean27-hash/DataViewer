@@ -1,0 +1,14 @@
+apiVersion: v2
+name: davi
+description: DaVi (Data Viewer) — Cesium-based tactical viewer for ISAK
+type: application
+version: 0.1.0
+appVersion: "2026.05.28"
+kubeVersion: ">=1.30.0"
+keywords:
+  - cesium
+  - geospatial
+  - tactical
+  - isak
+maintainers:
+  - name: DaVi team

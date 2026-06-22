@@ -1,0 +1,29 @@
+# Build outputs
+dist/
+.zip_build/
+legacy/.zip_build/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+
+# Local environment
+*.local
+.env
+.env.local
+
+# Heavy reference data — kept locally, not tracked. See README for source.
+legacy/UTP_Koksan.json
+legacy/UTP_Koksan.kmz
+legacy/UTP_FortIrwinNTC.kmz
+legacy/ms_2525d.pdf
+legacy/cesium-export-guide.docx
+legacy/DaVi.zip
+legacy/DaVi.zip.bak
+legacy/DaVi.zip.prev
+legacy/DaViWorking.zip
+legacy/Claude Chat.txt
+
+# Anything chunky that may land in legacy/raw/ or legacy/test/ during dev
+legacy/raw/
+legacy/test/

@@ -1,0 +1,163 @@
+# ----------------------------------------------------------------------------
+# DaVi Helm values
+#
+# Override per ISAK deployment with:
+#   --set hostname=isak2 --set domain=army.mil \
+#   --set backends.elasticsearch.host=<es-svc>.<ns>.svc.cluster.local \
+#   --set backends.tiles.host=<tiles-svc>.<ns>.svc.cluster.local \
+#   --set backends.postgres.host=<pg-svc>.<ns>.svc.cluster.local \
+#   --set backends.postgres.schema=davi
+# ----------------------------------------------------------------------------
+
+# Installer-defined values — see ISAK_Developer_Reference.md
+hostname: "isak2"
+domain: "army.mil"
+
+# Ingress subdomain. Full host becomes:
+#   <subdomain>.public.<hostname>.<domain>
+subdomain: "davi"
+
+namespace:
+  # The Helm release should normally be installed with --create-namespace
+  # into isak-davi; this flag controls whether the chart also emits a
+  # Namespace object (useful when not using --create-namespace).
+  create: false
+  name: "isak-davi"
+
+image:
+  # Replace with your Iron Bank / Harbor coordinates for DaVi.
+  repository: "registry1.dso.mil/ironbank/davi/davi"
+  tag: "0.1.0"
+  pullPolicy: "IfNotPresent"
+
+imagePullSecrets: []
+  # - name: ironbank-pull
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+podSecurityContext:
+  fsGroup: 2000
+  runAsNonRoot: true
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 2000
+  runAsGroup: 2000
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
+# Upstream services the DaVi web app calls via same-origin paths.
+# Set to empty string to disable the corresponding location block.
+backends:
+  elasticsearch:
+    # In-cluster service URL. Path /elasticsearch/* is proxied here.
+    host: ""           # e.g. "elasticsearch-master.isak-data.svc.cluster.local"
+    port: 9200
+    scheme: "http"
+  tiles:
+    # In-cluster vector-tile service. Path /tiles/* is proxied here.
+    host: ""           # e.g. "tiles.isak-data.svc.cluster.local"
+    port: 80
+    scheme: "http"
+  postgres:
+    # Browser calls /postgres/* which nginx proxies to a PostgREST gateway.
+    # PostgREST is the only supported HTTP shim for Postgres in this chart;
+    # browsers cannot speak the PG wire protocol directly.
+    #
+    # Two deployment modes:
+    #   1. In-chart PostgREST (recommended for dev/POC) — set
+    #      `postgrest.enabled: true` below and `postgres.host`/`postgres.db`
+    #      to point at the existing PostgreSQL service. The chart will deploy
+    #      a PostgREST Deployment + ClusterIP Service named `<release>-davi-postgrest`
+    #      and nginx will reverse-proxy /postgres/ to it.
+    #   2. External PostgREST — leave `postgrest.enabled: false` and set
+    #      `backends.postgres.gatewayHost` to the FQDN of an existing
+    #      PostgREST service. nginx proxies /postgres/ straight there.
+    #
+    # Schema exposed to the browser (PostgREST `db-schemas` / `db-anon-role`).
+    # Tables outside this schema are invisible — keep it scoped tight for
+    # accreditation.
+    host: ""           # e.g. "postgres.isak-data.svc.cluster.local"
+    port: 5432
+    db: "davi"
+    schema: "davi"
+    # External PostgREST endpoint (only used when postgrest.enabled is false).
+    gatewayHost: ""    # e.g. "postgrest.isak-data.svc.cluster.local"
+    gatewayPort: 3000
+    gatewayScheme: "http"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+
+certificate:
+  enabled: true
+  issuerName: "isak-ca-issuer"
+  issuerKind: "ClusterIssuer"
+  duration: "2160h"
+  renewBefore: "168h"
+
+# Optional Keycloak OIDC config. The chart does NOT enable auth on its own;
+# this block is reserved for a future ForwardAuth middleware / oauth2-proxy
+# sidecar wired in by the operator. Values mirror the isak realm.
+keycloak:
+  enabled: false
+  url: ""             # e.g. https://keycloak.public.isak2.army.mil
+  realm: "isak"
+  clientId: "davi"
+
+# Optional in-chart PostgREST gateway. When enabled, the chart deploys a
+# PostgREST instance and the nginx `/postgres/` location proxies to it.
+# Connection credentials must be provided either as a literal `connectionString`
+# (less secure, fine for dev/POC) or via `existingSecret` referencing a Secret
+# with a key holding the URI (recommended for prod / accreditation).
+#
+# PostgREST is invoked with:
+#   PGRST_DB_URI       = postgres://<user>:<pw>@<host>:<port>/<db>
+#   PGRST_DB_SCHEMAS   = <backends.postgres.schema>
+#   PGRST_DB_ANON_ROLE = <db.anonRole>            (read-only role recommended)
+#   PGRST_OPENAPI_MODE = follow-privileges
+#
+# Dev base image: postgrest/postgrest. For Iron Bank, override `image.repository`
+# and `image.tag` once the gateway is mirrored to registry1.dso.mil / Harbor.
+postgrest:
+  enabled: false
+  image:
+    repository: "postgrest/postgrest"
+    tag: "v12.2.3"
+    pullPolicy: "IfNotPresent"
+  replicaCount: 1
+  service:
+    port: 3000
+  # Either set `connectionString` or `existingSecret`/`existingSecretKey`.
+  connectionString: ""    # e.g. "postgres://davi_ro:secret@postgres.isak-data.svc.cluster.local:5432/davi"
+  existingSecret: ""      # name of a pre-created Secret in the release namespace
+  existingSecretKey: "uri"
+  db:
+    anonRole: "davi_ro"
+    # JWT auth (optional). When `secret` is set, PostgREST validates incoming
+    # `Authorization: Bearer <jwt>` against it. Wire this to the Keycloak realm
+    # signing key when the ForwardAuth integration lands.
+    jwt:
+      secret: ""
+      audience: "davi"
+  resources:
+    requests: { cpu: "50m",  memory: "64Mi" }
+    limits:   { cpu: "500m", memory: "256Mi" }

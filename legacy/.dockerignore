@@ -1,0 +1,11 @@
+.git
+.gitignore
+.zip_patch
+DaVi.zip
+DaViWorking.zip
+rda
+raw
+scripts
+test
+*.md
+*.txt

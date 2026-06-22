@@ -1,0 +1,419 @@
+[
+  {
+    "Id": "4341509b-b2c4-41ff-9fd7-881cc2d89f46",
+    "SymbolType": "TacticalGraphic",
+    "Name": "Dallas",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 39.297558338171385,
+    "Longitude": -94.71411021671278,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:18:32.764Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.246019086721766",
+            "Longitude": "-94.836203397054277"
+          },
+          {
+            "Latitude": "39.231493702211978",
+            "Longitude": "-94.712962004985442"
+          },
+          {
+            "Latitude": "39.264690161704074",
+            "Longitude": "-94.64062466616241"
+          },
+          {
+            "Latitude": "39.310309632609581",
+            "Longitude": "-94.603116416402329"
+          },
+          {
+            "Latitude": "39.362113862935047",
+            "Longitude": "-94.6299080233738"
+          },
+          {
+            "Latitude": "39.355899382209842",
+            "Longitude": "-94.739753611956914"
+          },
+          {
+            "Latitude": "39.31238253880742",
+            "Longitude": "-94.836203397054277"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "79ae0f1d-fbdf-4c0b-a857-93dad2f5e9ca",
+    "SymbolType": "BoundaryLine",
+    "Name": "East",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLB---*I**X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 39.84840133448462,
+    "Longitude": -94.82588859604925,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:16:17.209Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.352256207920625",
+            "Longitude": "-94.502062732883871"
+          },
+          {
+            "Latitude": "39.631116028662042",
+            "Longitude": "-94.661890948609269"
+          },
+          {
+            "Latitude": "39.951486117911173",
+            "Longitude": "-94.828668217192316"
+          },
+          {
+            "Latitude": "40.079216126951366",
+            "Longitude": "-94.912056851483825"
+          },
+          {
+            "Latitude": "40.2279321909779",
+            "Longitude": "-95.224764230077014"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "4593b6cf-a65c-428a-c8d1-d707befed6ac",
+    "SymbolType": "TacticalGraphic",
+    "Name": "Hawaii",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPOLAGM-****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Arrow",
+    "Latitude": 39.77359784909827,
+    "Longitude": -94.93009598617294,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:20:17.964Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Arrow",
+      "Arrowhead": {
+        "Latitude": "39.903983019162354",
+        "Longitude": "-95.065347719641139"
+      },
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.372433205019846",
+            "Longitude": "-94.7419142322945"
+          },
+          {
+            "Latitude": "39.726153402651306",
+            "Longitude": "-94.859265540622232"
+          },
+          {
+            "Latitude": "39.903403608047263",
+            "Longitude": "-94.8818158729026"
+          },
+          {
+            "Latitude": "39.962016010610611",
+            "Longitude": "-95.102136565404251"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "d8e88e57-9683-4c99-ccda-927201f07320",
+    "SymbolType": "TacticalGraphic",
+    "Name": "Jackson",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFFPATG---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 39.99784700108175,
+    "Longitude": -95.2028412031744,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:21:42.866Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "40.006589579073058",
+            "Longitude": "-95.192455972076573"
+          },
+          {
+            "Latitude": "40.005540588933883",
+            "Longitude": "-95.215737149482678"
+          },
+          {
+            "Latitude": "39.988404801733886",
+            "Longitude": "-95.2189326052051"
+          },
+          {
+            "Latitude": "39.990853034586166",
+            "Longitude": "-95.184239085933243"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "60e9e07f-f97b-4e69-e810-ff288d4aed84",
+    "SymbolType": "TacticalGraphic",
+    "Name": "Lakers",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPOLT---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 39.37541235027073,
+    "Longitude": -94.84488267386011,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:17:51.448Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.244704779953551",
+            "Longitude": "-95.224764230077014"
+          },
+          {
+            "Latitude": "39.325383842617164",
+            "Longitude": "-94.925954957199082"
+          },
+          {
+            "Latitude": "39.556148428241485",
+            "Longitude": "-94.383928834304228"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "ffb05821-4007-4abe-f0fe-bd2a827f8515",
+    "SymbolType": "TacticalGraphic",
+    "Name": "OBJ Yankees",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPOAO---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 40.00046107546667,
+    "Longitude": -95.28174646350955,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:14:49.526Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.94615884692648",
+            "Longitude": "-95.3290000229414"
+          },
+          {
+            "Latitude": "39.951486117911173",
+            "Longitude": "-95.162222754358382"
+          },
+          {
+            "Latitude": "40.010058713824",
+            "Longitude": "-95.092732225782115"
+          },
+          {
+            "Latitude": "40.073898816781643",
+            "Longitude": "-95.363745287229534"
+          },
+          {
+            "Latitude": "40.020702881890038",
+            "Longitude": "-95.4610320272363"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "26d7a720-a72a-435d-fcb5-7f9b9e8ca687",
+    "SymbolType": "TacticalGraphic",
+    "Name": "Rams",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 39.88387477196649,
+    "Longitude": -95.13442654292787,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:16:48.756Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.748758288597593",
+            "Longitude": "-95.523573502954932"
+          },
+          {
+            "Latitude": "39.866200006256435",
+            "Longitude": "-95.134426542927869"
+          },
+          {
+            "Latitude": "40.036666021045441",
+            "Longitude": "-94.745279582900793"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "0eb096ec-90de-4cad-b6c7-45beee11ebcc",
+    "SymbolType": "TacticalGraphic",
+    "Name": "Saints",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 39.629215917917975,
+    "Longitude": -94.94680211577196,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:17:09.529Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.475735994862347",
+            "Longitude": "-95.412388657232924"
+          },
+          {
+            "Latitude": "39.625763890746214",
+            "Longitude": "-94.939853062914324"
+          },
+          {
+            "Latitude": "39.786147868145356",
+            "Longitude": "-94.488164627168615"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "0d551551-6d32-403e-ac66-206f2de936af",
+    "SymbolType": "BoundaryLine",
+    "Name": "West",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLB---*J**X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 39.61569038585736,
+    "Longitude": -95.28730570579565,
+    "StaffComments": "",
+    "Comment": "",
+    "MessageDTG": "2026-05-20T16:15:50.873Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": "39.217791110014083",
+            "Longitude": "-95.0371398029211"
+          },
+          {
+            "Latitude": "39.459642339540451",
+            "Longitude": "-95.162222754358382"
+          },
+          {
+            "Latitude": "39.727383698684385",
+            "Longitude": "-95.322050970083765"
+          },
+          {
+            "Latitude": "40.057944395190539",
+            "Longitude": "-95.627809295819333"
+          }
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayerFileFormatRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.systematic.com/2011/products/layer-definition-v4">
+  <Layers>
+    <Layer xsi:type="SituationLayer">
+      <Name>Base Graphics</Name>
+      <SecurityClassification>Unclassified</SecurityClassification>
+      <Symbols>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>4341509b-b2c4-41ff-9fd7-881cc2d89f46</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Area">
+            <Points>
+              <Point>
+                <Latitude>39.246019086721766</Latitude>
+                <Longitude>-94.836203397054277</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.231493702211978</Latitude>
+                <Longitude>-94.712962004985442</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.264690161704074</Latitude>
+                <Longitude>-94.64062466616241</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.310309632609581</Latitude>
+                <Longitude>-94.603116416402329</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.362113862935047</Latitude>
+                <Longitude>-94.6299080233738</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.355899382209842</Latitude>
+                <Longitude>-94.739753611956914</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.31238253880742</Latitude>
+                <Longitude>-94.836203397054277</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>Dallas</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:18:32.764Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPGAA---****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5490347311647342816</FirstLong>
+            <SecondLong>2798914601997356704</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:34:49.733Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="BoundaryLine">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>79ae0f1d-fbdf-4c0b-a857-93dad2f5e9ca</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Line">
+            <Points>
+              <Point>
+                <Latitude>39.352256207920625</Latitude>
+                <Longitude>-94.502062732883871</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.631116028662042</Latitude>
+                <Longitude>-94.661890948609269</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.951486117911173</Latitude>
+                <Longitude>-94.828668217192316</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.079216126951366</Latitude>
+                <Longitude>-94.912056851483825</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.2279321909779</Latitude>
+                <Longitude>-95.224764230077014</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>East</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:16:17.209Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPGLB---*I**X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5459336349874101294</FirstLong>
+            <SecondLong>-2509703458765656954</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:35:18.327Z</Timestamp>
+          <LeftOrganisation />
+          <RightOrganisation />
+        </Symbol>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>4593b6cf-a65c-428a-c8d1-d707befed6ac</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Arrow">
+            <Arrowhead>
+              <Latitude>39.903983019162354</Latitude>
+              <Longitude>-95.065347719641139</Longitude>
+            </Arrowhead>
+            <Points>
+              <Point>
+                <Latitude>39.372433205019846</Latitude>
+                <Longitude>-94.7419142322945</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.726153402651306</Latitude>
+                <Longitude>-94.859265540622232</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.903403608047263</Latitude>
+                <Longitude>-94.8818158729026</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.962016010610611</Latitude>
+                <Longitude>-95.102136565404251</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>Hawaii</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:20:17.964Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPOLAGM-****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5441395896792559160</FirstLong>
+            <SecondLong>-1339892356044509788</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:36:53.287Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>d8e88e57-9683-4c99-ccda-927201f07320</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Area">
+            <Points>
+              <Point>
+                <Latitude>40.006589579073058</Latitude>
+                <Longitude>-95.192455972076573</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.005540588933883</Latitude>
+                <Longitude>-95.215737149482678</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.988404801733886</Latitude>
+                <Longitude>-95.2189326052051</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.990853034586166</Latitude>
+                <Longitude>-95.184239085933243</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>Jackson</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:21:42.866Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFFPATG---****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5502895770652925064</FirstLong>
+            <SecondLong>8918463170175345546</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:38:12.27Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>60e9e07f-f97b-4e69-e810-ff288d4aed84</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Line">
+            <Points>
+              <Point>
+                <Latitude>39.244704779953551</Latitude>
+                <Longitude>-95.224764230077014</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.325383842617164</Latitude>
+                <Longitude>-94.925954957199082</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.556148428241485</Latitude>
+                <Longitude>-94.383928834304228</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>Lakers</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:17:51.448Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPOLT---****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5530639980763424964</FirstLong>
+            <SecondLong>-5716547868430142791</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:34:11.797Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>ffb05821-4007-4abe-f0fe-bd2a827f8515</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Area">
+            <Points>
+              <Point>
+                <Latitude>39.94615884692648</Latitude>
+                <Longitude>-95.3290000229414</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.951486117911173</Latitude>
+                <Longitude>-95.162222754358382</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.010058713824</Latitude>
+                <Longitude>-95.092732225782115</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.073898816781643</Latitude>
+                <Longitude>-95.363745287229534</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.020702881890038</Latitude>
+                <Longitude>-95.4610320272363</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>OBJ Yankees</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:14:49.526Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPOAO---****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5429376226141865822</FirstLong>
+            <SecondLong>-3684018161114126420</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:31:18.72Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>26d7a720-a72a-435d-fcb5-7f9b9e8ca687</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Line">
+            <Points>
+              <Point>
+                <Latitude>39.748758288597593</Latitude>
+                <Longitude>-95.523573502954932</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.866200006256435</Latitude>
+                <Longitude>-95.134426542927869</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.036666021045441</Latitude>
+                <Longitude>-94.745279582900793</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>Rams</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:16:48.756Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPGLP---****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>4712463760407378194</FirstLong>
+            <SecondLong>-7685183855544453444</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:33:01.743Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="TacticalGraphic">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>0eb096ec-90de-4cad-b6c7-45beee11ebcc</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Line">
+            <Points>
+              <Point>
+                <Latitude>39.475735994862347</Latitude>
+                <Longitude>-95.412388657232924</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.625763890746214</Latitude>
+                <Longitude>-94.939853062914324</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.786147868145356</Latitude>
+                <Longitude>-94.488164627168615</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>Saints</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:17:09.529Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPGLP---****X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5464237015525609968</FirstLong>
+            <SecondLong>-6597846020511202915</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:33:21.423Z</Timestamp>
+          <Extension>
+            <Extension>
+              <Altitude>
+                <Type>MeanSeaLevel</Type>
+                <Value>0</Value>
+              </Altitude>
+            </Extension>
+          </Extension>
+        </Symbol>
+        <Symbol xsi:type="BoundaryLine">
+          <CustomAttributes>
+            <CustomAttributeEntry>
+              <Key>TSkey</Key>
+              <Value>0d551551-6d32-403e-ac66-206f2de936af</Value>
+            </CustomAttributeEntry>
+          </CustomAttributes>
+          <Location xsi:type="Line">
+            <Points>
+              <Point>
+                <Latitude>39.217791110014083</Latitude>
+                <Longitude>-95.0371398029211</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.459642339540451</Latitude>
+                <Longitude>-95.162222754358382</Longitude>
+              </Point>
+              <Point>
+                <Latitude>39.727383698684385</Latitude>
+                <Longitude>-95.322050970083765</Longitude>
+              </Point>
+              <Point>
+                <Latitude>40.057944395190539</Latitude>
+                <Longitude>-95.627809295819333</Longitude>
+              </Point>
+            </Points>
+          </Location>
+          <Priority>Medium</Priority>
+          <Name>West</Name>
+          <Report>
+            <Comment />
+            <Reported>2026-05-20T16:15:50.873Z</Reported>
+          </Report>
+          <SymbolCode>
+            <SymbolCodeString>GFGPGLB---*J**X</SymbolCodeString>
+          </SymbolCode>
+          <StaffComments />
+          <Id>
+            <FirstLong>5170392395535883608</FirstLong>
+            <SecondLong>2238216448389735050</SecondLong>
+          </Id>
+          <Timestamp>2026-05-20T11:35:01.12Z</Timestamp>
+          <LeftOrganisation />
+          <RightOrganisation />
+        </Symbol>
+      </Symbols>
+      <Id>
+        <FirstLong>5304432688716380359</FirstLong>
+        <SecondLong>-8894682929981798000</SecondLong>
+      </Id>
+      <Extension>
+        <ExtensionDescription>This extension contains prefix and suffix for the security classification for the situation layer</ExtensionDescription>
+        <SecurityClassificationPrefix />
+        <SecurityClassificationPostfix />
+      </Extension>
+      <Category>FriendlyAndNeutralOrganisational</Category>
+      <Path />
+    </Layer>
+  </Layers>
+  <Version>4</Version>
+</LayerFileFormatRoot>

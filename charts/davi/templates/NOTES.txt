@@ -1,0 +1,16 @@
+DaVi has been deployed.
+
+Application URL (after DNS / ingress propagation):
+  https://{{ include "davi.host" . }}
+
+Useful commands:
+  kubectl get pods    -n {{ .Values.namespace.name }} -l app.kubernetes.io/instance={{ .Release.Name }}
+  kubectl get ingress -n {{ .Values.namespace.name }}
+  kubectl logs        -n {{ .Values.namespace.name }} deploy/{{ include "davi.fullname" . }}
+
+Backend wiring:
+  elasticsearch host : {{ .Values.backends.elasticsearch.host | default "<disabled>" }}
+  tiles host         : {{ .Values.backends.tiles.host | default "<disabled>" }}
+
+If a backend host is empty, the matching /elasticsearch or /tiles nginx
+location block is omitted and those features in the UI will fail to load.

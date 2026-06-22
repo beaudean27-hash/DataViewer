@@ -1,0 +1,1945 @@
+{
+  "LayerFileFormatRoot": {
+    "Layers": {
+      "Layer": {
+        "Name": "NTC GCM Overlay \u2013 3SBCT OPORD 26-01",
+        "Symbols": {
+          "Symbol": [
+            {
+              "@xsi:type": "BoundaryLine",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-bl-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.620000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.600000",
+                      "Longitude": "-116.950000"
+                    },
+                    {
+                      "Latitude": "35.570000",
+                      "Longitude": "-116.800000"
+                    },
+                    {
+                      "Latitude": "35.540000",
+                      "Longitude": "-116.650000"
+                    },
+                    {
+                      "Latitude": "35.500000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": null,
+              "Report": {
+                "Comment": "Division rear boundary \u2013 northern limit of 3SBCT AO",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLB---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000001",
+                "SecondLong": "1100000000000002"
+              },
+              "LeftOrganisation": "3SBCT DIV REAR",
+              "RightOrganisation": "CAV BDE"
+            },
+            {
+              "@xsi:type": "BoundaryLine",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-bl-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.500000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.490000",
+                      "Longitude": "-116.950000"
+                    },
+                    {
+                      "Latitude": "35.470000",
+                      "Longitude": "-116.800000"
+                    },
+                    {
+                      "Latitude": "35.450000",
+                      "Longitude": "-116.650000"
+                    },
+                    {
+                      "Latitude": "35.420000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": null,
+              "Report": {
+                "Comment": "BCT left boundary \u2013 1-68 AR left / 3-7 CAV right",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLB---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000003",
+                "SecondLong": "1100000000000004"
+              },
+              "LeftOrganisation": "1-68 AR",
+              "RightOrganisation": "3-7 CAV"
+            },
+            {
+              "@xsi:type": "BoundaryLine",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-bl-003"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.380000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.370000",
+                      "Longitude": "-116.950000"
+                    },
+                    {
+                      "Latitude": "35.360000",
+                      "Longitude": "-116.800000"
+                    },
+                    {
+                      "Latitude": "35.340000",
+                      "Longitude": "-116.650000"
+                    },
+                    {
+                      "Latitude": "35.310000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": null,
+              "Report": {
+                "Comment": "BCT right boundary \u2013 3-7 CAV left / 1-8 CAV right",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLB---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000005",
+                "SecondLong": "1100000000000006"
+              },
+              "LeftOrganisation": "3-7 CAV",
+              "RightOrganisation": "1-8 CAV"
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-pl-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.610000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.600000",
+                      "Longitude": "-116.940000"
+                    },
+                    {
+                      "Latitude": "35.590000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.575000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.560000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "GOLD",
+              "Report": {
+                "Comment": "Phase Line GOLD \u2013 LD/LC",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLP---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000010",
+                "SecondLong": "1100000000000011"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-pl-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.540000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.528000",
+                      "Longitude": "-116.940000"
+                    },
+                    {
+                      "Latitude": "35.515000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.500000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.483000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "IRON",
+              "Report": {
+                "Comment": "Phase Line IRON \u2013 Passage of lines complete / BCT assumes lead",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLP---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000012",
+                "SecondLong": "1100000000000013"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-pl-003"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.470000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.458000",
+                      "Longitude": "-116.940000"
+                    },
+                    {
+                      "Latitude": "35.445000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.430000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.413000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "SILVER",
+              "Report": {
+                "Comment": "Phase Line SILVER \u2013 Trigger for direct support fires",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLP---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000014",
+                "SecondLong": "1100000000000015"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-pl-004"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.400000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.390000",
+                      "Longitude": "-116.940000"
+                    },
+                    {
+                      "Latitude": "35.378000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.362000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.343000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "COPPER",
+              "Report": {
+                "Comment": "Phase Line COPPER \u2013 BCT objective consolidation line",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLP---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000016",
+                "SecondLong": "1100000000000017"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-cp-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.580000",
+                "Longitude": "-116.850000"
+              },
+              "Priority": "High",
+              "Name": "CP 1",
+              "Report": {
+                "Comment": "Checkpoint 1 \u2013 Siberia Road junction",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000020",
+                "SecondLong": "1100000000000021"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-cp-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.530000",
+                "Longitude": "-116.780000"
+              },
+              "Priority": "High",
+              "Name": "CP 2",
+              "Report": {
+                "Comment": "Checkpoint 2 \u2013 Goldstone Road overpass",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000022",
+                "SecondLong": "1100000000000023"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-cp-003"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.470000",
+                "Longitude": "-116.720000"
+              },
+              "Priority": "High",
+              "Name": "CP 3",
+              "Report": {
+                "Comment": "Checkpoint 3 \u2013 Bicycle Lake north gate",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000024",
+                "SecondLong": "1100000000000025"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-cp-004"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.430000",
+                "Longitude": "-116.640000"
+              },
+              "Priority": "High",
+              "Name": "CP 4",
+              "Report": {
+                "Comment": "Checkpoint 4 \u2013 Valley Road wadi crossing",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000026",
+                "SecondLong": "1100000000000027"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-cp-005"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.380000",
+                "Longitude": "-116.570000"
+              },
+              "Priority": "High",
+              "Name": "CP 5",
+              "Report": {
+                "Comment": "Checkpoint 5 \u2013 Outlet of Tiefort Basin",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000028",
+                "SecondLong": "1100000000000029"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-obj-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.508000",
+                      "Longitude": "-116.595000"
+                    },
+                    {
+                      "Latitude": "35.522000",
+                      "Longitude": "-116.565000"
+                    },
+                    {
+                      "Latitude": "35.530000",
+                      "Longitude": "-116.525000"
+                    },
+                    {
+                      "Latitude": "35.518000",
+                      "Longitude": "-116.495000"
+                    },
+                    {
+                      "Latitude": "35.503000",
+                      "Longitude": "-116.490000"
+                    },
+                    {
+                      "Latitude": "35.492000",
+                      "Longitude": "-116.510000"
+                    },
+                    {
+                      "Latitude": "35.488000",
+                      "Longitude": "-116.548000"
+                    },
+                    {
+                      "Latitude": "35.495000",
+                      "Longitude": "-116.578000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "OBJ IRON",
+              "Report": {
+                "Comment": "Objective IRON \u2013 OPFOR main defensive position, Bicycle Lake area. BCT main effort.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPOAO---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000030",
+                "SecondLong": "1100000000000031"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-obj-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.455000",
+                      "Longitude": "-116.720000"
+                    },
+                    {
+                      "Latitude": "35.468000",
+                      "Longitude": "-116.695000"
+                    },
+                    {
+                      "Latitude": "35.475000",
+                      "Longitude": "-116.660000"
+                    },
+                    {
+                      "Latitude": "35.465000",
+                      "Longitude": "-116.635000"
+                    },
+                    {
+                      "Latitude": "35.448000",
+                      "Longitude": "-116.630000"
+                    },
+                    {
+                      "Latitude": "35.438000",
+                      "Longitude": "-116.650000"
+                    },
+                    {
+                      "Latitude": "35.438000",
+                      "Longitude": "-116.690000"
+                    },
+                    {
+                      "Latitude": "35.446000",
+                      "Longitude": "-116.715000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "OBJ GOLD",
+              "Report": {
+                "Comment": "Objective GOLD \u2013 OPFOR reserve and logistics node, Tiefort Mountains eastern slope. Supporting effort 3-7 CAV.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPOAO---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000032",
+                "SecondLong": "1100000000000033"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-obj-003"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.395000",
+                      "Longitude": "-116.820000"
+                    },
+                    {
+                      "Latitude": "35.410000",
+                      "Longitude": "-116.795000"
+                    },
+                    {
+                      "Latitude": "35.415000",
+                      "Longitude": "-116.760000"
+                    },
+                    {
+                      "Latitude": "35.405000",
+                      "Longitude": "-116.735000"
+                    },
+                    {
+                      "Latitude": "35.388000",
+                      "Longitude": "-116.730000"
+                    },
+                    {
+                      "Latitude": "35.376000",
+                      "Longitude": "-116.750000"
+                    },
+                    {
+                      "Latitude": "35.377000",
+                      "Longitude": "-116.785000"
+                    },
+                    {
+                      "Latitude": "35.387000",
+                      "Longitude": "-116.810000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "OBJ COBRA",
+              "Report": {
+                "Comment": "Objective COBRA \u2013 OPFOR forward observation posts, southern Tiefort. 1-8 CAV supporting effort.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPOAO---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000034",
+                "SecondLong": "1100000000000035"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-ax-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Arrow",
+                "Arrowhead": {
+                  "Latitude": "35.508000",
+                  "Longitude": "-116.540000"
+                },
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.598000",
+                      "Longitude": "-116.870000"
+                    },
+                    {
+                      "Latitude": "35.570000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.548000",
+                      "Longitude": "-116.700000"
+                    },
+                    {
+                      "Latitude": "35.528000",
+                      "Longitude": "-116.630000"
+                    },
+                    {
+                      "Latitude": "35.516000",
+                      "Longitude": "-116.580000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "IRON AXE",
+              "Report": {
+                "Comment": "Axis of Advance IRON \u2013 1-68 AR main effort, valley floor via Goldstone Road",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPOLA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000040",
+                "SecondLong": "1100000000000041"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-ax-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Arrow",
+                "Arrowhead": {
+                  "Latitude": "35.455000",
+                  "Longitude": "-116.668000"
+                },
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.490000",
+                      "Longitude": "-117.000000"
+                    },
+                    {
+                      "Latitude": "35.472000",
+                      "Longitude": "-116.900000"
+                    },
+                    {
+                      "Latitude": "35.462000",
+                      "Longitude": "-116.800000"
+                    },
+                    {
+                      "Latitude": "35.458000",
+                      "Longitude": "-116.730000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "SABER AXE",
+              "Report": {
+                "Comment": "Axis of Advance SABER \u2013 3-7 CAV supporting effort, Tiefort eastern flank",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPOLA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000042",
+                "SecondLong": "1100000000000043"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-aa-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.618000",
+                      "Longitude": "-116.950000"
+                    },
+                    {
+                      "Latitude": "35.626000",
+                      "Longitude": "-116.920000"
+                    },
+                    {
+                      "Latitude": "35.622000",
+                      "Longitude": "-116.890000"
+                    },
+                    {
+                      "Latitude": "35.612000",
+                      "Longitude": "-116.882000"
+                    },
+                    {
+                      "Latitude": "35.602000",
+                      "Longitude": "-116.890000"
+                    },
+                    {
+                      "Latitude": "35.598000",
+                      "Longitude": "-116.920000"
+                    },
+                    {
+                      "Latitude": "35.605000",
+                      "Longitude": "-116.948000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "AA WARHORSE",
+              "Report": {
+                "Comment": "Assembly Area WARHORSE \u2013 1-68 AR attack position, north of Goldstone",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGAA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000050",
+                "SecondLong": "1100000000000051"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-aa-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.560000",
+                      "Longitude": "-117.040000"
+                    },
+                    {
+                      "Latitude": "35.570000",
+                      "Longitude": "-117.012000"
+                    },
+                    {
+                      "Latitude": "35.565000",
+                      "Longitude": "-116.985000"
+                    },
+                    {
+                      "Latitude": "35.552000",
+                      "Longitude": "-116.978000"
+                    },
+                    {
+                      "Latitude": "35.542000",
+                      "Longitude": "-116.990000"
+                    },
+                    {
+                      "Latitude": "35.542000",
+                      "Longitude": "-117.020000"
+                    },
+                    {
+                      "Latitude": "35.550000",
+                      "Longitude": "-117.040000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "AA SABER",
+              "Report": {
+                "Comment": "Assembly Area SABER \u2013 3-7 CAV attack position, Siberia area",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGAA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000052",
+                "SecondLong": "1100000000000053"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-bp-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.555000",
+                      "Longitude": "-116.708000"
+                    },
+                    {
+                      "Latitude": "35.562000",
+                      "Longitude": "-116.690000"
+                    },
+                    {
+                      "Latitude": "35.560000",
+                      "Longitude": "-116.668000"
+                    },
+                    {
+                      "Latitude": "35.548000",
+                      "Longitude": "-116.658000"
+                    },
+                    {
+                      "Latitude": "35.538000",
+                      "Longitude": "-116.665000"
+                    },
+                    {
+                      "Latitude": "35.536000",
+                      "Longitude": "-116.688000"
+                    },
+                    {
+                      "Latitude": "35.544000",
+                      "Longitude": "-116.706000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "BP WARHORSE-1",
+              "Report": {
+                "Comment": "Battle Position WARHORSE-1 \u2013 Alpha Company, 1-68 AR. Prepared position NE of Goldstone dry lake.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPDAB---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000060",
+                "SecondLong": "1100000000000061"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-bp-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.498000",
+                      "Longitude": "-116.768000"
+                    },
+                    {
+                      "Latitude": "35.507000",
+                      "Longitude": "-116.748000"
+                    },
+                    {
+                      "Latitude": "35.505000",
+                      "Longitude": "-116.722000"
+                    },
+                    {
+                      "Latitude": "35.493000",
+                      "Longitude": "-116.712000"
+                    },
+                    {
+                      "Latitude": "35.482000",
+                      "Longitude": "-116.720000"
+                    },
+                    {
+                      "Latitude": "35.480000",
+                      "Longitude": "-116.748000"
+                    },
+                    {
+                      "Latitude": "35.488000",
+                      "Longitude": "-116.768000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "BP WARHORSE-2",
+              "Report": {
+                "Comment": "Battle Position WARHORSE-2 \u2013 Bravo Company, 1-68 AR. Prepared position, Goldstone western ridge.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPDAB---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000062",
+                "SecondLong": "1100000000000063"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-fscl-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.490000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.478000",
+                      "Longitude": "-116.940000"
+                    },
+                    {
+                      "Latitude": "35.462000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.445000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.425000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "FSCL IRON",
+              "Report": {
+                "Comment": "Fire Support Coordination Line IRON \u2013 beyond this line fires require 3SBCT CDR coordination",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLTF---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000070",
+                "SecondLong": "1100000000000071"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-rfl-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.550000",
+                      "Longitude": "-117.100000"
+                    },
+                    {
+                      "Latitude": "35.537000",
+                      "Longitude": "-116.940000"
+                    },
+                    {
+                      "Latitude": "35.522000",
+                      "Longitude": "-116.780000"
+                    },
+                    {
+                      "Latitude": "35.504000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.485000",
+                      "Longitude": "-116.480000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "RFL ALPHA",
+              "Report": {
+                "Comment": "Restrictive Fire Line ALPHA \u2013 1-68 AR / 3-7 CAV boundary; fires across this line require adjacent CDR approval",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLTR---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000072",
+                "SecondLong": "1100000000000073"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-nfa-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.270000",
+                      "Longitude": "-116.680000"
+                    },
+                    {
+                      "Latitude": "35.285000",
+                      "Longitude": "-116.640000"
+                    },
+                    {
+                      "Latitude": "35.282000",
+                      "Longitude": "-116.600000"
+                    },
+                    {
+                      "Latitude": "35.265000",
+                      "Longitude": "-116.585000"
+                    },
+                    {
+                      "Latitude": "35.250000",
+                      "Longitude": "-116.598000"
+                    },
+                    {
+                      "Latitude": "35.248000",
+                      "Longitude": "-116.635000"
+                    },
+                    {
+                      "Latitude": "35.258000",
+                      "Longitude": "-116.665000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "NFA MAIN POST",
+              "Report": {
+                "Comment": "No-Fire Area MAIN POST \u2013 Fort Irwin cantonment/garrison. No indirect fires within 5km of Main Post without CG approval.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLTBN--****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000074",
+                "SecondLong": "1100000000000075"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-cfl-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.485000",
+                      "Longitude": "-116.558000"
+                    },
+                    {
+                      "Latitude": "35.498000",
+                      "Longitude": "-116.532000"
+                    },
+                    {
+                      "Latitude": "35.496000",
+                      "Longitude": "-116.505000"
+                    },
+                    {
+                      "Latitude": "35.480000",
+                      "Longitude": "-116.492000"
+                    },
+                    {
+                      "Latitude": "35.466000",
+                      "Longitude": "-116.500000"
+                    },
+                    {
+                      "Latitude": "35.462000",
+                      "Longitude": "-116.530000"
+                    },
+                    {
+                      "Latitude": "35.472000",
+                      "Longitude": "-116.555000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "CFL IRON",
+              "Report": {
+                "Comment": "Coordinated Fire Line IRON \u2013 forward limit of supporting fires during assault on OBJ IRON. Lifted on CDR order.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLTC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000076",
+                "SecondLong": "1100000000000077"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-aca-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.555000",
+                      "Longitude": "-116.660000"
+                    },
+                    {
+                      "Latitude": "35.558000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.545000",
+                      "Longitude": "-116.580000"
+                    },
+                    {
+                      "Latitude": "35.530000",
+                      "Longitude": "-116.565000"
+                    },
+                    {
+                      "Latitude": "35.515000",
+                      "Longitude": "-116.570000"
+                    },
+                    {
+                      "Latitude": "35.510000",
+                      "Longitude": "-116.608000"
+                    },
+                    {
+                      "Latitude": "35.522000",
+                      "Longitude": "-116.645000"
+                    },
+                    {
+                      "Latitude": "35.540000",
+                      "Longitude": "-116.658000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "ACA APACHE",
+              "Report": {
+                "Comment": "Airspace Coordination Area APACHE \u2013 11th Attack Aviation corridor, active H+2 through H+6. Alt block 500-2000ft AGL. Route northbound only.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLTA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000080",
+                "SecondLong": "1100000000000081"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-msr-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.264000",
+                      "Longitude": "-116.685000"
+                    },
+                    {
+                      "Latitude": "35.300000",
+                      "Longitude": "-116.700000"
+                    },
+                    {
+                      "Latitude": "35.350000",
+                      "Longitude": "-116.710000"
+                    },
+                    {
+                      "Latitude": "35.400000",
+                      "Longitude": "-116.690000"
+                    },
+                    {
+                      "Latitude": "35.450000",
+                      "Longitude": "-116.660000"
+                    },
+                    {
+                      "Latitude": "35.500000",
+                      "Longitude": "-116.620000"
+                    },
+                    {
+                      "Latitude": "35.540000",
+                      "Longitude": "-116.590000"
+                    },
+                    {
+                      "Latitude": "35.575000",
+                      "Longitude": "-116.555000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "MSR GOLDEN",
+              "Report": {
+                "Comment": "Main Supply Route GOLDEN \u2013 Fort Irwin Road / National Training Center primary LOC. Sustained 24/7 traffic, priority to CSS.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLRM---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000090",
+                "SecondLong": "1100000000000091"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-asr-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.600000",
+                      "Longitude": "-116.900000"
+                    },
+                    {
+                      "Latitude": "35.570000",
+                      "Longitude": "-116.850000"
+                    },
+                    {
+                      "Latitude": "35.535000",
+                      "Longitude": "-116.815000"
+                    },
+                    {
+                      "Latitude": "35.500000",
+                      "Longitude": "-116.795000"
+                    },
+                    {
+                      "Latitude": "35.465000",
+                      "Longitude": "-116.790000"
+                    },
+                    {
+                      "Latitude": "35.432000",
+                      "Longitude": "-116.778000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "ASR IRON",
+              "Report": {
+                "Comment": "Alternate Supply Route IRON \u2013 Goldstone Road. Priority to 1-68 AR CSS and forward positioning.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLRA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000092",
+                "SecondLong": "1100000000000093"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-asr-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.570000",
+                      "Longitude": "-117.050000"
+                    },
+                    {
+                      "Latitude": "35.548000",
+                      "Longitude": "-117.000000"
+                    },
+                    {
+                      "Latitude": "35.522000",
+                      "Longitude": "-116.960000"
+                    },
+                    {
+                      "Latitude": "35.498000",
+                      "Longitude": "-116.920000"
+                    },
+                    {
+                      "Latitude": "35.472000",
+                      "Longitude": "-116.895000"
+                    },
+                    {
+                      "Latitude": "35.445000",
+                      "Longitude": "-116.880000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "ASR SABER",
+              "Report": {
+                "Comment": "Alternate Supply Route SABER \u2013 Siberia Road. Priority to 3-7 CAV CSS.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPLRA---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000094",
+                "SecondLong": "1100000000000095"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-obs-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Line",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.508000",
+                      "Longitude": "-116.790000"
+                    },
+                    {
+                      "Latitude": "35.498000",
+                      "Longitude": "-116.758000"
+                    },
+                    {
+                      "Latitude": "35.488000",
+                      "Longitude": "-116.730000"
+                    },
+                    {
+                      "Latitude": "35.475000",
+                      "Longitude": "-116.705000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "OBSTACLE BELT ALPHA",
+              "Report": {
+                "Comment": "Protective minefield belt ALPHA \u2013 emplaced by 317th EN BN. Blocks NAI 4 approach. Marked per FM 3-34.210.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPOBS---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000100",
+                "SecondLong": "1100000000000101"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-screen-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "PolyPoint",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.620000",
+                      "Longitude": "-117.000000"
+                    },
+                    {
+                      "Latitude": "35.600000",
+                      "Longitude": "-116.900000"
+                    },
+                    {
+                      "Latitude": "35.582000",
+                      "Longitude": "-116.800000"
+                    },
+                    {
+                      "Latitude": "35.568000",
+                      "Longitude": "-116.700000"
+                    },
+                    {
+                      "Latitude": "35.555000",
+                      "Longitude": "-116.600000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "High",
+              "Name": "SCREEN LINE NEVADA",
+              "Report": {
+                "Comment": "3-7 CAV screen line NEVADA \u2013 Provides early warning of OPFOR movement. Maintain 10km standoff from PL GOLD.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFTPUS----****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000110",
+                "SecondLong": "1100000000000111"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-nai-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.580000",
+                      "Longitude": "-116.865000"
+                    },
+                    {
+                      "Latitude": "35.590000",
+                      "Longitude": "-116.840000"
+                    },
+                    {
+                      "Latitude": "35.585000",
+                      "Longitude": "-116.815000"
+                    },
+                    {
+                      "Latitude": "35.571000",
+                      "Longitude": "-116.808000"
+                    },
+                    {
+                      "Latitude": "35.560000",
+                      "Longitude": "-116.818000"
+                    },
+                    {
+                      "Latitude": "35.560000",
+                      "Longitude": "-116.845000"
+                    },
+                    {
+                      "Latitude": "35.570000",
+                      "Longitude": "-116.863000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "NAI 1",
+              "Report": {
+                "Comment": "Named Area of Interest 1 \u2013 Goldstone Road approach. Trigger: OPFOR BN+ moving SE triggers FSCL adjustment.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGAN---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000120",
+                "SecondLong": "1100000000000121"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-nai-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.505000",
+                      "Longitude": "-116.720000"
+                    },
+                    {
+                      "Latitude": "35.515000",
+                      "Longitude": "-116.698000"
+                    },
+                    {
+                      "Latitude": "35.510000",
+                      "Longitude": "-116.675000"
+                    },
+                    {
+                      "Latitude": "35.498000",
+                      "Longitude": "-116.665000"
+                    },
+                    {
+                      "Latitude": "35.486000",
+                      "Longitude": "-116.672000"
+                    },
+                    {
+                      "Latitude": "35.484000",
+                      "Longitude": "-116.698000"
+                    },
+                    {
+                      "Latitude": "35.494000",
+                      "Longitude": "-116.718000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "NAI 2",
+              "Report": {
+                "Comment": "Named Area of Interest 2 \u2013 Northern Bicycle Lake approach. Trigger: OPFOR arty observed displacing east of Tiefort.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGAN---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000122",
+                "SecondLong": "1100000000000123"
+              }
+            },
+            {
+              "@xsi:type": "BattlePosition",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-nai-003"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Area",
+                "Points": {
+                  "Point": [
+                    {
+                      "Latitude": "35.420000",
+                      "Longitude": "-116.790000"
+                    },
+                    {
+                      "Latitude": "35.432000",
+                      "Longitude": "-116.765000"
+                    },
+                    {
+                      "Latitude": "35.428000",
+                      "Longitude": "-116.740000"
+                    },
+                    {
+                      "Latitude": "35.413000",
+                      "Longitude": "-116.730000"
+                    },
+                    {
+                      "Latitude": "35.400000",
+                      "Longitude": "-116.740000"
+                    },
+                    {
+                      "Latitude": "35.398000",
+                      "Longitude": "-116.768000"
+                    },
+                    {
+                      "Latitude": "35.410000",
+                      "Longitude": "-116.788000"
+                    }
+                  ]
+                }
+              },
+              "Priority": "Medium",
+              "Name": "NAI 3",
+              "Report": {
+                "Comment": "Named Area of Interest 3 \u2013 Southern Tiefort pass. Trigger: OPFOR two or more vehicles identified in pass triggers OBJ COBRA branch.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGAN---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000124",
+                "SecondLong": "1100000000000125"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-trp-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.528000",
+                "Longitude": "-116.632000"
+              },
+              "Priority": "High",
+              "Name": "TRP ANVIL",
+              "Report": {
+                "Comment": "Target Reference Point ANVIL \u2013 Prominent ridge NE of Bicycle Lake. Used by 1-7 FA for registration and shift of fires.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFFPAT----****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000130",
+                "SecondLong": "1100000000000131"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-trp-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.462000",
+                "Longitude": "-116.755000"
+              },
+              "Priority": "High",
+              "Name": "TRP HAMMER",
+              "Report": {
+                "Comment": "Target Reference Point HAMMER \u2013 Tiefort eastern nose. Used by 2-27 FA (MLRS) and 1-7 FA for quick fire missions.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFFPAT----****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000132",
+                "SecondLong": "1100000000000133"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-trp-003"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.395000",
+                "Longitude": "-116.695000"
+              },
+              "Priority": "High",
+              "Name": "TRP SWORD",
+              "Report": {
+                "Comment": "Target Reference Point SWORD \u2013 Southern pass exit, Tiefort Mountains. 1-7 FA priority target for OBJ COBRA prep fires.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFFPAT----****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000134",
+                "SecondLong": "1100000000000135"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-pp-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.562000",
+                "Longitude": "-116.760000"
+              },
+              "Priority": "High",
+              "Name": "PP NORTH",
+              "Report": {
+                "Comment": "Passage Point NORTH \u2013 1-68 AR forward passage of lines through 3-7 CAV screen. Anticipated H+1. IAW OPORD Annex C.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPP---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000140",
+                "SecondLong": "1100000000000141"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-pp-002"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.485000",
+                "Longitude": "-116.820000"
+              },
+              "Priority": "High",
+              "Name": "PP SOUTH",
+              "Report": {
+                "Comment": "Passage Point SOUTH \u2013 3-7 CAV route back through 1-68 AR AO after feint complete. Anticipated H+3.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPP---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000142",
+                "SecondLong": "1100000000000143"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-rp-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.510000",
+                "Longitude": "-116.680000"
+              },
+              "Priority": "Medium",
+              "Name": "RP IRON",
+              "Report": {
+                "Comment": "Release Point IRON \u2013 1-68 AR combat trains release point. CDR assumes control of CSS at this point.",
+                "Reported": "2026-05-07T06:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGPR---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000150",
+                "SecondLong": "1100000000000151"
+              }
+            },
+            {
+              "@xsi:type": "TacticalGraphic",
+              "CustomAttributes": {
+                "CustomAttributeEntry": {
+                  "Key": "TSkey",
+                  "Value": "ntc-lc-001"
+                }
+              },
+              "Location": {
+                "@xsi:type": "Point",
+                "Latitude": "35.540000",
+                "Longitude": "-116.730000"
+              },
+              "Priority": "High",
+              "Name": "LC WARHORSE",
+              "Report": {
+                "Comment": "Line of Contact WARHORSE \u2013 1-68 AR / 3-7 CAV line of contact as of 071200ZMAY2026. Adjust as contact is made.",
+                "Reported": "2026-05-07T12:00:00.000Z"
+              },
+              "SymbolCode": {
+                "SymbolCodeString": "GFGPGLC---****X"
+              },
+              "StaffComments": null,
+              "Id": {
+                "FirstLong": "1100000000000152",
+                "SecondLong": "1100000000000153"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

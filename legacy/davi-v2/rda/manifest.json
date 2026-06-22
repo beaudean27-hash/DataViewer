@@ -1,0 +1,17 @@
+{
+  "name": "DaVi",
+  "short_name": "DaVi",
+  "description": "Data Visualization - JCRSD Cesium Globe Viewer",
+  "start_url": "/davi/index.html",
+  "display": "standalone",
+  "background_color": "#0a0e14",
+  "theme_color": "#00c8ff",
+  "icons": [
+    {
+      "src": "/davi/davi_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

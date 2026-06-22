@@ -1,0 +1,20 @@
+# Build output
+dist/
+*.tar
+*.zip
+
+# OS junk
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local-only
+*.local
+secrets/
+certs/
+raw/davi-binaries.tar

@@ -1,0 +1,3394 @@
+[
+  {
+    "Id": "f97f00be-3ea0-46af-ad5f-0a5f7c189816",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ASSEMBLY AREA: TAA 8-31",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 35.180142857142854,
+    "Longitude": -117.31507857142856,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ASSEMBLY AREA | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1814Z FEB 2020 | Name: TAA 8-31 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.20955,
+            "Longitude": -117.31212
+          },
+          {
+            "Latitude": 35.19272,
+            "Longitude": -117.33671
+          },
+          {
+            "Latitude": 35.16424,
+            "Longitude": -117.34315
+          },
+          {
+            "Latitude": 35.14741,
+            "Longitude": -117.33281
+          },
+          {
+            "Latitude": 35.1487,
+            "Longitude": -117.29014
+          },
+          {
+            "Latitude": 35.18883,
+            "Longitude": -117.2785
+          },
+          {
+            "Latitude": 35.20955,
+            "Longitude": -117.31212
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "a25478f2-e558-4582-96bb-125c67239aac",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: DEBBIE",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.257125,
+    "Longitude": -116.7336525,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1757Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: DEBBIE | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.3326,
+            "Longitude": -117.53464
+          },
+          {
+            "Latitude": 35.33091,
+            "Longitude": -117.47645
+          },
+          {
+            "Latitude": 35.3292,
+            "Longitude": -117.41826
+          },
+          {
+            "Latitude": 35.32746,
+            "Longitude": -117.36008
+          },
+          {
+            "Latitude": 35.32569,
+            "Longitude": -117.3019
+          },
+          {
+            "Latitude": 35.3239,
+            "Longitude": -117.24373
+          },
+          {
+            "Latitude": 35.32208,
+            "Longitude": -117.18555
+          },
+          {
+            "Latitude": 35.32022,
+            "Longitude": -117.12738
+          },
+          {
+            "Latitude": 35.31834,
+            "Longitude": -117.06921
+          },
+          {
+            "Latitude": 35.31644,
+            "Longitude": -117.01105
+          },
+          {
+            "Latitude": 35.3145,
+            "Longitude": -116.95288
+          },
+          {
+            "Latitude": 35.30645,
+            "Longitude": -116.91037
+          },
+          {
+            "Latitude": 35.29838,
+            "Longitude": -116.86786
+          },
+          {
+            "Latitude": 35.29029,
+            "Longitude": -116.82536
+          },
+          {
+            "Latitude": 35.28219,
+            "Longitude": -116.78287
+          },
+          {
+            "Latitude": 35.27408,
+            "Longitude": -116.74039
+          },
+          {
+            "Latitude": 35.26062,
+            "Longitude": -116.71793
+          },
+          {
+            "Latitude": 35.24715,
+            "Longitude": -116.69547
+          },
+          {
+            "Latitude": 35.23367,
+            "Longitude": -116.67303
+          },
+          {
+            "Latitude": 35.2202,
+            "Longitude": -116.65059
+          },
+          {
+            "Latitude": 35.20672,
+            "Longitude": -116.62816
+          },
+          {
+            "Latitude": 35.20432,
+            "Longitude": -116.61588
+          },
+          {
+            "Latitude": 35.20193,
+            "Longitude": -116.60361
+          },
+          {
+            "Latitude": 35.19953,
+            "Longitude": -116.59134
+          },
+          {
+            "Latitude": 35.19714,
+            "Longitude": -116.57907
+          },
+          {
+            "Latitude": 35.19474,
+            "Longitude": -116.5668
+          },
+          {
+            "Latitude": 35.1972,
+            "Longitude": -116.50524
+          },
+          {
+            "Latitude": 35.19964,
+            "Longitude": -116.44368
+          },
+          {
+            "Latitude": 35.20204,
+            "Longitude": -116.38211
+          },
+          {
+            "Latitude": 35.20441,
+            "Longitude": -116.32054
+          },
+          {
+            "Latitude": 35.20675,
+            "Longitude": -116.25897
+          },
+          {
+            "Latitude": 35.20905,
+            "Longitude": -116.19739
+          },
+          {
+            "Latitude": 35.21133,
+            "Longitude": -116.13581
+          },
+          {
+            "Latitude": 35.21357,
+            "Longitude": -116.07422
+          },
+          {
+            "Latitude": 35.21579,
+            "Longitude": -116.01263
+          },
+          {
+            "Latitude": 35.21797,
+            "Longitude": -115.95104
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "7a621bb7-69d4-4e9f-b983-75142c2c8d17",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: BROCK",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.3068916,
+    "Longitude": -116.4073716,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1806Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: BROCK | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.93069,
+            "Longitude": -116.44947
+          },
+          {
+            "Latitude": 35.00522,
+            "Longitude": -116.44895
+          },
+          {
+            "Latitude": 35.07976,
+            "Longitude": -116.44843
+          },
+          {
+            "Latitude": 35.15429,
+            "Longitude": -116.4479
+          },
+          {
+            "Latitude": 35.22882,
+            "Longitude": -116.44738
+          },
+          {
+            "Latitude": 35.23891,
+            "Longitude": -116.44738
+          },
+          {
+            "Latitude": 35.249,
+            "Longitude": -116.44738
+          },
+          {
+            "Latitude": 35.2591,
+            "Longitude": -116.44738
+          },
+          {
+            "Latitude": 35.26919,
+            "Longitude": -116.44738
+          },
+          {
+            "Latitude": 35.27615,
+            "Longitude": -116.44668
+          },
+          {
+            "Latitude": 35.2831,
+            "Longitude": -116.44599
+          },
+          {
+            "Latitude": 35.29006,
+            "Longitude": -116.44529
+          },
+          {
+            "Latitude": 35.29702,
+            "Longitude": -116.4446
+          },
+          {
+            "Latitude": 35.32403,
+            "Longitude": -116.42263
+          },
+          {
+            "Latitude": 35.35104,
+            "Longitude": -116.40066
+          },
+          {
+            "Latitude": 35.37804,
+            "Longitude": -116.37866
+          },
+          {
+            "Latitude": 35.40504,
+            "Longitude": -116.35666
+          },
+          {
+            "Latitude": 35.41235,
+            "Longitude": -116.35521
+          },
+          {
+            "Latitude": 35.41966,
+            "Longitude": -116.35375
+          },
+          {
+            "Latitude": 35.42697,
+            "Longitude": -116.3523
+          },
+          {
+            "Latitude": 35.43428,
+            "Longitude": -116.35085
+          },
+          {
+            "Latitude": 35.45652,
+            "Longitude": -116.35045
+          },
+          {
+            "Latitude": 35.47877,
+            "Longitude": -116.35004
+          },
+          {
+            "Latitude": 35.50102,
+            "Longitude": -116.34964
+          },
+          {
+            "Latitude": 35.52326,
+            "Longitude": -116.34923
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "daf2cad8-e0b7-43e7-9301-5716749846c6",
+    "SymbolType": "TacticalGraphic",
+    "Name": "COORDINATION POINT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGPPO--****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.41381,
+    "Longitude": -117.4973,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: COORDINATION POINT | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1847Z FEB 2020 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.41381,
+            "Longitude": -117.4973
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "3c7e5d59-0b4c-4f4d-b7f9-de7486c562de",
+    "SymbolType": "TacticalGraphic",
+    "Name": "COORDINATION POINT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGPPO--****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.5001,
+    "Longitude": -117.35571,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: COORDINATION POINT | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1847Z FEB 2020 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.5001,
+            "Longitude": -117.35571
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "00597df5-f34c-41b0-ab7c-9d5396630f64",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: COURTNEY",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.33120162790697,
+    "Longitude": -116.70745860465117,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1758Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: COURTNEY | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.47388,
+            "Longitude": -117.47093
+          },
+          {
+            "Latitude": 35.45475,
+            "Longitude": -117.42166
+          },
+          {
+            "Latitude": 35.4356,
+            "Longitude": -117.37241
+          },
+          {
+            "Latitude": 35.41643,
+            "Longitude": -117.32318
+          },
+          {
+            "Latitude": 35.40655,
+            "Longitude": -117.26003
+          },
+          {
+            "Latitude": 35.39664,
+            "Longitude": -117.19689
+          },
+          {
+            "Latitude": 35.3867,
+            "Longitude": -117.13377
+          },
+          {
+            "Latitude": 35.38387,
+            "Longitude": -117.06612
+          },
+          {
+            "Latitude": 35.38101,
+            "Longitude": -116.99848
+          },
+          {
+            "Latitude": 35.3781,
+            "Longitude": -116.93085
+          },
+          {
+            "Latitude": 35.37967,
+            "Longitude": -116.84139
+          },
+          {
+            "Latitude": 35.38117,
+            "Longitude": -116.75193
+          },
+          {
+            "Latitude": 35.38261,
+            "Longitude": -116.66247
+          },
+          {
+            "Latitude": 35.37591,
+            "Longitude": -116.66749
+          },
+          {
+            "Latitude": 35.36921,
+            "Longitude": -116.67251
+          },
+          {
+            "Latitude": 35.36252,
+            "Longitude": -116.67752
+          },
+          {
+            "Latitude": 35.35564,
+            "Longitude": -116.68178
+          },
+          {
+            "Latitude": 35.34876,
+            "Longitude": -116.68604
+          },
+          {
+            "Latitude": 35.34188,
+            "Longitude": -116.69029
+          },
+          {
+            "Latitude": 35.33488,
+            "Longitude": -116.69431
+          },
+          {
+            "Latitude": 35.32787,
+            "Longitude": -116.69833
+          },
+          {
+            "Latitude": 35.32087,
+            "Longitude": -116.70235
+          },
+          {
+            "Latitude": 35.30927,
+            "Longitude": -116.70368
+          },
+          {
+            "Latitude": 35.29766,
+            "Longitude": -116.70501
+          },
+          {
+            "Latitude": 35.28606,
+            "Longitude": -116.70634
+          },
+          {
+            "Latitude": 35.27774,
+            "Longitude": -116.6857
+          },
+          {
+            "Latitude": 35.26943,
+            "Longitude": -116.66506
+          },
+          {
+            "Latitude": 35.26111,
+            "Longitude": -116.64443
+          },
+          {
+            "Latitude": 35.2523,
+            "Longitude": -116.62277
+          },
+          {
+            "Latitude": 35.24349,
+            "Longitude": -116.60112
+          },
+          {
+            "Latitude": 35.23468,
+            "Longitude": -116.57947
+          },
+          {
+            "Latitude": 35.23938,
+            "Longitude": -116.5561
+          },
+          {
+            "Latitude": 35.24407,
+            "Longitude": -116.53272
+          },
+          {
+            "Latitude": 35.24876,
+            "Longitude": -116.50933
+          },
+          {
+            "Latitude": 35.25717,
+            "Longitude": -116.46324
+          },
+          {
+            "Latitude": 35.26557,
+            "Longitude": -116.41713
+          },
+          {
+            "Latitude": 35.27395,
+            "Longitude": -116.37102
+          },
+          {
+            "Latitude": 35.28343,
+            "Longitude": -116.32493
+          },
+          {
+            "Latitude": 35.2929,
+            "Longitude": -116.27883
+          },
+          {
+            "Latitude": 35.30235,
+            "Longitude": -116.23271
+          },
+          {
+            "Latitude": 35.31918,
+            "Longitude": -116.15311
+          },
+          {
+            "Latitude": 35.33596,
+            "Longitude": -116.07348
+          },
+          {
+            "Latitude": 35.35269,
+            "Longitude": -115.99381
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "4c17fa9b-37ee-4542-b0ea-fad5572c4f09",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: JANE",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.13878806451613,
+    "Longitude": -116.6411270967742,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1757Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: JANE | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.19087,
+            "Longitude": -117.39628
+          },
+          {
+            "Latitude": 35.19308,
+            "Longitude": -117.31253
+          },
+          {
+            "Latitude": 35.19523,
+            "Longitude": -117.22877
+          },
+          {
+            "Latitude": 35.19733,
+            "Longitude": -117.14501
+          },
+          {
+            "Latitude": 35.19937,
+            "Longitude": -117.06124
+          },
+          {
+            "Latitude": 35.20135,
+            "Longitude": -116.97747
+          },
+          {
+            "Latitude": 35.19628,
+            "Longitude": -116.93647
+          },
+          {
+            "Latitude": 35.19121,
+            "Longitude": -116.89549
+          },
+          {
+            "Latitude": 35.18612,
+            "Longitude": -116.8545
+          },
+          {
+            "Latitude": 35.18101,
+            "Longitude": -116.81352
+          },
+          {
+            "Latitude": 35.1759,
+            "Longitude": -116.77255
+          },
+          {
+            "Latitude": 35.16722,
+            "Longitude": -116.74741
+          },
+          {
+            "Latitude": 35.15855,
+            "Longitude": -116.72228
+          },
+          {
+            "Latitude": 35.14986,
+            "Longitude": -116.69715
+          },
+          {
+            "Latitude": 35.14118,
+            "Longitude": -116.67202
+          },
+          {
+            "Latitude": 35.13248,
+            "Longitude": -116.6469
+          },
+          {
+            "Latitude": 35.12441,
+            "Longitude": -116.62177
+          },
+          {
+            "Latitude": 35.11633,
+            "Longitude": -116.59663
+          },
+          {
+            "Latitude": 35.10825,
+            "Longitude": -116.5715
+          },
+          {
+            "Latitude": 35.10016,
+            "Longitude": -116.54638
+          },
+          {
+            "Latitude": 35.09207,
+            "Longitude": -116.52126
+          },
+          {
+            "Latitude": 35.09184,
+            "Longitude": -116.46535
+          },
+          {
+            "Latitude": 35.09159,
+            "Longitude": -116.40945
+          },
+          {
+            "Latitude": 35.09132,
+            "Longitude": -116.35354
+          },
+          {
+            "Latitude": 35.09102,
+            "Longitude": -116.29764
+          },
+          {
+            "Latitude": 35.0907,
+            "Longitude": -116.24173
+          },
+          {
+            "Latitude": 35.09034,
+            "Longitude": -116.18583
+          },
+          {
+            "Latitude": 35.08997,
+            "Longitude": -116.12992
+          },
+          {
+            "Latitude": 35.08957,
+            "Longitude": -116.07402
+          },
+          {
+            "Latitude": 35.08914,
+            "Longitude": -116.01812
+          },
+          {
+            "Latitude": 35.08868,
+            "Longitude": -115.96221
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "a713f8cf-4de0-4979-9122-91e5aeb3df5a",
+    "SymbolType": "TacticalGraphic",
+    "Name": "COORDINATION POINT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGPPO--****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.37505,
+    "Longitude": -116.02049,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: COORDINATION POINT | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1847Z FEB 2020 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.37505,
+            "Longitude": -116.02049
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "39bd24c8-a152-4e23-9ef9-c37300bd029c",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: ANNIE",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.41498329411765,
+    "Longitude": -116.72767635294117,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1759Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: ANNIE | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.57673,
+            "Longitude": -117.3731
+          },
+          {
+            "Latitude": 35.54747,
+            "Longitude": -117.36646
+          },
+          {
+            "Latitude": 35.51822,
+            "Longitude": -117.35982
+          },
+          {
+            "Latitude": 35.48897,
+            "Longitude": -117.35319
+          },
+          {
+            "Latitude": 35.47842,
+            "Longitude": -117.27898
+          },
+          {
+            "Latitude": 35.46782,
+            "Longitude": -117.20478
+          },
+          {
+            "Latitude": 35.45718,
+            "Longitude": -117.13061
+          },
+          {
+            "Latitude": 35.44442,
+            "Longitude": -117.1157
+          },
+          {
+            "Latitude": 35.43166,
+            "Longitude": -117.1008
+          },
+          {
+            "Latitude": 35.4189,
+            "Longitude": -117.08591
+          },
+          {
+            "Latitude": 35.41344,
+            "Longitude": -117.08003
+          },
+          {
+            "Latitude": 35.40799,
+            "Longitude": -117.07416
+          },
+          {
+            "Latitude": 35.40253,
+            "Longitude": -117.06828
+          },
+          {
+            "Latitude": 35.40547,
+            "Longitude": -117.06451
+          },
+          {
+            "Latitude": 35.40841,
+            "Longitude": -117.06073
+          },
+          {
+            "Latitude": 35.41135,
+            "Longitude": -117.05696
+          },
+          {
+            "Latitude": 35.42184,
+            "Longitude": -117.0399
+          },
+          {
+            "Latitude": 35.43233,
+            "Longitude": -117.02283
+          },
+          {
+            "Latitude": 35.44281,
+            "Longitude": -117.00577
+          },
+          {
+            "Latitude": 35.43275,
+            "Longitude": -116.98716
+          },
+          {
+            "Latitude": 35.42268,
+            "Longitude": -116.96856
+          },
+          {
+            "Latitude": 35.4126,
+            "Longitude": -116.94996
+          },
+          {
+            "Latitude": 35.41694,
+            "Longitude": -116.93052
+          },
+          {
+            "Latitude": 35.42128,
+            "Longitude": -116.91108
+          },
+          {
+            "Latitude": 35.42561,
+            "Longitude": -116.89164
+          },
+          {
+            "Latitude": 35.44219,
+            "Longitude": -116.87536
+          },
+          {
+            "Latitude": 35.45878,
+            "Longitude": -116.85909
+          },
+          {
+            "Latitude": 35.47535,
+            "Longitude": -116.8428
+          },
+          {
+            "Latitude": 35.47699,
+            "Longitude": -116.83941
+          },
+          {
+            "Latitude": 35.47863,
+            "Longitude": -116.83602
+          },
+          {
+            "Latitude": 35.48027,
+            "Longitude": -116.83262
+          },
+          {
+            "Latitude": 35.48147,
+            "Longitude": -116.82979
+          },
+          {
+            "Latitude": 35.48266,
+            "Longitude": -116.82696
+          },
+          {
+            "Latitude": 35.48385,
+            "Longitude": -116.82413
+          },
+          {
+            "Latitude": 35.47717,
+            "Longitude": -116.80341
+          },
+          {
+            "Latitude": 35.47048,
+            "Longitude": -116.78269
+          },
+          {
+            "Latitude": 35.46379,
+            "Longitude": -116.76198
+          },
+          {
+            "Latitude": 35.46574,
+            "Longitude": -116.7219
+          },
+          {
+            "Latitude": 35.46768,
+            "Longitude": -116.68182
+          },
+          {
+            "Latitude": 35.4696,
+            "Longitude": -116.64174
+          },
+          {
+            "Latitude": 35.47931,
+            "Longitude": -116.63096
+          },
+          {
+            "Latitude": 35.48903,
+            "Longitude": -116.62017
+          },
+          {
+            "Latitude": 35.49874,
+            "Longitude": -116.60938
+          },
+          {
+            "Latitude": 35.50841,
+            "Longitude": -116.5722
+          },
+          {
+            "Latitude": 35.51807,
+            "Longitude": -116.53501
+          },
+          {
+            "Latitude": 35.52772,
+            "Longitude": -116.49782
+          },
+          {
+            "Latitude": 35.50635,
+            "Longitude": -116.50717
+          },
+          {
+            "Latitude": 35.48498,
+            "Longitude": -116.51651
+          },
+          {
+            "Latitude": 35.4636,
+            "Longitude": -116.52585
+          },
+          {
+            "Latitude": 35.45503,
+            "Longitude": -116.54409
+          },
+          {
+            "Latitude": 35.44646,
+            "Longitude": -116.56233
+          },
+          {
+            "Latitude": 35.43788,
+            "Longitude": -116.58057
+          },
+          {
+            "Latitude": 35.433,
+            "Longitude": -116.59027
+          },
+          {
+            "Latitude": 35.42813,
+            "Longitude": -116.59997
+          },
+          {
+            "Latitude": 35.42325,
+            "Longitude": -116.60966
+          },
+          {
+            "Latitude": 35.40998,
+            "Longitude": -116.62663
+          },
+          {
+            "Latitude": 35.3967,
+            "Longitude": -116.64359
+          },
+          {
+            "Latitude": 35.38343,
+            "Longitude": -116.66054
+          },
+          {
+            "Latitude": 35.38183,
+            "Longitude": -116.66247
+          },
+          {
+            "Latitude": 35.38023,
+            "Longitude": -116.6644
+          },
+          {
+            "Latitude": 35.37864,
+            "Longitude": -116.66633
+          },
+          {
+            "Latitude": 35.37226,
+            "Longitude": -116.67067
+          },
+          {
+            "Latitude": 35.36589,
+            "Longitude": -116.67501
+          },
+          {
+            "Latitude": 35.35952,
+            "Longitude": -116.67935
+          },
+          {
+            "Latitude": 35.34657,
+            "Longitude": -116.68702
+          },
+          {
+            "Latitude": 35.33363,
+            "Longitude": -116.69468
+          },
+          {
+            "Latitude": 35.32068,
+            "Longitude": -116.70235
+          },
+          {
+            "Latitude": 35.30914,
+            "Longitude": -116.70362
+          },
+          {
+            "Latitude": 35.2976,
+            "Longitude": -116.70488
+          },
+          {
+            "Latitude": 35.28606,
+            "Longitude": -116.70615
+          },
+          {
+            "Latitude": 35.26894,
+            "Longitude": -116.66432
+          },
+          {
+            "Latitude": 35.25182,
+            "Longitude": -116.62251
+          },
+          {
+            "Latitude": 35.23468,
+            "Longitude": -116.58071
+          },
+          {
+            "Latitude": 35.25395,
+            "Longitude": -116.48007
+          },
+          {
+            "Latitude": 35.27313,
+            "Longitude": -116.37938
+          },
+          {
+            "Latitude": 35.29223,
+            "Longitude": -116.27865
+          },
+          {
+            "Latitude": 35.30515,
+            "Longitude": -116.21805
+          },
+          {
+            "Latitude": 35.31804,
+            "Longitude": -116.15742
+          },
+          {
+            "Latitude": 35.33089,
+            "Longitude": -116.09678
+          },
+          {
+            "Latitude": 35.33271,
+            "Longitude": -116.08776
+          },
+          {
+            "Latitude": 35.33452,
+            "Longitude": -116.07874
+          },
+          {
+            "Latitude": 35.33632,
+            "Longitude": -116.06973
+          },
+          {
+            "Latitude": 35.3576,
+            "Longitude": -116.0428
+          },
+          {
+            "Latitude": 35.37887,
+            "Longitude": -116.01586
+          },
+          {
+            "Latitude": 35.40014,
+            "Longitude": -115.9889
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "3d776f62-7453-4a39-b2ee-04d56e14fb38",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ASSEMBLY AREA: TAA 2-52",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 35.056648,
+    "Longitude": -116.167074,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ASSEMBLY AREA | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1814Z FEB 2020 | Name: TAA 2-52 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.08254,
+            "Longitude": -116.17794
+          },
+          {
+            "Latitude": 35.02687,
+            "Longitude": -116.2077
+          },
+          {
+            "Latitude": 35.00357,
+            "Longitude": -116.15207
+          },
+          {
+            "Latitude": 35.08772,
+            "Longitude": -116.11972
+          },
+          {
+            "Latitude": 35.08254,
+            "Longitude": -116.17794
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "2754c2ee-06de-45d4-9532-0d230f679d8f",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: SCOTT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.330608000000005,
+    "Longitude": -116.4712868,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1806Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: SCOTT | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.93347,
+            "Longitude": -116.55525
+          },
+          {
+            "Latitude": 35.01179,
+            "Longitude": -116.55475
+          },
+          {
+            "Latitude": 35.0901,
+            "Longitude": -116.55425
+          },
+          {
+            "Latitude": 35.16842,
+            "Longitude": -116.55374
+          },
+          {
+            "Latitude": 35.24673,
+            "Longitude": -116.55324
+          },
+          {
+            "Latitude": 35.25826,
+            "Longitude": -116.53826
+          },
+          {
+            "Latitude": 35.26979,
+            "Longitude": -116.52328
+          },
+          {
+            "Latitude": 35.28132,
+            "Longitude": -116.5083
+          },
+          {
+            "Latitude": 35.29285,
+            "Longitude": -116.49331
+          },
+          {
+            "Latitude": 35.31094,
+            "Longitude": -116.48566
+          },
+          {
+            "Latitude": 35.32904,
+            "Longitude": -116.47801
+          },
+          {
+            "Latitude": 35.34713,
+            "Longitude": -116.47035
+          },
+          {
+            "Latitude": 35.36522,
+            "Longitude": -116.46269
+          },
+          {
+            "Latitude": 35.37399,
+            "Longitude": -116.45374
+          },
+          {
+            "Latitude": 35.38276,
+            "Longitude": -116.4448
+          },
+          {
+            "Latitude": 35.39153,
+            "Longitude": -116.43585
+          },
+          {
+            "Latitude": 35.4003,
+            "Longitude": -116.4269
+          },
+          {
+            "Latitude": 35.41688,
+            "Longitude": -116.42285
+          },
+          {
+            "Latitude": 35.43347,
+            "Longitude": -116.41881
+          },
+          {
+            "Latitude": 35.45005,
+            "Longitude": -116.41476
+          },
+          {
+            "Latitude": 35.46664,
+            "Longitude": -116.41072
+          },
+          {
+            "Latitude": 35.48443,
+            "Longitude": -116.4087
+          },
+          {
+            "Latitude": 35.50223,
+            "Longitude": -116.40667
+          },
+          {
+            "Latitude": 35.52003,
+            "Longitude": -116.40465
+          },
+          {
+            "Latitude": 35.53783,
+            "Longitude": -116.40263
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "43d9c9a8-672b-4022-932d-bef2e19cfcf8",
+    "SymbolType": "TacticalGraphic",
+    "Name": "COORDINATION POINT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGPPO--****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 34.72413,
+    "Longitude": -116.05717,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: COORDINATION POINT | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1847Z FEB 2020 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.72413,
+            "Longitude": -116.05717
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "6c34c939-3580-4c40-938e-349ae7257f37",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: HANK",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.23881615384615,
+    "Longitude": -116.94765230769232,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1810Z FEB 2020 | Name: HANK | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.01837,
+            "Longitude": -116.96723
+          },
+          {
+            "Latitude": 35.04567,
+            "Longitude": -116.96316
+          },
+          {
+            "Latitude": 35.07298,
+            "Longitude": -116.95909
+          },
+          {
+            "Latitude": 35.13265,
+            "Longitude": -116.95696
+          },
+          {
+            "Latitude": 35.19233,
+            "Longitude": -116.95483
+          },
+          {
+            "Latitude": 35.2211,
+            "Longitude": -116.95163
+          },
+          {
+            "Latitude": 35.24987,
+            "Longitude": -116.94843
+          },
+          {
+            "Latitude": 35.28397,
+            "Longitude": -116.94311
+          },
+          {
+            "Latitude": 35.31807,
+            "Longitude": -116.93778
+          },
+          {
+            "Latitude": 35.34365,
+            "Longitude": -116.93671
+          },
+          {
+            "Latitude": 35.36922,
+            "Longitude": -116.93565
+          },
+          {
+            "Latitude": 35.40865,
+            "Longitude": -116.93352
+          },
+          {
+            "Latitude": 35.44808,
+            "Longitude": -116.93138
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "466eca97-4b9f-4c4d-a8be-85e6ab391b5e",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 35th Mech Division",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AI***",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 34.46926,
+    "Longitude": -116.39244,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ DIVISION | Affiliation: FRIEND | Status: Operational | Country: Unknown | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1552Z FEB 2020 | Name: 35th Mech Division | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: 3D3CBAEB24F2D2D9",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.46926,
+            "Longitude": -116.39244
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "d88d15e9-d613-47d8-a352-09c86dcfb985",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ALTERNATE SUPPLY ROUTE: COPPER",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFSPLRA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.332406666666664,
+    "Longitude": -116.622325,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / COMBAT SERVICE SUPPORT | Function: ALTERNATE SUPPLY ROUTE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 08 1407Z JUN 2020 | Reported By: 1BN36IN-1BN36IN | Name: COPPER | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.21069,
+            "Longitude": -116.75937
+          },
+          {
+            "Latitude": 35.25934,
+            "Longitude": -116.67216
+          },
+          {
+            "Latitude": 35.31332,
+            "Longitude": -116.6247
+          },
+          {
+            "Latitude": 35.35485,
+            "Longitude": -116.59207
+          },
+          {
+            "Latitude": 35.42367,
+            "Longitude": -116.56003
+          },
+          {
+            "Latitude": 35.43257,
+            "Longitude": -116.52562
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "6e7174d7-cc15-4f61-a4b3-d4cfc97abb88",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: GENE",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.386770000000006,
+    "Longitude": -116.62252585365853,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1807Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: GENE | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.98944,
+            "Longitude": -116.72615
+          },
+          {
+            "Latitude": 35.06721,
+            "Longitude": -116.72097
+          },
+          {
+            "Latitude": 35.14498,
+            "Longitude": -116.71579
+          },
+          {
+            "Latitude": 35.22275,
+            "Longitude": -116.7106
+          },
+          {
+            "Latitude": 35.30051,
+            "Longitude": -116.70539
+          },
+          {
+            "Latitude": 35.30584,
+            "Longitude": -116.70473
+          },
+          {
+            "Latitude": 35.31117,
+            "Longitude": -116.70406
+          },
+          {
+            "Latitude": 35.31649,
+            "Longitude": -116.70339
+          },
+          {
+            "Latitude": 35.32182,
+            "Longitude": -116.70273
+          },
+          {
+            "Latitude": 35.32668,
+            "Longitude": -116.69976
+          },
+          {
+            "Latitude": 35.33153,
+            "Longitude": -116.6968
+          },
+          {
+            "Latitude": 35.33639,
+            "Longitude": -116.69384
+          },
+          {
+            "Latitude": 35.34124,
+            "Longitude": -116.69087
+          },
+          {
+            "Latitude": 35.35065,
+            "Longitude": -116.68481
+          },
+          {
+            "Latitude": 35.36005,
+            "Longitude": -116.67874
+          },
+          {
+            "Latitude": 35.36946,
+            "Longitude": -116.67268
+          },
+          {
+            "Latitude": 35.37886,
+            "Longitude": -116.66661
+          },
+          {
+            "Latitude": 35.38595,
+            "Longitude": -116.65764
+          },
+          {
+            "Latitude": 35.39304,
+            "Longitude": -116.64867
+          },
+          {
+            "Latitude": 35.40013,
+            "Longitude": -116.63969
+          },
+          {
+            "Latitude": 35.40722,
+            "Longitude": -116.63072
+          },
+          {
+            "Latitude": 35.41169,
+            "Longitude": -116.62512
+          },
+          {
+            "Latitude": 35.41615,
+            "Longitude": -116.61952
+          },
+          {
+            "Latitude": 35.42062,
+            "Longitude": -116.61392
+          },
+          {
+            "Latitude": 35.42508,
+            "Longitude": -116.60832
+          },
+          {
+            "Latitude": 35.4283,
+            "Longitude": -116.60194
+          },
+          {
+            "Latitude": 35.43152,
+            "Longitude": -116.59555
+          },
+          {
+            "Latitude": 35.43474,
+            "Longitude": -116.58917
+          },
+          {
+            "Latitude": 35.43796,
+            "Longitude": -116.58278
+          },
+          {
+            "Latitude": 35.44401,
+            "Longitude": -116.56893
+          },
+          {
+            "Latitude": 35.45007,
+            "Longitude": -116.55508
+          },
+          {
+            "Latitude": 35.45612,
+            "Longitude": -116.54123
+          },
+          {
+            "Latitude": 35.46217,
+            "Longitude": -116.52737
+          },
+          {
+            "Latitude": 35.47866,
+            "Longitude": -116.51985
+          },
+          {
+            "Latitude": 35.49516,
+            "Longitude": -116.51231
+          },
+          {
+            "Latitude": 35.51165,
+            "Longitude": -116.50478
+          },
+          {
+            "Latitude": 35.52814,
+            "Longitude": -116.49724
+          },
+          {
+            "Latitude": 35.5433,
+            "Longitude": -116.49893
+          },
+          {
+            "Latitude": 35.55845,
+            "Longitude": -116.50061
+          },
+          {
+            "Latitude": 35.57361,
+            "Longitude": -116.50229
+          },
+          {
+            "Latitude": 35.58876,
+            "Longitude": -116.50398
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "6265cc83-959b-454b-be69-33ffe9954bb3",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: IGOR",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.29702090909091,
+    "Longitude": -117.34347090909091,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1755Z FEB 2020 | Name: IGOR | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.07486,
+            "Longitude": -117.36883
+          },
+          {
+            "Latitude": 35.10031,
+            "Longitude": -117.36883
+          },
+          {
+            "Latitude": 35.12575,
+            "Longitude": -117.36883
+          },
+          {
+            "Latitude": 35.18888,
+            "Longitude": -117.36963
+          },
+          {
+            "Latitude": 35.252,
+            "Longitude": -117.37042
+          },
+          {
+            "Latitude": 35.31807,
+            "Longitude": -117.35126
+          },
+          {
+            "Latitude": 35.38414,
+            "Longitude": -117.33206
+          },
+          {
+            "Latitude": 35.41824,
+            "Longitude": -117.32247
+          },
+          {
+            "Latitude": 35.45234,
+            "Longitude": -117.31288
+          },
+          {
+            "Latitude": 35.46833,
+            "Longitude": -117.30862
+          },
+          {
+            "Latitude": 35.48431,
+            "Longitude": -117.30435
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "eadb643e-0808-402e-a176-724efb99383f",
+    "SymbolType": "TacticalGraphic",
+    "Name": "COORDINATION POINT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGPPO--****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 34.8536,
+    "Longitude": -117.20583,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: COORDINATION POINT | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1847Z FEB 2020 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.8536,
+            "Longitude": -117.20583
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "81ee29e4-32d5-4362-9b0f-d4bfd5d58db9",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 352 AR DIV (ATR)",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AIGB*",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.78534,
+    "Longitude": -115.68322,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ DIVISION | Affiliation: FRIEND | Status: Operational | Country: United Kingdom | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1554Z FEB 2020 | Name: 352 AR DIV (ATR) | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: 789F7780AA7747A3",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.78534,
+            "Longitude": -115.68322
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "e65df399-d211-41f3-86d0-6f39f093e6c9",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: MARY",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 34.79440807692308,
+    "Longitude": -116.7091476923077,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1754Z FEB 2020 | Name: MARY | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.87303,
+            "Longitude": -117.27295
+          },
+          {
+            "Latitude": 34.86747,
+            "Longitude": -117.24011
+          },
+          {
+            "Latitude": 34.86189,
+            "Longitude": -117.20727
+          },
+          {
+            "Latitude": 34.85631,
+            "Longitude": -117.17444
+          },
+          {
+            "Latitude": 34.85072,
+            "Longitude": -117.14161
+          },
+          {
+            "Latitude": 34.84512,
+            "Longitude": -117.10879
+          },
+          {
+            "Latitude": 34.83813,
+            "Longitude": -117.06654
+          },
+          {
+            "Latitude": 34.83112,
+            "Longitude": -117.02431
+          },
+          {
+            "Latitude": 34.8241,
+            "Longitude": -116.98208
+          },
+          {
+            "Latitude": 34.81706,
+            "Longitude": -116.93986
+          },
+          {
+            "Latitude": 34.81001,
+            "Longitude": -116.89765
+          },
+          {
+            "Latitude": 34.80068,
+            "Longitude": -116.8384
+          },
+          {
+            "Latitude": 34.79131,
+            "Longitude": -116.77916
+          },
+          {
+            "Latitude": 34.78192,
+            "Longitude": -116.71993
+          },
+          {
+            "Latitude": 34.77249,
+            "Longitude": -116.66072
+          },
+          {
+            "Latitude": 34.76304,
+            "Longitude": -116.60152
+          },
+          {
+            "Latitude": 34.76021,
+            "Longitude": -116.54273
+          },
+          {
+            "Latitude": 34.75736,
+            "Longitude": -116.48395
+          },
+          {
+            "Latitude": 34.75447,
+            "Longitude": -116.42517
+          },
+          {
+            "Latitude": 34.75156,
+            "Longitude": -116.36639
+          },
+          {
+            "Latitude": 34.74862,
+            "Longitude": -116.30762
+          },
+          {
+            "Latitude": 34.74565,
+            "Longitude": -116.24885
+          },
+          {
+            "Latitude": 34.74265,
+            "Longitude": -116.19008
+          },
+          {
+            "Latitude": 34.73963,
+            "Longitude": -116.13132
+          },
+          {
+            "Latitude": 34.73657,
+            "Longitude": -116.07257
+          },
+          {
+            "Latitude": 34.73349,
+            "Longitude": -116.01382
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "0a60a63f-eee0-4c7c-8f20-f805427151e2",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 70th Mech Division",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AI***",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 34.44351,
+    "Longitude": -117.20033,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ DIVISION | Affiliation: FRIEND | Status: Operational | Country: Unknown | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1551Z FEB 2020 | Name: 70th Mech Division | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: 5F5D8AB0DC8ABE00",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.44351,
+            "Longitude": -117.20033
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "8455d82b-ec8f-48ec-b0cf-205aa7ed0968",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ASSEMBLY AREA: TAA 781",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 35.059143999999996,
+    "Longitude": -116.686886,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ASSEMBLY AREA | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1814Z FEB 2020 | Name: TAA 781 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.09542,
+            "Longitude": -116.70882
+          },
+          {
+            "Latitude": 35.01387,
+            "Longitude": -116.70882
+          },
+          {
+            "Latitude": 35.00684,
+            "Longitude": -116.66383
+          },
+          {
+            "Latitude": 35.08417,
+            "Longitude": -116.64414
+          },
+          {
+            "Latitude": 35.09542,
+            "Longitude": -116.70882
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "a7409f3b-48ac-4646-bc46-368b42f577bc",
+    "SymbolType": "TacticalGraphic",
+    "Name": "COORDINATION POINT",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGPPO--****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 34.75288,
+    "Longitude": -116.62352,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: COORDINATION POINT | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1847Z FEB 2020 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.75288,
+            "Longitude": -116.62352
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "3787a817-e57e-4482-9485-5b6bae891c2f",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: FRANCIS",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.344120000000004,
+    "Longitude": -116.54778809523809,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1807Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: FRANCIS | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.95367,
+            "Longitude": -116.63924
+          },
+          {
+            "Latitude": 35.03596,
+            "Longitude": -116.63501
+          },
+          {
+            "Latitude": 35.11825,
+            "Longitude": -116.63078
+          },
+          {
+            "Latitude": 35.20054,
+            "Longitude": -116.62654
+          },
+          {
+            "Latitude": 35.28283,
+            "Longitude": -116.62229
+          },
+          {
+            "Latitude": 35.2983,
+            "Longitude": -116.61259
+          },
+          {
+            "Latitude": 35.31377,
+            "Longitude": -116.6029
+          },
+          {
+            "Latitude": 35.32923,
+            "Longitude": -116.5932
+          },
+          {
+            "Latitude": 35.3447,
+            "Longitude": -116.5835
+          },
+          {
+            "Latitude": 35.35965,
+            "Longitude": -116.56935
+          },
+          {
+            "Latitude": 35.37459,
+            "Longitude": -116.55521
+          },
+          {
+            "Latitude": 35.38953,
+            "Longitude": -116.54105
+          },
+          {
+            "Latitude": 35.40447,
+            "Longitude": -116.52689
+          },
+          {
+            "Latitude": 35.41895,
+            "Longitude": -116.51009
+          },
+          {
+            "Latitude": 35.43343,
+            "Longitude": -116.49329
+          },
+          {
+            "Latitude": 35.44791,
+            "Longitude": -116.47647
+          },
+          {
+            "Latitude": 35.46238,
+            "Longitude": -116.45966
+          },
+          {
+            "Latitude": 35.48326,
+            "Longitude": -116.45834
+          },
+          {
+            "Latitude": 35.50415,
+            "Longitude": -116.45703
+          },
+          {
+            "Latitude": 35.52503,
+            "Longitude": -116.45572
+          },
+          {
+            "Latitude": 35.54592,
+            "Longitude": -116.4544
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "394bd82b-32f8-4add-ac37-d4764da13197",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 346th Mech DIV (ATR)",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AIGB*",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.33497,
+    "Longitude": -117.05174,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ DIVISION | Affiliation: FRIEND | Status: Operational | Country: United Kingdom | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1553Z FEB 2020 | Name: 346th Mech DIV (ATR) | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: 96FC12AB3E037698",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.33497,
+            "Longitude": -117.05174
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "5eb40a37-2a81-4c2c-910c-5d0d8f79aafc",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: HARRY",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.29307818181818,
+    "Longitude": -117.14828909090907,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1811Z FEB 2020 | Name: HARRY | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.04527,
+            "Longitude": -117.18074
+          },
+          {
+            "Latitude": 35.12626,
+            "Longitude": -117.17116
+          },
+          {
+            "Latitude": 35.20725,
+            "Longitude": -117.16156
+          },
+          {
+            "Latitude": 35.23602,
+            "Longitude": -117.15623
+          },
+          {
+            "Latitude": 35.26479,
+            "Longitude": -117.1509
+          },
+          {
+            "Latitude": 35.31274,
+            "Longitude": -117.14558
+          },
+          {
+            "Latitude": 35.3607,
+            "Longitude": -117.14025
+          },
+          {
+            "Latitude": 35.38414,
+            "Longitude": -117.13599
+          },
+          {
+            "Latitude": 35.40758,
+            "Longitude": -117.13172
+          },
+          {
+            "Latitude": 35.4289,
+            "Longitude": -117.12959
+          },
+          {
+            "Latitude": 35.45021,
+            "Longitude": -117.12746
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "64caae23-b025-4da2-b79d-7b0409fafb9d",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ATTACK POSITION: BLACKJACK",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPOAK---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 35.43982166666667,
+    "Longitude": -116.81872833333334,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ATTACK POSITION | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 08 1308Z JUN 2020 | Reported By: 1BN36IN-1BN36IN | Name: BLACKJACK | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.44997,
+            "Longitude": -116.85701
+          },
+          {
+            "Latitude": 35.40569,
+            "Longitude": -116.85793
+          },
+          {
+            "Latitude": 35.39735,
+            "Longitude": -116.76637
+          },
+          {
+            "Latitude": 35.45888,
+            "Longitude": -116.75065
+          },
+          {
+            "Latitude": 35.47707,
+            "Longitude": -116.8234
+          },
+          {
+            "Latitude": 35.44997,
+            "Longitude": -116.85701
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "60a14dae-ca84-4ced-8e52-4f776547fc8a",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ALTERNATE SUPPLY ROUTE: ASR IRON",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFSPLRA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.26397,
+    "Longitude": -116.82858800000001,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / COMBAT SERVICE SUPPORT | Function: ALTERNATE SUPPLY ROUTE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 08 1307Z JUN 2020 | Reported By: 1BN36IN-1BN36IN | Name: ASR IRON | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.00186,
+            "Longitude": -116.75923
+          },
+          {
+            "Latitude": 35.05167,
+            "Longitude": -116.76568
+          },
+          {
+            "Latitude": 35.10149,
+            "Longitude": -116.77214
+          },
+          {
+            "Latitude": 35.15223,
+            "Longitude": -116.76431
+          },
+          {
+            "Latitude": 35.20296,
+            "Longitude": -116.75646
+          },
+          {
+            "Latitude": 35.23801,
+            "Longitude": -116.76752
+          },
+          {
+            "Latitude": 35.27307,
+            "Longitude": -116.7786
+          },
+          {
+            "Latitude": 35.28691,
+            "Longitude": -116.83163
+          },
+          {
+            "Latitude": 35.30074,
+            "Longitude": -116.88468
+          },
+          {
+            "Latitude": 35.33533,
+            "Longitude": -116.89159
+          },
+          {
+            "Latitude": 35.36992,
+            "Longitude": -116.89852
+          },
+          {
+            "Latitude": 35.39068,
+            "Longitude": -116.90497
+          },
+          {
+            "Latitude": 35.41143,
+            "Longitude": -116.91143
+          },
+          {
+            "Latitude": 35.41823,
+            "Longitude": -116.8845
+          },
+          {
+            "Latitude": 35.42502,
+            "Longitude": -116.85756
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "0e7d32bc-c4ed-419a-9991-4597b4deb83c",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: THOR",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.47816454545455,
+    "Longitude": -116.28067272727272,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1800Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: THOR | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.5434,
+            "Longitude": -116.53898
+          },
+          {
+            "Latitude": 35.53667,
+            "Longitude": -116.49521
+          },
+          {
+            "Latitude": 35.52993,
+            "Longitude": -116.45145
+          },
+          {
+            "Latitude": 35.51647,
+            "Longitude": -116.39335
+          },
+          {
+            "Latitude": 35.50299,
+            "Longitude": -116.33528
+          },
+          {
+            "Latitude": 35.48616,
+            "Longitude": -116.27887
+          },
+          {
+            "Latitude": 35.46931,
+            "Longitude": -116.22248
+          },
+          {
+            "Latitude": 35.45669,
+            "Longitude": -116.17281
+          },
+          {
+            "Latitude": 35.44405,
+            "Longitude": -116.12315
+          },
+          {
+            "Latitude": 35.40607,
+            "Longitude": -116.06631
+          },
+          {
+            "Latitude": 35.36807,
+            "Longitude": -116.00951
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "07486148-9113-4386-89ad-0406ae5eb4c3",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: WESLEY",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.28132363636364,
+    "Longitude": -116.76942727272727,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1808Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: WESLEY | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.99743,
+            "Longitude": -116.83932
+          },
+          {
+            "Latitude": 35.07153,
+            "Longitude": -116.81943
+          },
+          {
+            "Latitude": 35.14563,
+            "Longitude": -116.7995
+          },
+          {
+            "Latitude": 35.2012,
+            "Longitude": -116.78772
+          },
+          {
+            "Latitude": 35.25676,
+            "Longitude": -116.77593
+          },
+          {
+            "Latitude": 35.30391,
+            "Longitude": -116.76415
+          },
+          {
+            "Latitude": 35.35105,
+            "Longitude": -116.75236
+          },
+          {
+            "Latitude": 35.38809,
+            "Longitude": -116.74395
+          },
+          {
+            "Latitude": 35.42514,
+            "Longitude": -116.73553
+          },
+          {
+            "Latitude": 35.45965,
+            "Longitude": -116.72712
+          },
+          {
+            "Latitude": 35.49417,
+            "Longitude": -116.71869
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "42fee0da-fc81-4ee6-a75d-f1d5cc59fd30",
+    "SymbolType": "Unit",
+    "Name": "ARMOR: 12th AR DIV (UK)",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCA----IGB*",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.31136,
+    "Longitude": -115.86881,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: ARMOR | Modifier / Size: DIVISION | Affiliation: FRIEND | Status: Operational | Country: United Kingdom | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1552Z FEB 2020 | Name: 12th AR DIV (UK) | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: F4C1452EC75A21F8",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.31136,
+            "Longitude": -115.86881
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "83824196-2f48-431e-a96a-33fed42afc8d",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 4th CORPs (ATR)",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AK***",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 34.61967,
+    "Longitude": -115.57353,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ ARMY | Affiliation: FRIEND | Status: Operational | Country: Unknown | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 28 1653Z FEB 2020 | Name: 4th CORPs (ATR) | Status Qualifier: None | Evaluation Rating: Unknown / Unknown",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.61967,
+            "Longitude": -115.57353
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "79f876d8-5842-4e1f-a472-ece4fceebce3",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: GEORGIA",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.01202555555555,
+    "Longitude": -116.74447805555555,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1757Z FEB 2020 | Name: GEORGIA | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.14545,
+            "Longitude": -117.42136
+          },
+          {
+            "Latitude": 35.12546,
+            "Longitude": -117.37667
+          },
+          {
+            "Latitude": 35.10545,
+            "Longitude": -117.33199
+          },
+          {
+            "Latitude": 35.08542,
+            "Longitude": -117.28734
+          },
+          {
+            "Latitude": 35.06537,
+            "Longitude": -117.24271
+          },
+          {
+            "Latitude": 35.04531,
+            "Longitude": -117.1981
+          },
+          {
+            "Latitude": 35.04872,
+            "Longitude": -117.15975
+          },
+          {
+            "Latitude": 35.05211,
+            "Longitude": -117.1214
+          },
+          {
+            "Latitude": 35.05549,
+            "Longitude": -117.08304
+          },
+          {
+            "Latitude": 35.05886,
+            "Longitude": -117.04468
+          },
+          {
+            "Latitude": 35.06222,
+            "Longitude": -117.00632
+          },
+          {
+            "Latitude": 35.05716,
+            "Longitude": -116.96539
+          },
+          {
+            "Latitude": 35.05208,
+            "Longitude": -116.92447
+          },
+          {
+            "Latitude": 35.04699,
+            "Longitude": -116.88356
+          },
+          {
+            "Latitude": 35.04188,
+            "Longitude": -116.84265
+          },
+          {
+            "Latitude": 35.03676,
+            "Longitude": -116.80174
+          },
+          {
+            "Latitude": 35.02809,
+            "Longitude": -116.77665
+          },
+          {
+            "Latitude": 35.01941,
+            "Longitude": -116.75156
+          },
+          {
+            "Latitude": 35.01073,
+            "Longitude": -116.72647
+          },
+          {
+            "Latitude": 35.00204,
+            "Longitude": -116.70139
+          },
+          {
+            "Latitude": 34.99335,
+            "Longitude": -116.67631
+          },
+          {
+            "Latitude": 34.98528,
+            "Longitude": -116.65122
+          },
+          {
+            "Latitude": 34.9772,
+            "Longitude": -116.62613
+          },
+          {
+            "Latitude": 34.96911,
+            "Longitude": -116.60104
+          },
+          {
+            "Latitude": 34.96102,
+            "Longitude": -116.57596
+          },
+          {
+            "Latitude": 34.95293,
+            "Longitude": -116.55088
+          },
+          {
+            "Latitude": 34.95155,
+            "Longitude": -116.49567
+          },
+          {
+            "Latitude": 34.95014,
+            "Longitude": -116.44046
+          },
+          {
+            "Latitude": 34.9487,
+            "Longitude": -116.38525
+          },
+          {
+            "Latitude": 34.94724,
+            "Longitude": -116.33004
+          },
+          {
+            "Latitude": 34.94576,
+            "Longitude": -116.27484
+          },
+          {
+            "Latitude": 34.94425,
+            "Longitude": -116.21963
+          },
+          {
+            "Latitude": 34.94271,
+            "Longitude": -116.16443
+          },
+          {
+            "Latitude": 34.94115,
+            "Longitude": -116.10923
+          },
+          {
+            "Latitude": 34.93957,
+            "Longitude": -116.05404
+          },
+          {
+            "Latitude": 34.93796,
+            "Longitude": -115.99884
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "cd5fbfaa-d0b7-4e50-a752-ec295a4f9ff0",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: BETTY",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.414201818181816,
+    "Longitude": -116.3592790909091,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1800Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: BETTY | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.49754,
+            "Longitude": -116.65808
+          },
+          {
+            "Latitude": 35.46219,
+            "Longitude": -116.61007
+          },
+          {
+            "Latitude": 35.42682,
+            "Longitude": -116.5621
+          },
+          {
+            "Latitude": 35.41927,
+            "Longitude": -116.48801
+          },
+          {
+            "Latitude": 35.41167,
+            "Longitude": -116.41393
+          },
+          {
+            "Latitude": 35.40157,
+            "Longitude": -116.36341
+          },
+          {
+            "Latitude": 35.39146,
+            "Longitude": -116.3129
+          },
+          {
+            "Latitude": 35.394,
+            "Longitude": -116.2565
+          },
+          {
+            "Latitude": 35.39651,
+            "Longitude": -116.20009
+          },
+          {
+            "Latitude": 35.38393,
+            "Longitude": -116.09568
+          },
+          {
+            "Latitude": 35.37126,
+            "Longitude": -115.9913
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "17ff8181-ed9c-44c0-9dbc-884c2efa53b5",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ASSEMBLY AREA: LSA LEGION",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 34.92624909090909,
+    "Longitude": -116.76558909090909,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ASSEMBLY AREA | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1812Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: LSA LEGION | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.94928,
+            "Longitude": -116.84747
+          },
+          {
+            "Latitude": 34.90587,
+            "Longitude": -116.84022
+          },
+          {
+            "Latitude": 34.86245,
+            "Longitude": -116.83297
+          },
+          {
+            "Latitude": 34.86118,
+            "Longitude": -116.75914
+          },
+          {
+            "Latitude": 34.85986,
+            "Longitude": -116.68531
+          },
+          {
+            "Latitude": 34.90296,
+            "Longitude": -116.67381
+          },
+          {
+            "Latitude": 34.94606,
+            "Longitude": -116.6623
+          },
+          {
+            "Latitude": 34.97407,
+            "Longitude": -116.71061
+          },
+          {
+            "Latitude": 35.00205,
+            "Longitude": -116.75895
+          },
+          {
+            "Latitude": 34.97568,
+            "Longitude": -116.80323
+          },
+          {
+            "Latitude": 34.94928,
+            "Longitude": -116.84747
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "45869008-e30f-4dcf-bd4b-ba9889288a19",
+    "SymbolType": "TacticalGraphic",
+    "Name": "PHASE LINE: ARCHIE",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGLP---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Line",
+    "Latitude": 35.3385912,
+    "Longitude": -116.30038640000001,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: PHASE LINE | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1805Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: ARCHIE | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Line",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.91399,
+            "Longitude": -116.31307
+          },
+          {
+            "Latitude": 34.99096,
+            "Longitude": -116.31324
+          },
+          {
+            "Latitude": 35.06793,
+            "Longitude": -116.31342
+          },
+          {
+            "Latitude": 35.1449,
+            "Longitude": -116.31359
+          },
+          {
+            "Latitude": 35.22186,
+            "Longitude": -116.31376
+          },
+          {
+            "Latitude": 35.25005,
+            "Longitude": -116.3089
+          },
+          {
+            "Latitude": 35.27823,
+            "Longitude": -116.30403
+          },
+          {
+            "Latitude": 35.30642,
+            "Longitude": -116.29915
+          },
+          {
+            "Latitude": 35.3346,
+            "Longitude": -116.29428
+          },
+          {
+            "Latitude": 35.34713,
+            "Longitude": -116.29289
+          },
+          {
+            "Latitude": 35.35966,
+            "Longitude": -116.2915
+          },
+          {
+            "Latitude": 35.37218,
+            "Longitude": -116.2901
+          },
+          {
+            "Latitude": 35.38471,
+            "Longitude": -116.28871
+          },
+          {
+            "Latitude": 35.39897,
+            "Longitude": -116.29219
+          },
+          {
+            "Latitude": 35.41324,
+            "Longitude": -116.29567
+          },
+          {
+            "Latitude": 35.42751,
+            "Longitude": -116.29915
+          },
+          {
+            "Latitude": 35.44177,
+            "Longitude": -116.30263
+          },
+          {
+            "Latitude": 35.44758,
+            "Longitude": -116.30134
+          },
+          {
+            "Latitude": 35.4534,
+            "Longitude": -116.30004
+          },
+          {
+            "Latitude": 35.45921,
+            "Longitude": -116.29875
+          },
+          {
+            "Latitude": 35.46502,
+            "Longitude": -116.29746
+          },
+          {
+            "Latitude": 35.47756,
+            "Longitude": -116.29705
+          },
+          {
+            "Latitude": 35.4901,
+            "Longitude": -116.29665
+          },
+          {
+            "Latitude": 35.50263,
+            "Longitude": -116.29625
+          },
+          {
+            "Latitude": 35.51517,
+            "Longitude": -116.29584
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "793c55dc-80b2-4aee-b954-ac761464a78e",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ASSEMBLY AREA: TAA BLACKJACK_20 ENG",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 34.966166666666666,
+    "Longitude": -116.76232777777778,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ASSEMBLY AREA | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1814Z FEB 2020 | Reported By: 1BN36IN-1BN36IN | Name: TAA BLACKJACK_20 ENG | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 34.98155,
+            "Longitude": -116.79102
+          },
+          {
+            "Latitude": 34.93987,
+            "Longitude": -116.79156
+          },
+          {
+            "Latitude": 34.93987,
+            "Longitude": -116.77553
+          },
+          {
+            "Latitude": 34.93987,
+            "Longitude": -116.7603
+          },
+          {
+            "Latitude": 34.94093,
+            "Longitude": -116.72556
+          },
+          {
+            "Latitude": 34.98098,
+            "Longitude": -116.72514
+          },
+          {
+            "Latitude": 34.99063,
+            "Longitude": -116.74186
+          },
+          {
+            "Latitude": 35.00025,
+            "Longitude": -116.75896
+          },
+          {
+            "Latitude": 34.98155,
+            "Longitude": -116.79102
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "a9d4274d-83ad-4069-9aa3-fb6072fbbb45",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 21st Mech Division",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AI***",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.10496,
+    "Longitude": -117.82482,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ DIVISION | Affiliation: FRIEND | Status: Operational | Country: Unknown | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1551Z FEB 2020 | Name: 21st Mech Division | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: 9B491440284DA8F5",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.10496,
+            "Longitude": -117.82482
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "ced15c31-6d55-4053-aa1e-00b92be50bad",
+    "SymbolType": "Unit",
+    "Name": "INFANTRY MECHANIZED: 344th Mech DIV (ATR)",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "SFGPUCIZ--AIGB*",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Point",
+    "Latitude": 35.18058,
+    "Longitude": -116.49804,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: WARFIGHTING / GROUND | Function: INFANTRY MECHANIZED | Modifier / Size: HQ DIVISION | Affiliation: FRIEND | Status: Operational | Country: United Kingdom | Order Of Battle: N/A | Object Type: C2 / Unit | Report Time: 27 1553Z FEB 2020 | Name: 344th Mech DIV (ATR) | Status Qualifier: None | Evaluation Rating: Unknown / Unknown | ORBAT path: D07376246CDFCC70",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Point",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.18058,
+            "Longitude": -116.49804
+          }
+        ]
+      }
+    }
+  },
+  {
+    "Id": "bc02308f-95d6-4bc7-acfd-84509c22fe6a",
+    "SymbolType": "TacticalGraphic",
+    "Name": "ASSEMBLY AREA: TAA 85",
+    "AbbreviatedName": "",
+    "LeftOrganisation": "",
+    "RightOrganisation": "",
+    "Occupant": "",
+    "SymbolCode": "GFGPGAA---****X",
+    "OperationalStatus": "",
+    "GeopoliticalAffiliation": "",
+    "Priority": "Medium",
+    "LocationType": "Area",
+    "Latitude": 35.1828875,
+    "Longitude": -117.048615,
+    "StaffComments": "",
+    "Comment": "Battle Dim. / Cat.: TACTICAL GRAPHICS / C2 & GENERAL MANEUVER | Function: ASSEMBLY AREA | Modifier / Size: N/A | Affiliation: FRIEND | Status: PRESENT | Country: Unknown | Order Of Battle: CONTROL MARKINGS | Object Type: C2 / Tactical Graphic | Report Time: 26 1814Z FEB 2020 | Name: TAA 85 | Max Altitude: 0 m",
+    "MessageDTG": "2026-05-20T20:38:15.000Z",
+    "SigAct": "",
+    "UnitPosture": "",
+    "UnitStrength": "",
+    "Category": "52D Graphics_new",
+    "Location": {
+      "@xsi:type": "Area",
+      "Points": {
+        "Point": [
+          {
+            "Latitude": 35.21443,
+            "Longitude": -117.04953
+          },
+          {
+            "Latitude": 35.1976,
+            "Longitude": -117.07412
+          },
+          {
+            "Latitude": 35.16912,
+            "Longitude": -117.08056
+          },
+          {
+            "Latitude": 35.15229,
+            "Longitude": -117.07022
+          },
+          {
+            "Latitude": 35.15359,
+            "Longitude": -117.02754
+          },
+          {
+            "Latitude": 35.16792,
+            "Longitude": -117.02152
+          },
+          {
+            "Latitude": 35.19372,
+            "Longitude": -117.0159
+          },
+          {
+            "Latitude": 35.21443,
+            "Longitude": -117.04953
+          }
+        ]
+      }
+    }
+  }
+]

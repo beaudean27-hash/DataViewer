@@ -1,0 +1,79 @@
+{{- if .Values.postgrest.enabled }}
+{{- $secretName := printf "%s-postgrest" (include "davi.fullname" .) }}
+{{- if .Values.postgrest.existingSecret }}{{- $secretName = .Values.postgrest.existingSecret }}{{- end }}
+{{- $secretKey := default "uri" .Values.postgrest.existingSecretKey }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "davi.fullname" . }}-postgrest
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgrest
+spec:
+  replicas: {{ .Values.postgrest.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "davi.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: postgrest
+  template:
+    metadata:
+      labels:
+        {{- include "davi.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: postgrest
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: postgrest
+          image: "{{ .Values.postgrest.image.repository }}:{{ .Values.postgrest.image.tag }}"
+          imagePullPolicy: {{ .Values.postgrest.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: PGRST_SERVER_HOST
+              value: "0.0.0.0"
+            - name: PGRST_SERVER_PORT
+              value: "3000"
+            - name: PGRST_DB_SCHEMAS
+              value: {{ .Values.backends.postgres.schema | quote }}
+            - name: PGRST_DB_ANON_ROLE
+              value: {{ .Values.postgrest.db.anonRole | quote }}
+            - name: PGRST_OPENAPI_MODE
+              value: "follow-privileges"
+            - name: PGRST_DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ $secretKey | quote }}
+            {{- if .Values.postgrest.db.jwt.secret }}
+            - name: PGRST_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: "jwt-secret"
+            - name: PGRST_JWT_AUD
+              value: {{ .Values.postgrest.db.jwt.audience | quote }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.postgrest.resources | nindent 12 }}
+{{- end }}
