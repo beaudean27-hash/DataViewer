@@ -27,6 +27,8 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"os"
 	"sort"
 	"strconv"
@@ -326,6 +328,11 @@ func httpGetEither(ctx context.Context, c *http.Client, host string, port int, p
 }
 
 // Build a CatalogEntry skeleton from a discovered service+port+scheme+basePath.
+//
+// proxyPath is populated with a path the browser can hit directly. nginx
+// forwards /discover-proxy/ to the sidecar's /proxy/ handler, which then
+// reverse-proxies the request to the discovered upstream. This is what makes
+// auto-discovered entries usable in the UI without operator action.
 func makeEntry(svc Service, kind string, scheme string, port int, basePath string, label string, hints map[string]interface{}) CatalogEntry {
 	if label == "" {
 		label = fmt.Sprintf("%s (%s/%s)", svc.Name, svc.Namespace, kind)
@@ -339,10 +346,13 @@ func makeEntry(svc Service, kind string, scheme string, port int, basePath strin
 	if basePath != "" {
 		hints["_discoveredBasePath"] = basePath
 	}
+	base := strings.TrimSuffix(basePath, "/")
+	proxyPath := fmt.Sprintf("/discover-proxy/%s/%s/%d%s/", scheme, svc.FQDN, port, base)
 	return CatalogEntry{
 		Name:       fmt.Sprintf("disc-%s-%s", svc.Namespace, svc.Name),
 		Label:      label,
 		Type:       kind,
+		ProxyPath:  proxyPath,
 		Discovered: true,
 		Source:     "discovered",
 		Hints:      hints,
@@ -492,6 +502,15 @@ type Server struct {
 	staticCat Catalog
 	mu        sync.RWMutex
 	current   Catalog // last good combined catalog
+	// allowedTargets gates the /proxy/ handler. Key: "<scheme>|<host>|<port>".
+	// Rebuilt on every refresh from both static and discovered entries to
+	// prevent SSRF: only services the sidecar has explicitly catalogued can
+	// be reached through the dynamic proxy.
+	allowedTargets map[string]bool
+	// proxyTransport is shared across all reverse-proxy requests so connection
+	// pooling / keep-alives apply. TLS verification is disabled (intra-cluster,
+	// self-signed certs are the norm).
+	proxyTransport *http.Transport
 }
 
 func (s *Server) loadStatic() {
@@ -622,9 +641,10 @@ func (s *Server) refresh(ctx context.Context) {
 
 	s.mu.Lock()
 	s.current = merged
+	s.allowedTargets = buildAllowedTargets(merged.Entries)
 	s.mu.Unlock()
-	log.Printf("[discover] refresh: %d in-scope services, %d static, %d discovered → %d total (%.0fms)",
-		len(inScope), len(s.staticCat.Entries), len(merged.Entries)-len(s.staticCat.Entries), len(merged.Entries), float64(time.Since(t0).Milliseconds()))
+	log.Printf("[discover] refresh: %d in-scope services, %d static, %d discovered → %d total, %d proxy targets (%.0fms)",
+		len(inScope), len(s.staticCat.Entries), len(merged.Entries)-len(s.staticCat.Entries), len(merged.Entries), len(s.allowedTargets), float64(time.Since(t0).Milliseconds()))
 }
 
 func firstPort(ps []ServicePort) int {
@@ -695,6 +715,140 @@ func (s *Server) handleReady(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("ready\n"))
 }
 
+// ─── Dynamic reverse proxy for discovered services ────────────────────────
+//
+// URL shape (from the browser via nginx):
+//   /discover-proxy/<scheme>/<host>/<port>/<rest>?<query>
+// nginx strips the /discover-proxy/ prefix and forwards to:
+//   http://127.0.0.1:9090/proxy/<scheme>/<host>/<port>/<rest>?<query>
+// This handler parses the path, validates the target against the discovery
+// allowlist (SSRF guard), then reverse-proxies the request to:
+//   <scheme>://<host>:<port>/<rest>?<query>
+//
+// Only http/https are accepted. The body, method, and query string are
+// preserved untouched (httputil.ReverseProxy handles streaming and
+// hop-by-hop header stripping).
+
+// buildAllowedTargets distills the merged catalog into a set of
+// "<scheme>|<host>|<port>" keys that the /proxy/ handler will accept.
+// Static entries contribute their hints.service/hints.port/hints.scheme;
+// discovered entries contribute the values stashed by makeEntry().
+func buildAllowedTargets(entries []CatalogEntry) map[string]bool {
+	out := map[string]bool{}
+	for _, e := range entries {
+		var host, scheme string
+		var port int
+		if v, ok := e.Hints["_discoveredService"].(string); ok {
+			host = v
+		}
+		if v, ok := e.Hints["_discoveredScheme"].(string); ok {
+			scheme = v
+		}
+		if v, ok := e.Hints["_discoveredPort"].(int); ok {
+			port = v
+		} else if v, ok := e.Hints["_discoveredPort"].(float64); ok {
+			port = int(v)
+		}
+		if host == "" {
+			if v, ok := e.Hints["service"].(string); ok {
+				host = v
+			}
+		}
+		if scheme == "" {
+			if v, ok := e.Hints["scheme"].(string); ok {
+				scheme = v
+			}
+		}
+		if port == 0 {
+			if v, ok := e.Hints["port"].(int); ok {
+				port = v
+			} else if v, ok := e.Hints["port"].(float64); ok {
+				port = int(v)
+			}
+		}
+		if scheme == "" {
+			scheme = "http"
+		}
+		if host == "" || port == 0 {
+			continue
+		}
+		if scheme != "http" && scheme != "https" {
+			continue
+		}
+		out[scheme+"|"+host+"|"+strconv.Itoa(port)] = true
+	}
+	return out
+}
+
+func (s *Server) targetAllowed(scheme, host string, port int) bool {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.allowedTargets[scheme+"|"+host+"|"+strconv.Itoa(port)]
+}
+
+func (s *Server) handleProxy(w http.ResponseWriter, r *http.Request) {
+	// Strip the "/proxy/" prefix and split into scheme/host/port/rest.
+	p := strings.TrimPrefix(r.URL.Path, "/proxy/")
+	parts := strings.SplitN(p, "/", 4)
+	if len(parts) < 3 {
+		http.Error(w, "discover-proxy: expected /<scheme>/<host>/<port>/<path>", http.StatusBadRequest)
+		return
+	}
+	scheme, host, portStr := parts[0], parts[1], parts[2]
+	rest := ""
+	if len(parts) == 4 {
+		rest = parts[3]
+	}
+	if scheme != "http" && scheme != "https" {
+		http.Error(w, "discover-proxy: scheme must be http or https", http.StatusBadRequest)
+		return
+	}
+	port, err := strconv.Atoi(portStr)
+	if err != nil || port <= 0 || port > 65535 {
+		http.Error(w, "discover-proxy: invalid port", http.StatusBadRequest)
+		return
+	}
+	if host == "" || strings.ContainsAny(host, " \t\r\n") {
+		http.Error(w, "discover-proxy: invalid host", http.StatusBadRequest)
+		return
+	}
+	if !s.targetAllowed(scheme, host, port) {
+		http.Error(w, "discover-proxy: target not in discovery catalog", http.StatusForbidden)
+		return
+	}
+
+	targetURL := &url.URL{
+		Scheme: scheme,
+		Host:   host + ":" + portStr,
+	}
+	rp := &httputil.ReverseProxy{
+		Transport: s.proxyTransport,
+		Director: func(req *http.Request) {
+			req.URL.Scheme = targetURL.Scheme
+			req.URL.Host = targetURL.Host
+			req.URL.Path = "/" + rest
+			// RawQuery preserved by ReverseProxy's caller (we don't touch it).
+			req.Host = host // upstream sees its own hostname (good for vhost / SNI)
+			// Strip any inbound Authorization we don't intend to forward upstream.
+			// In ISAK the browser is talking to nginx (same origin) so there is
+			// rarely an Authorization header; keep this defensive.
+			req.Header.Del("Authorization")
+		},
+		ErrorHandler: func(rw http.ResponseWriter, _ *http.Request, e error) {
+			log.Printf("[discover-proxy] upstream error %s://%s: %v", scheme, targetURL.Host, e)
+			http.Error(rw, "discover-proxy: upstream unreachable: "+e.Error(), http.StatusBadGateway)
+		},
+	}
+	// Expose response headers the UI relies on (Content-Range for paging, etc.).
+	rp.ModifyResponse = func(resp *http.Response) error {
+		if existing := resp.Header.Get("Access-Control-Expose-Headers"); existing == "" {
+			resp.Header.Set("Access-Control-Expose-Headers", "Content-Range, Content-Length, ETag, Last-Modified, Content-Location")
+		}
+		return nil
+	}
+	rp.ServeHTTP(w, r)
+}
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.LUTC)
 	cfg := loadConfig()
@@ -724,6 +878,22 @@ func main() {
 	srv := &Server{cfg: cfg, kube: kube, probeC: probeC}
 	srv.loadStatic()
 
+	// Dedicated transport for the dynamic reverse proxy. Self-signed certs are
+	// the norm intra-cluster, so verification is off; this transport is only
+	// ever used for hosts in srv.allowedTargets.
+	srv.proxyTransport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true, MinVersion: tls.VersionTLS12},
+		DialContext: (&net.Dialer{
+			Timeout:   10 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).DialContext,
+		MaxIdleConns:          50,
+		IdleConnTimeout:       90 * time.Second,
+		ResponseHeaderTimeout: 60 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		Proxy:                 nil,
+	}
+
 	// Initial refresh in the background; HTTP server is up immediately and
 	// serves static-only until the first cycle completes.
 	go func() {
@@ -743,6 +913,7 @@ func main() {
 	mux.HandleFunc("/static.json", srv.handleStatic)
 	mux.HandleFunc("/healthz", srv.handleHealthz)
 	mux.HandleFunc("/readyz", srv.handleReady)
+	mux.HandleFunc("/proxy/", srv.handleProxy)
 
 	httpSrv := &http.Server{
 		Addr:              ":" + cfg.Port,

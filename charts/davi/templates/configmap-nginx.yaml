@@ -96,6 +96,29 @@ data:
             proxy_read_timeout 10s;
             add_header         Cache-Control "no-cache" always;
         }
+
+        # Dynamic reverse proxy for auto-discovered services.
+        #   Browser hits  /discover-proxy/<scheme>/<host>/<port>/<rest>
+        #   nginx strips  /discover-proxy/  →  /proxy/<scheme>/<host>/<port>/<rest>
+        #   sidecar validates target against its discovery catalog (SSRF guard)
+        #   and reverse-proxies the request to the upstream service.
+        # This is what makes auto-discovered entries usable in the UI without
+        # the operator hand-rolling a /extras/<name>/ block per service.
+        location /discover-proxy/ {
+            proxy_pass         http://127.0.0.1:{{ .Values.discovery.sidecar.port }}/proxy/;
+            proxy_http_version 1.1;
+            proxy_set_header   Host              $host;
+            proxy_set_header   X-Real-IP         $remote_addr;
+            proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+            # Streaming-friendly buffering / timeouts for ES, OGC, MinIO bodies.
+            proxy_buffering    off;
+            proxy_request_buffering off;
+            proxy_read_timeout 120s;
+            proxy_send_timeout 120s;
+            client_max_body_size 50m;
+            add_header         Access-Control-Expose-Headers "Content-Range, Content-Length, ETag, Last-Modified, Content-Location" always;
+        }
         {{- else }}
         location = /discover/static.json {
             alias /usr/share/nginx/html/discover/static.json;
