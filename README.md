@@ -20,6 +20,7 @@ DaVi reads two kinds of dataset:
 |---|---|---|---|
 | Elasticsearch indexes | `/elasticsearch/*` | nginx → ES cluster IP | Original backend; `_cat/indices`, `_search`, `_mapping`. |
 | PostgreSQL tables (new) | `/postgres/*` | nginx → PostgREST → PG | OpenAPI discovery, `GET /{table}` for rows, `Accept: application/geo+json` for PostGIS tables, ilike-based keyword search. |
+| Other ISAK Tools (new) | `/extras/<name>/*` + `/discover/static.json` | nginx → in-cluster Services | Static catalog of neighboring ISAK apps (OGC/WFS, TAK Marti, MinIO, generic REST, secondary ES, Kibana link-out). Configure via `backends.extras[]`. |
 
 Both surface in the side panel as parallel selection lists ("Index Browser"
 and "PostgreSQL Tables"). Selected datasets from either backend feed the same
@@ -30,8 +31,107 @@ rows into the DaVi record shape (`{data, id}`), promoting any GeoJSON
 `geom` / `geometry` / `shape` for the existing `extractShapeGeometry` /
 `extractSymbolMeta` pipeline.
 
-Live-feed polling and the empty-table watcher remain ES-only in this pass;
-PG live-poll wiring is a documented follow-up.
+A third side-panel list — **"Other ISAK Tools"** — is driven by
+`/discover/static.json`, a catalog the chart generates from `backends.extras[]`.
+The browser probes each registered tool with a type-specific adapter
+(OGC GetCapabilities, S3 ListObjectsV2, PostgREST-style OpenAPI for secondary
+ES, TAK `Marti/api/missions`, generic REST root walk) and lists per-tool
+datasets the operator can select and plot. Selected datasets are pre-fetched
+into `_exCachedRecords` under an `ex::<tool>/<dataset>` key; `plotPoints`,
+`openKwDocBrowser`, `pollForNewData`, and `detectTimestampField` short-circuit
+on `exIsKey()` exactly like the PG path, so every record flows through the
+same renderer / popup / KW pipeline. Link-out-only entries (e.g. Kibana) skip
+the nginx proxy and open in a new tab from the side panel.
+
+Live-feed polling spans all three backends. PG datasets with a known
+timestamp column use `?<col>=gt.<lastTs>&order=<col>.desc&limit=500`; EX
+datasets re-invoke their per-type adapter on a per-type cooldown
+(elasticsearch/rest poll every cycle, TAK every 5 s, OGC every 30 s,
+MinIO every 60 s; Kibana never polls). Dedupe is unified through the
+existing `seenLiveDocIds` table.
+
+The keyword document browser will additionally try server-side typed
+search (`?q=`, then `?search=`, then `?filter=`) for EX entries of type
+`rest`, and only falls back to the client-side substring scan when the
+server appears to ignore the parameter (returns the same row count as the
+unfiltered call).
+
+To register tools, add entries under `backends.extras` in `values.yaml`
+(or via `--set-file`). Example:
+
+```yaml
+backends:
+  extras:
+    - name: geoserver
+      label: "GeoServer (OGC)"
+      type: ogc
+      service: "geoserver.isak-gis.svc.cluster.local"
+      port: 8080
+      basePath: "/geoserver"
+      hints: { wfsPath: "wfs", wmsPath: "wms" }
+    - name: takserver
+      label: "TAK Server"
+      type: tak
+      service: "takserver.isak-tak.svc.cluster.local"
+      port: 8443
+      scheme: "https"
+      hints: { apiBase: "Marti/api" }
+    - name: kibana
+      label: "Kibana"
+      type: kibana
+      linkOut: "https://kibana.public.isak2.army.mil"
+```
+
+Supported `type` values: `ogc`, `tak`, `minio`, `kibana`, `rest`,
+`elasticsearch`, `unknown`. The `unknown` type is reserved for entries
+emitted by the active discovery sidecar (Option B) when the prober can't
+narrow the backend to one of the known kinds.
+
+### Active discovery sidecar (Option B)
+
+In addition to the operator-curated `backends.extras[]` list, DaVi can run a
+small in-pod sidecar that watches the K8s API for neighbouring Services in
+configured namespaces, probes them for known data-API signatures, and merges
+the discovered set into the same `/discover/static.json` the browser already
+consumes.
+
+The sidecar is Go stdlib only, runs from a distroless image as nonroot
+UID 65532 with `readOnlyRootFilesystem` + `RuntimeDefault` seccomp, and asks
+the K8s API for `services`, `endpoints`, and `namespaces` (get/list) — no
+pods, no secrets. It exposes `GET /static.json`, `/healthz` (always 200), and
+`/readyz` (503 "warming" until the first refresh completes). The chart
+points nginx's `location = /discover/static.json` at `127.0.0.1:9090`
+whenever the sidecar is enabled; the static ConfigMap is mounted into the
+sidecar as the seed catalog so static entries always survive K8s API
+hiccups.
+
+Merge semantics: a discovered entry is suppressed (`shadowsStatic()`) when
+any static entry references the same `service` FQDN + `port`. The output
+is sorted static-first then alphabetically.
+
+Enable via Helm:
+
+```yaml
+discovery:
+  sidecar:
+    enabled: true
+    namespaceIncludes: ["isak-*"]
+    namespaceExcludes: ["kube-system", "kube-public"]
+    probeEnabled: true
+    refreshSeconds: 60
+    probeTimeoutMs: 3000
+```
+
+…or via the sideload script (which builds, ships, and helm-installs in one shot):
+
+```bash
+WITH_SIDECAR=1 DO_INSTALL=1 \
+  scripts/sideload.sh isak2.army.mil root dev
+```
+
+When the sidecar fails to read its in-cluster ServiceAccount token (e.g.
+RBAC not yet applied), it logs a warning and continues to serve the static
+catalog with `source:"discover-sidecar (no-kube)"` instead of crashing.
 
 ---
 

@@ -103,6 +103,116 @@ backends:
     gatewayPort: 3000
     gatewayScheme: "http"
 
+  # ── Other ISAK Tools (third backend) ───────────────────────────────────
+  # Static catalog of neighboring services on this ISAK that DaVi should
+  # surface in the "Other ISAK Tools" side-panel list. Each entry produces:
+  #   - an nginx location /extras/<name>/ that reverse-proxies to
+  #     <scheme>://<service>:<port><basePath> (skipped when service is empty,
+  #     i.e. link-out-only tools like Kibana).
+  #   - one record in /discover/static.json that the browser reads at load
+  #     time to populate the side panel.
+  #
+  # Supported types (per-type adapter in index.html):
+  #   ogc            OGC GeoServer-style (WFS/WMS/WMTS GetCapabilities)
+  #   tak            TAK Server Marti API (missions, CoT)
+  #   minio          MinIO / S3 bucket of geo files (GeoJSON/KML/JSON)
+  #   kibana         Link-out only; no proxy mount, opens in new tab
+  #   rest           Generic JSON / GeoJSON REST endpoint
+  #   elasticsearch  Secondary ES/OpenSearch cluster on this ISAK
+  #   unknown        Reserved for future sidecar discovery (Option B)
+  #
+  # Set the whole list empty to disable the third backend entirely.
+  extras: []
+  #   - name: geoserver
+  #     label: "GeoServer (OGC)"
+  #     type: ogc
+  #     service: "geoserver.isak-gis.svc.cluster.local"
+  #     port: 8080
+  #     scheme: "http"
+  #     basePath: "/geoserver"
+  #     hints:
+  #       wfsPath: "wfs"
+  #       wmsPath: "wms"
+  #   - name: takserver
+  #     label: "TAK Server"
+  #     type: tak
+  #     service: "takserver.isak-tak.svc.cluster.local"
+  #     port: 8443
+  #     scheme: "https"
+  #     basePath: ""
+  #     hints:
+  #       apiBase: "Marti/api"
+  #   - name: minio-data
+  #     label: "MinIO bucket: data"
+  #     type: minio
+  #     service: "minio.isak-storage.svc.cluster.local"
+  #     port: 9000
+  #     scheme: "http"
+  #     basePath: "/data"           # bucket name prefixed with /
+  #     hints:
+  #       bucket: "data"
+  #   - name: kibana
+  #     label: "Kibana"
+  #     type: kibana
+  #     linkOut: "https://kibana.public.isak2.army.mil"
+  #   - name: tools-rest
+  #     label: "Custom JSON tool"
+  #     type: rest
+  #     service: "mytool.isak-tools.svc.cluster.local"
+  #     port: 8080
+  #     scheme: "http"
+  #     basePath: "/api"
+  #   - name: es-secondary
+  #     label: "Secondary ES"
+  #     type: elasticsearch
+  #     service: "es2.isak-data.svc.cluster.local"
+  #     port: 9200
+  #     scheme: "http"
+
+# ── Active discovery sidecar (Option B) ───────────────────────────────────
+# When enabled, the chart drops a small Go sidecar into the DaVi pod that:
+#   - lists Services in the configured namespaces using the pod's
+#     ServiceAccount (ClusterRole below grants get/list on services).
+#   - probes each Service for known data-API signatures
+#     (Elasticsearch, PostgREST, OGC, MinIO, TAK, generic REST).
+#   - merges discoveries with the static catalog and republishes
+#     /discover/static.json with the union.
+#
+# nginx routes /discover/* to the sidecar on localhost when enabled, and
+# falls back to serving the static ConfigMap when disabled.
+discovery:
+  sidecar:
+    enabled: false
+    image:
+      repository: "davi-discover"
+      tag: "dev"
+      pullPolicy: "IfNotPresent"
+    port: 9090
+    refreshSeconds: 60
+    probeTimeoutMs: 3000
+    probeEnabled: true
+    # Namespaces the sidecar scans. Wildcards: trailing `*` only.
+    namespaceIncludes:
+      - "isak-*"
+    namespaceExcludes:
+      - "isak-cert-manager"
+      - "isak-keycloak"
+      - "isak-metallb"
+      - "isak-ceph"
+      - "isak-http"
+      - "kube-system"
+      - "kube-public"
+      - "kube-node-lease"
+      - "default"
+    resources:
+      requests: { cpu: "20m",  memory: "32Mi" }
+      limits:   { cpu: "200m", memory: "128Mi" }
+    # RBAC: when true, chart emits a ClusterRole + ClusterRoleBinding granting
+    # services/endpoints get/list across the cluster. Required for the sidecar
+    # to discover other tools. Set false only when binding is created out-of-band.
+    rbac:
+      create: true
+
 service:
   type: ClusterIP
   port: 8080

@@ -1,0 +1,34 @@
+{{- if and .Values.discovery.sidecar.enabled .Values.discovery.sidecar.rbac.create }}
+# Read-only access to Services and Endpoints across the cluster so the
+# discovery sidecar can enumerate neighboring ISAK tools. This intentionally
+# does NOT grant pod/exec/secrets — sidecar only reads service definitions
+# and then probes ClusterIPs over the cluster network.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "davi.fullname" . }}-discover
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: ["services", "endpoints"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "davi.fullname" . }}-discover
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "davi.fullname" . }}-discover
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "davi.fullname" . }}-discover
+    namespace: {{ .Release.Namespace }}
+{{- end }}

@@ -1,0 +1,60 @@
+{{- /*
+Discovery catalog the DaVi browser reads at /discover/static.json on load.
+This is the Option-A static path: every entry mirrors a `backends.extras[]`
+record in values.yaml. The companion sidecar (Option B, future) will publish
+the same schema dynamically so the UI does not change.
+
+Schema (version 1):
+  {
+    "version": 1,
+    "source":  "static",
+    "entries": [
+      {
+        "name":      "<machine name; matches /extras/<name>/ proxy path>",
+        "label":     "<human label for side-panel>",
+        "type":      "ogc|tak|minio|kibana|rest|elasticsearch|unknown",
+        "proxyPath": "/extras/<name>/"   // omitted for link-out-only entries
+        "linkOut":   "https://..."        // present when no in-cluster proxy
+        "hints":     { ...adapter-specific knobs... }
+      },
+      ...
+    ]
+  }
+*/ -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "davi.fullname" . }}-discovery
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+data:
+  static.json: |-
+    {
+      "version": 1,
+      "source": "static",
+      "entries": [
+        {{- $entries := list -}}
+        {{- range $idx, $extra := .Values.backends.extras -}}
+          {{- $obj := dict
+                "name"  (required "backends.extras[].name is required" $extra.name)
+                "label" (default $extra.name $extra.label)
+                "type"  (lower (default "unknown" $extra.type))
+                "hints" (default (dict) $extra.hints)
+          -}}
+          {{- if $extra.service -}}
+            {{- $_ := set $obj "proxyPath" (printf "/extras/%s/" $extra.name) -}}
+          {{- end -}}
+          {{- if $extra.linkOut -}}
+            {{- $_ := set $obj "linkOut" $extra.linkOut -}}
+          {{- end -}}
+          {{- /* For kibana: even with service set, force link-out + drop proxyPath */ -}}
+          {{- if eq (lower (default "" $extra.type)) "kibana" -}}
+            {{- $_ := unset $obj "proxyPath" -}}
+          {{- end -}}
+          {{- $entries = append $entries $obj -}}
+        {{- end -}}
+        {{- range $i, $e := $entries }}
+        {{ if $i }},{{ end }}{{ toJson $e }}
+        {{- end }}
+      ]
+    }

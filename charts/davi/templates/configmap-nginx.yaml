@@ -62,6 +62,48 @@ data:
         }
         {{- end }}
 
+        {{- /* ── Other ISAK Tools (extras) ─────────────────────────────── */ -}}
+        {{- range $idx, $extra := .Values.backends.extras }}
+        {{- /* Kibana / link-out-only entries have no service; skip proxy. */ -}}
+        {{- if and $extra.service (ne (lower (default "" $extra.type)) "kibana") }}
+        # extras[{{ $idx }}]: {{ $extra.name }} ({{ $extra.type }})
+        location /extras/{{ $extra.name }}/ {
+            proxy_pass         {{ default "http" $extra.scheme }}://{{ $extra.service }}:{{ default 80 $extra.port }}{{ default "" $extra.basePath }}/;
+            proxy_http_version 1.1;
+            proxy_set_header   Host              $host;
+            proxy_set_header   X-Real-IP         $remote_addr;
+            proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+            # Some neighbors return XML (OGC) or S3 listings; surface common
+            # response headers so the browser can read counts / etag / range.
+            add_header         Access-Control-Expose-Headers "Content-Range, Content-Length, ETag, Last-Modified" always;
+            proxy_read_timeout 60s;
+        }
+        {{- end }}
+        {{- end }}
+
+        # Discovery catalog.
+        #   - When the discovery sidecar is enabled, /discover/static.json is
+        #     proxied to localhost:<port> (sidecar serves the merged static +
+        #     auto-discovered catalog).
+        #   - Otherwise the file is served straight from the mounted ConfigMap.
+        {{- if .Values.discovery.sidecar.enabled }}
+        location = /discover/static.json {
+            proxy_pass         http://127.0.0.1:{{ .Values.discovery.sidecar.port }}/static.json;
+            proxy_http_version 1.1;
+            proxy_set_header   Host              $host;
+            proxy_set_header   X-Real-IP         $remote_addr;
+            proxy_read_timeout 10s;
+            add_header         Cache-Control "no-cache" always;
+        }
+        {{- else }}
+        location = /discover/static.json {
+            alias /usr/share/nginx/html/discover/static.json;
+            default_type application/json;
+            add_header Cache-Control "no-cache" always;
+        }
+        {{- end }}
+
         # Light caching for static assets.
         location ~* \.(?:js|css|png|jpg|jpeg|gif|svg|webp|woff2?|ttf|wasm|json)$ {
             expires 1h;

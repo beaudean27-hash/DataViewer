@@ -15,7 +15,11 @@ spec:
         {{- include "davi.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/nginx-config: {{ include (print $.Template.BasePath "/configmap-nginx.yaml") . | sha256sum }}
+        checksum/discovery: {{ include (print $.Template.BasePath "/configmap-discovery.yaml") . | sha256sum }}
     spec:
+      {{- if .Values.discovery.sidecar.enabled }}
+      serviceAccountName: {{ include "davi.fullname" . }}-discover
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -51,6 +55,10 @@ spec:
               mountPath: /etc/nginx/conf.d/default.conf
               subPath: default.conf
               readOnly: true
+            - name: discovery
+              mountPath: /usr/share/nginx/html/discover/static.json
+              subPath: static.json
+              readOnly: true
             # Writable scratch dirs required by nginx when
             # readOnlyRootFilesystem is true.
             - name: nginx-cache
@@ -59,10 +67,71 @@ spec:
               mountPath: /var/run
             - name: tmp
               mountPath: /tmp
+        {{- if .Values.discovery.sidecar.enabled }}
+        - name: discover
+          image: "{{ .Values.discovery.sidecar.image.repository }}:{{ .Values.discovery.sidecar.image.tag }}"
+          imagePullPolicy: {{ .Values.discovery.sidecar.image.pullPolicy }}
+          ports:
+            - name: discover
+              containerPort: {{ .Values.discovery.sidecar.port }}
+              protocol: TCP
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef: { fieldPath: metadata.namespace }
+            - name: DAVI_DISCOVER_PORT
+              value: "{{ .Values.discovery.sidecar.port }}"
+            - name: DAVI_DISCOVER_REFRESH_SEC
+              value: "{{ .Values.discovery.sidecar.refreshSeconds }}"
+            - name: DAVI_DISCOVER_PROBE_TIMEOUT_MS
+              value: "{{ .Values.discovery.sidecar.probeTimeoutMs }}"
+            - name: DAVI_DISCOVER_PROBE_ENABLED
+              value: "{{ .Values.discovery.sidecar.probeEnabled }}"
+            - name: DAVI_DISCOVER_NS_INCLUDE
+              value: "{{ join "," .Values.discovery.sidecar.namespaceIncludes }}"
+            - name: DAVI_DISCOVER_NS_EXCLUDE
+              value: "{{ join "," .Values.discovery.sidecar.namespaceExcludes }}"
+            - name: DAVI_DISCOVER_STATIC_PATH
+              value: "/etc/davi-discover/static.json"
+          # Same restricted PSA context the main container uses; sidecar runs
+          # as its own non-root UID and writes nothing to disk.
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: discover
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: discover
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          resources:
+            {{- toYaml .Values.discovery.sidecar.resources | nindent 12 }}
+          volumeMounts:
+            - name: discovery
+              mountPath: /etc/davi-discover/static.json
+              subPath: static.json
+              readOnly: true
+        {{- end }}
       volumes:
         - name: nginx-config
           configMap:
             name: {{ include "davi.fullname" . }}-nginx
+        - name: discovery
+          configMap:
+            name: {{ include "davi.fullname" . }}-discovery
         - name: nginx-cache
           emptyDir: {}
         - name: nginx-run
