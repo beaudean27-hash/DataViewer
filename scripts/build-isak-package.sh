@@ -27,7 +27,7 @@
 # ----------------------------------------------------------------------------
 set -euo pipefail
 
-APP_TAG="${1:-v0.4.0-discover-proxy}"
+APP_TAG="${1:-v0.5.0-tak-mtls}"
 APP_NAME="${APP_NAME:-davi}"
 SIDECAR_NAME="${SIDECAR_NAME:-davi-discover}"
 SIDECAR_TAG="${SIDECAR_TAG:-$APP_TAG}"

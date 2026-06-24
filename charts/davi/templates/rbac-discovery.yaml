@@ -17,6 +17,43 @@ rules:
     resources: ["namespaces"]
     verbs: ["get", "list"]
 ---
+{{- /*
+  Namespace-scoped Role granting the sidecar permission to PATCH the single
+  TAK cert Secret (only when admin upload + a Secret name are configured).
+  Scoped via resourceNames so the sidecar cannot touch any other Secret in
+  the namespace — tight blast radius for the operator-facing upload path.
+*/}}
+{{- if and .Values.discovery.sidecar.admin.enabled .Values.discovery.sidecar.tak.certSecret }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "davi.fullname" . }}-discover-tak
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["{{ .Values.discovery.sidecar.tak.certSecret }}"]
+    verbs: ["get", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "davi.fullname" . }}-discover-tak
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "davi.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "davi.fullname" . }}-discover-tak
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "davi.fullname" . }}-discover
+    namespace: {{ .Release.Namespace }}
+---
+{{- end }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:

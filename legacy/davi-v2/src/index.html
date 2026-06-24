@@ -464,6 +464,13 @@
           <button class="btn btn-success" id="exPlotBtn" onclick="plotExEntries()" disabled style="margin-top:8px;">Plot Tool Datasets on Globe</button>
         </div>
 
+        <!-- ADMIN: TAK cert upload (talks to discovery sidecar /admin/tak-cert) -->
+        <div class="section" id="adminSection">
+          <div class="section-label">Admin</div>
+          <button class="btn btn-ex" id="adminOpenBtn" onclick="openAdminModal()" style="width:100%;">TAK Client Cert…</button>
+          <div id="adminStatusLine" style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:5px;min-height:14px;"></div>
+        </div>
+
         <!-- FIELD MAPPING -->
         <div class="section" id="fieldSection">
           <div class="section-label" onclick="toggleFieldMapping()" style="cursor:pointer;user-select:none;">
@@ -8303,5 +8310,176 @@
         <div id="docViewer-body"></div>
       </div>
     </div>
+
+    <!-- Admin modal: TAK client cert upload -->
+    <div id="adminOverlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.72); z-index:2100; display:none; align-items:center; justify-content:center;">
+      <div style="width:min(560px, calc(100vw - 60px)); max-height:90vh; background:rgba(10,14,20,0.99); border:1px solid var(--border); border-radius:4px; display:flex; flex-direction:column; font-family:var(--mono); box-shadow:0 8px 40px rgba(0,0,0,0.8);">
+        <div style="padding:10px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; background:rgba(0,200,255,0.05); flex-shrink:0;">
+          <div style="font-size:11px; color:var(--accent); letter-spacing:1px;">ADMIN — TAK CLIENT CERT</div>
+          <button onclick="closeAdminModal()" style="background:none; border:1px solid var(--border); color:var(--muted); border-radius:3px; font-size:11px; padding:3px 8px; cursor:pointer;">&#10005; CLOSE</button>
+        </div>
+        <div style="padding:14px 16px; overflow-y:auto; font-size:11px; color:var(--text);">
+          <div style="color:var(--muted); margin-bottom:10px; line-height:1.5;">
+            Uploads an operator-issued TAK Server cert to the discovery sidecar.
+            The cert is attached to every outbound connection to a discovered
+            <code>type:tak</code> service. Stored in a K8s Secret for restart persistence.
+          </div>
+
+          <div id="adminTakStatus" style="background:rgba(0,200,255,0.05); border:1px solid var(--border); border-radius:3px; padding:8px 10px; margin-bottom:12px; color:var(--muted);">
+            Loading status…
+          </div>
+
+          <label style="display:block; font-size:10px; letter-spacing:0.1em; color:var(--accent); margin-bottom:4px;">ADMIN TOKEN</label>
+          <input id="adminToken" type="password" autocomplete="off" placeholder="Paste DAVI_ADMIN_TOKEN" style="width:100%; padding:6px 8px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px; margin-bottom:4px;" />
+          <div style="font-size:10px; color:var(--muted); margin-bottom:12px;">
+            kubectl -n isak-davi get secret davi-davi-admin-token -o jsonpath='{.data.token}' | base64 -d
+          </div>
+
+          <div style="border-top:1px solid var(--border); padding-top:10px; margin-bottom:8px;">
+            <label style="display:block; font-size:10px; letter-spacing:0.1em; color:var(--accent); margin-bottom:4px;">CLIENT CERT (.p12)</label>
+            <input id="adminClientP12" type="file" accept=".p12,.pfx" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
+            <input id="adminClientPass" type="password" autocomplete="off" placeholder="client passphrase (default: atakatak)" style="width:100%; padding:6px 8px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px; margin-bottom:10px;" />
+
+            <label style="display:block; font-size:10px; letter-spacing:0.1em; color:var(--accent); margin-bottom:4px;">TRUSTSTORE (.p12) — OPTIONAL</label>
+            <input id="adminTrustP12" type="file" accept=".p12,.pfx" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
+            <input id="adminTrustPass" type="password" autocomplete="off" placeholder="truststore passphrase" style="width:100%; padding:6px 8px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px; margin-bottom:10px;" />
+          </div>
+
+          <details style="margin-bottom:12px;">
+            <summary style="cursor:pointer; color:var(--muted); font-size:10px;">PEM alternative (client.crt + client.key + ca.crt)</summary>
+            <div style="padding-top:8px;">
+              <input id="adminClientCrt" type="file" accept=".crt,.pem" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
+              <input id="adminClientKey" type="file" accept=".key,.pem" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
+              <input id="adminCaCrt"     type="file" accept=".crt,.pem" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
+            </div>
+          </details>
+
+          <button onclick="submitAdminTakUpload()" class="btn btn-success" style="width:100%;">Upload &amp; Activate</button>
+          <div id="adminUploadResult" style="margin-top:10px; font-size:10px; color:var(--muted); white-space:pre-wrap;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ── Admin TAK cert uploader ────────────────────────────────────────
+      // Wraps the discovery sidecar's /discover-proxy-admin/{tak-cert,tak-cert/status}
+      // endpoints behind a small modal. Token is held in sessionStorage only
+      // (cleared on tab close); never written to disk by this page.
+      const ADMIN_BASE = '/discover-proxy-admin';
+      const ADMIN_TOKEN_KEY = 'davi.adminToken';
+
+      function openAdminModal() {
+        var overlay = document.getElementById('adminOverlay');
+        if (!overlay) return;
+        overlay.style.display = 'flex';
+        var saved = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
+        document.getElementById('adminToken').value = saved;
+        refreshAdminTakStatus();
+      }
+      function closeAdminModal() {
+        document.getElementById('adminOverlay').style.display = 'none';
+      }
+
+      function adminTokenHeader() {
+        var t = (document.getElementById('adminToken').value || '').trim();
+        if (t) sessionStorage.setItem(ADMIN_TOKEN_KEY, t);
+        return t ? { 'X-DaVi-Admin-Token': t } : {};
+      }
+
+      function refreshAdminTakStatus() {
+        var box = document.getElementById('adminTakStatus');
+        var sline = document.getElementById('adminStatusLine');
+        box.textContent = 'Loading status…';
+        fetch(ADMIN_BASE + '/tak-cert/status', { headers: adminTokenHeader() })
+          .then(function(r) {
+            if (r.status === 401 || r.status === 403) {
+              box.innerHTML = '<span style="color:var(--danger);">Token required or invalid.</span>';
+              if (sline) sline.textContent = 'Admin: token required';
+              return null;
+            }
+            return r.json();
+          })
+          .then(function(j) {
+            if (!j) return;
+            if (!j.loaded) {
+              box.innerHTML = '<span style="color:var(--muted);">No TAK cert loaded. ' +
+                (j.secretName ? ('Will persist to Secret <code>' + j.secretName + '</code>.') : 'No Secret configured for persistence.') +
+                '</span>';
+              if (sline) sline.textContent = 'TAK cert: not loaded';
+              return;
+            }
+            var exp = j.notAfter ? (' · expires ' + j.notAfter + ' (' + j.daysUntilExpiry + 'd)') : '';
+            box.innerHTML = '<span style="color:var(--accent);">LOADED</span> · <code>' + (j.sourceKind || '') + '</code> · ' +
+              (j.takTargets || 0) + ' TAK target(s)<br>' +
+              '<span style="color:var(--muted);">' + (j.subject || '(no subject)') + exp +
+              (j.trustStoreCAs ? ' · truststore: yes' : ' · truststore: no (skip-verify)') + '</span>';
+            if (sline) sline.textContent = 'TAK cert: loaded';
+          })
+          .catch(function(e) {
+            box.innerHTML = '<span style="color:var(--danger);">Status fetch failed: ' + e.message + '</span>';
+            if (sline) sline.textContent = 'Admin: status error';
+          });
+      }
+
+      function submitAdminTakUpload() {
+        var resultEl = document.getElementById('adminUploadResult');
+        var token = (document.getElementById('adminToken').value || '').trim();
+        if (!token) { resultEl.textContent = 'Admin token required.'; return; }
+
+        var fd = new FormData();
+        var clientP12 = document.getElementById('adminClientP12').files[0];
+        var trustP12  = document.getElementById('adminTrustP12').files[0];
+        var clientCrt = document.getElementById('adminClientCrt').files[0];
+        var clientKey = document.getElementById('adminClientKey').files[0];
+        var caCrt     = document.getElementById('adminCaCrt').files[0];
+
+        if (clientP12) fd.append('client_p12', clientP12);
+        if (trustP12)  fd.append('truststore_p12', trustP12);
+        if (clientCrt) fd.append('client_crt', clientCrt);
+        if (clientKey) fd.append('client_key', clientKey);
+        if (caCrt)     fd.append('ca_crt', caCrt);
+
+        var cpass = (document.getElementById('adminClientPass').value || '').trim();
+        var tpass = (document.getElementById('adminTrustPass').value  || '').trim();
+        if (cpass) fd.append('client_passphrase', cpass);
+        if (tpass) fd.append('truststore_passphrase', tpass);
+
+        if (!clientP12 && !(clientCrt && clientKey)) {
+          resultEl.textContent = 'Select client.p12 OR (client.crt + client.key).';
+          return;
+        }
+
+        resultEl.textContent = 'Uploading…';
+        sessionStorage.setItem(ADMIN_TOKEN_KEY, token);
+        fetch(ADMIN_BASE + '/tak-cert', {
+          method: 'POST',
+          headers: { 'X-DaVi-Admin-Token': token },
+          body: fd
+        }).then(function(r) {
+          return r.text().then(function(t) { return { status: r.status, text: t }; });
+        }).then(function(res) {
+          if (res.status >= 200 && res.status < 300) {
+            resultEl.innerHTML = '<span style="color:var(--accent);">OK</span> · cert active immediately, persisted to Secret.';
+            refreshAdminTakStatus();
+          } else {
+            resultEl.innerHTML = '<span style="color:var(--danger);">HTTP ' + res.status + ': ' + (res.text || '').replace(/[<>]/g,'') + '</span>';
+          }
+        }).catch(function(e) {
+          resultEl.innerHTML = '<span style="color:var(--danger);">Upload failed: ' + e.message + '</span>';
+        });
+      }
+
+      // Best-effort: refresh the panel status line at load (no token needed
+      // to know whether the admin endpoint exists at all).
+      (function adminInitialPing() {
+        var sline = document.getElementById('adminStatusLine');
+        if (!sline) return;
+        fetch(ADMIN_BASE + '/tak-cert/status', { method: 'GET' }).then(function(r) {
+          if (r.status === 404) sline.textContent = 'Admin: disabled (sidecar off)';
+          else if (r.status === 401 || r.status === 403) sline.textContent = 'Admin: token required';
+          else sline.textContent = 'Admin: ready';
+        }).catch(function() { sline.textContent = 'Admin: unreachable'; });
+      })();
+    </script>
   </body>
 </html>

@@ -93,6 +93,19 @@ spec:
               value: "{{ join "," .Values.discovery.sidecar.namespaceExcludes }}"
             - name: DAVI_DISCOVER_STATIC_PATH
               value: "/etc/davi-discover/static.json"
+            {{- if .Values.discovery.sidecar.tak.certSecret }}
+            - name: DAVI_TAK_MOUNT_PATH
+              value: "/etc/davi-discover/tak"
+            - name: DAVI_TAK_SECRET_NAME
+              value: "{{ .Values.discovery.sidecar.tak.certSecret }}"
+            {{- end }}
+            {{- if .Values.discovery.sidecar.admin.enabled }}
+            - name: DAVI_ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-admin-token" (include "davi.fullname" .)) .Values.discovery.sidecar.admin.tokenSecret }}
+                  key: {{ default "token" .Values.discovery.sidecar.admin.tokenSecretKey }}
+            {{- end }}
           # Same restricted PSA context the main container uses; sidecar runs
           # as its own non-root UID and writes nothing to disk.
           securityContext:
@@ -124,6 +137,11 @@ spec:
               mountPath: /etc/davi-discover/static.json
               subPath: static.json
               readOnly: true
+            {{- if .Values.discovery.sidecar.tak.certSecret }}
+            - name: tak-certs
+              mountPath: /etc/davi-discover/tak
+              readOnly: true
+            {{- end }}
         {{- end }}
       volumes:
         - name: nginx-config
@@ -138,3 +156,9 @@ spec:
           emptyDir: {}
         - name: tmp
           emptyDir: {}
+        {{- if and .Values.discovery.sidecar.enabled .Values.discovery.sidecar.tak.certSecret }}
+        - name: tak-certs
+          secret:
+            secretName: {{ .Values.discovery.sidecar.tak.certSecret }}
+            optional: true
+        {{- end }}

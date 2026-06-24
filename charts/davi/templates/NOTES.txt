@@ -14,3 +14,15 @@ Backend wiring:
 
 If a backend host is empty, the matching /elasticsearch or /tiles nginx
 location block is omitted and those features in the UI will fail to load.
+{{ if and .Values.discovery.sidecar.enabled .Values.discovery.sidecar.admin.enabled }}
+Admin token (paste into DaVi UI → Admin → TAK cert):
+  kubectl -n {{ .Release.Namespace }} get secret \
+    {{ default (printf "%s-admin-token" (include "davi.fullname" .)) .Values.discovery.sidecar.admin.tokenSecret }} \
+    -o jsonpath='{.data.{{ default "token" .Values.discovery.sidecar.admin.tokenSecretKey }}}' | base64 -d ; echo
+{{- if not .Values.discovery.sidecar.tak.certSecret }}
+NOTE: discovery.sidecar.tak.certSecret is empty — set it to enable TAK mTLS
+      and unlock the UI upload + Secret persistence paths. Operator can
+      pre-create the Secret with kubectl, or upload via the UI after setting
+      the value.
+{{- end }}
+{{- end }}

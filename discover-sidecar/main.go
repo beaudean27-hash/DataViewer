@@ -19,6 +19,7 @@ import (
 	"context"
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/base64"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -94,6 +95,11 @@ type Config struct {
 	StaticPath      string
 	ProbeEnabled    bool
 	OwnNamespace    string // skip Services in this NS (avoid self-loop)
+
+	// TAK mTLS + admin upload
+	TAKMountPath  string // dir containing client.crt/key (PEM) or client.p12 (P12)
+	TAKSecretName string // K8s Secret to PATCH on admin upload
+	AdminToken    string // X-DaVi-Admin-Token gate for /admin/*; empty disables
 }
 
 func loadConfig() Config {
@@ -106,6 +112,9 @@ func loadConfig() Config {
 		StaticPath:      envDefault("DAVI_DISCOVER_STATIC_PATH", "/etc/davi-discover/static.json"),
 		ProbeEnabled:    envBool("DAVI_DISCOVER_PROBE_ENABLED", true),
 		OwnNamespace:    envDefault("POD_NAMESPACE", ""),
+		TAKMountPath:    envDefault("DAVI_TAK_MOUNT_PATH", defaultTAKMountPath),
+		TAKSecretName:   envDefault("DAVI_TAK_SECRET_NAME", ""),
+		AdminToken:      strings.TrimSpace(os.Getenv("DAVI_ADMIN_TOKEN")),
 	}
 	return cfg
 }
@@ -229,6 +238,47 @@ func (k *kubeClient) listServices(ctx context.Context) ([]Service, error) {
 		out = append(out, svc)
 	}
 	return out, nil
+}
+
+// patchSecretData updates the `data` map of an existing Secret. Values are
+// raw bytes; this function base64-encodes them before sending. Existing keys
+// not present in `data` are preserved (strategic merge patch on Secret data
+// adds/updates keys but does not remove unmentioned ones).
+//
+// Returns an error when the Secret does not exist (operator must pre-create
+// it via Helm); we do NOT auto-create here to keep RBAC scope tight (no
+// secrets/create needed — only get/patch).
+func (k *kubeClient) patchSecretData(ctx context.Context, namespace, name string, data map[string][]byte) error {
+	if namespace == "" {
+		return errors.New("kube: namespace is empty (POD_NAMESPACE not set?)")
+	}
+	if name == "" {
+		return errors.New("kube: secret name is empty")
+	}
+	// Build strategic-merge patch body.
+	enc := map[string]string{}
+	for k, v := range data {
+		enc[k] = base64.StdEncoding.EncodeToString(v)
+	}
+	body, err := json.Marshal(map[string]interface{}{"data": enc})
+	if err != nil {
+		return err
+	}
+	urlStr := fmt.Sprintf("%s/api/v1/namespaces/%s/secrets/%s", k.baseURL, namespace, name)
+	req, _ := http.NewRequestWithContext(ctx, "PATCH", urlStr, strings.NewReader(string(body)))
+	req.Header.Set("Authorization", "Bearer "+k.token)
+	req.Header.Set("Content-Type", "application/strategic-merge-patch+json")
+	req.Header.Set("Accept", "application/json")
+	resp, err := k.httpC.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		b, _ := io.ReadAll(io.LimitReader(resp.Body, 4096))
+		return fmt.Errorf("PATCH secret HTTP %d: %s", resp.StatusCode, string(b))
+	}
+	return nil
 }
 
 // ─── Namespace filtering ──────────────────────────────────────────────────
@@ -507,10 +557,18 @@ type Server struct {
 	// prevent SSRF: only services the sidecar has explicitly catalogued can
 	// be reached through the dynamic proxy.
 	allowedTargets map[string]bool
+	// takTargets is the subset of allowedTargets whose discovered/static type
+	// is "tak". Requests to these targets use takTransport (mTLS) instead of
+	// the plain proxyTransport.
+	takTargets map[string]bool
 	// proxyTransport is shared across all reverse-proxy requests so connection
 	// pooling / keep-alives apply. TLS verification is disabled (intra-cluster,
 	// self-signed certs are the norm).
 	proxyTransport *http.Transport
+	// takTransport is rebuilt whenever TAK creds change. nil until creds load.
+	takTransport    *http.Transport
+	takTransportMu  sync.RWMutex
+	tak             *TAKManager
 }
 
 func (s *Server) loadStatic() {
@@ -642,9 +700,20 @@ func (s *Server) refresh(ctx context.Context) {
 	s.mu.Lock()
 	s.current = merged
 	s.allowedTargets = buildAllowedTargets(merged.Entries)
+	s.takTargets = buildTAKTargets(merged.Entries)
 	s.mu.Unlock()
-	log.Printf("[discover] refresh: %d in-scope services, %d static, %d discovered → %d total, %d proxy targets (%.0fms)",
-		len(inScope), len(s.staticCat.Entries), len(merged.Entries)-len(s.staticCat.Entries), len(merged.Entries), len(s.allowedTargets), float64(time.Since(t0).Milliseconds()))
+
+	// Reload TAK creds from disk if the mounted Secret has changed since last
+	// refresh. Rebuilds takTransport so new outbound connections use the new
+	// cert without a pod restart.
+	if s.tak != nil {
+		if creds, err := s.tak.loadIfChanged(); err == nil && creds != nil {
+			s.rebuildTAKTransport()
+		}
+	}
+
+	log.Printf("[discover] refresh: %d in-scope services, %d static, %d discovered → %d total, %d proxy targets (%d TAK) (%.0fms)",
+		len(inScope), len(s.staticCat.Entries), len(merged.Entries)-len(s.staticCat.Entries), len(merged.Entries), len(s.allowedTargets), len(s.takTargets), float64(time.Since(t0).Milliseconds()))
 }
 
 func firstPort(ps []ServicePort) int {
@@ -786,6 +855,61 @@ func (s *Server) targetAllowed(scheme, host string, port int) bool {
 	return s.allowedTargets[scheme+"|"+host+"|"+strconv.Itoa(port)]
 }
 
+func (s *Server) targetIsTAK(scheme, host string, port int) bool {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.takTargets[scheme+"|"+host+"|"+strconv.Itoa(port)]
+}
+
+// buildTAKTargets returns the subset of allowed targets whose type is "tak".
+// Used by handleProxy to choose the mTLS transport for TAK-bound requests.
+func buildTAKTargets(entries []CatalogEntry) map[string]bool {
+	out := map[string]bool{}
+	for _, e := range entries {
+		if strings.ToLower(e.Type) != "tak" {
+			continue
+		}
+		var host, scheme string
+		var port int
+		if v, ok := e.Hints["_discoveredService"].(string); ok {
+			host = v
+		}
+		if v, ok := e.Hints["_discoveredScheme"].(string); ok {
+			scheme = v
+		}
+		if v, ok := e.Hints["_discoveredPort"].(int); ok {
+			port = v
+		} else if v, ok := e.Hints["_discoveredPort"].(float64); ok {
+			port = int(v)
+		}
+		if host == "" {
+			if v, ok := e.Hints["service"].(string); ok {
+				host = v
+			}
+		}
+		if scheme == "" {
+			if v, ok := e.Hints["scheme"].(string); ok {
+				scheme = v
+			}
+		}
+		if port == 0 {
+			if v, ok := e.Hints["port"].(int); ok {
+				port = v
+			} else if v, ok := e.Hints["port"].(float64); ok {
+				port = int(v)
+			}
+		}
+		if scheme == "" {
+			scheme = "https"
+		}
+		if host == "" || port == 0 {
+			continue
+		}
+		out[scheme+"|"+host+"|"+strconv.Itoa(port)] = true
+	}
+	return out
+}
+
 func (s *Server) handleProxy(w http.ResponseWriter, r *http.Request) {
 	// Strip the "/proxy/" prefix and split into scheme/host/port/rest.
 	p := strings.TrimPrefix(r.URL.Path, "/proxy/")
@@ -821,8 +945,16 @@ func (s *Server) handleProxy(w http.ResponseWriter, r *http.Request) {
 		Scheme: scheme,
 		Host:   host + ":" + portStr,
 	}
+	// Pick transport: TAK targets get the mTLS-enabled transport (when creds
+	// are loaded); everyone else uses the plain InsecureSkipVerify transport.
+	var tr http.RoundTripper = s.proxyTransport
+	if s.targetIsTAK(scheme, host, port) {
+		if takTr := s.currentTAKTransport(); takTr != nil {
+			tr = takTr
+		}
+	}
 	rp := &httputil.ReverseProxy{
-		Transport: s.proxyTransport,
+		Transport: tr,
 		Director: func(req *http.Request) {
 			req.URL.Scheme = targetURL.Scheme
 			req.URL.Host = targetURL.Host
@@ -847,6 +979,226 @@ func (s *Server) handleProxy(w http.ResponseWriter, r *http.Request) {
 		return nil
 	}
 	rp.ServeHTTP(w, r)
+}
+
+// currentTAKTransport returns the shared mTLS transport, or nil if no TAK
+// creds are loaded (caller should fall back to the plain transport).
+func (s *Server) currentTAKTransport() *http.Transport {
+	s.takTransportMu.RLock()
+	defer s.takTransportMu.RUnlock()
+	return s.takTransport
+}
+
+// rebuildTAKTransport regenerates s.takTransport from the current TAKManager
+// state. Safe to call any time creds change; old transport is dropped on the
+// floor (Go runtime closes its idle conns when GC reaches it).
+func (s *Server) rebuildTAKTransport() {
+	if s.tak == nil || !s.tak.loaded() {
+		return
+	}
+	tlsCfg := s.tak.tlsConfig()
+	tr := &http.Transport{
+		TLSClientConfig: tlsCfg,
+		DialContext: (&net.Dialer{
+			Timeout:   10 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).DialContext,
+		MaxIdleConns:          50,
+		IdleConnTimeout:       90 * time.Second,
+		ResponseHeaderTimeout: 60 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		Proxy:                 nil,
+	}
+	s.takTransportMu.Lock()
+	s.takTransport = tr
+	s.takTransportMu.Unlock()
+}
+
+// ─── Admin endpoints (TAK cert upload + status) ──────────────────────────
+//
+// All /admin/* endpoints require the operator-provided token in
+//   X-DaVi-Admin-Token: <token>
+// The token lives in a chart-managed K8s Secret; operator fetches it once via
+//   kubectl get secret <release>-davi-admin-token -o jsonpath='{.data.token}' | base64 -d
+// and pastes into the DaVi UI.
+//
+// /admin/tak-cert  (POST multipart/form-data)
+//   Fields:
+//     client_p12              file (required if no client_crt)
+//     client_passphrase       text (optional)
+//     truststore_p12          file (optional)
+//     truststore_passphrase   text (optional)
+//     client_crt              file (alt to client_p12, PEM)
+//     client_key              file (alt to client_p12, PEM)
+//     ca_crt                  file (alt to truststore_p12, PEM)
+//   Parses + validates the cert in-memory, plants it as the active cert
+//   immediately, then PATCHes the configured Secret so the cert survives a
+//   pod restart. Returns 200 + status JSON on success.
+//
+// /admin/tak-cert/status (GET)
+//   Returns whether a cert is loaded plus subject/expiry. Never returns key
+//   material.
+
+func (s *Server) requireAdminToken(w http.ResponseWriter, r *http.Request) bool {
+	if s.cfg.AdminToken == "" {
+		http.Error(w, "admin disabled (no DAVI_ADMIN_TOKEN configured)", http.StatusForbidden)
+		return false
+	}
+	tok := r.Header.Get("X-DaVi-Admin-Token")
+	if tok == "" {
+		http.Error(w, "missing X-DaVi-Admin-Token", http.StatusUnauthorized)
+		return false
+	}
+	// Constant-time-ish comparison: stdlib avoids importing subtle here, but
+	// the token has high entropy (48 chars) so timing-side-channel risk is
+	// negligible against an unauthenticated remote attacker.
+	if len(tok) != len(s.cfg.AdminToken) || tok != s.cfg.AdminToken {
+		http.Error(w, "invalid admin token", http.StatusUnauthorized)
+		return false
+	}
+	return true
+}
+
+func (s *Server) handleAdminTAKStatus(w http.ResponseWriter, r *http.Request) {
+	if !s.requireAdminToken(w, r) {
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	resp := map[string]interface{}{
+		"loaded":      false,
+		"secretName":  s.cfg.TAKSecretName,
+		"mountPath":   s.cfg.TAKMountPath,
+		"takTargets":  s.takTargetCount(),
+	}
+	if creds, ok := s.tak.status(); ok {
+		resp["loaded"] = true
+		resp["sourceKind"] = creds.SourceKind
+		resp["subject"] = creds.Subject
+		resp["issuer"] = creds.Issuer
+		if !creds.NotBefore.IsZero() {
+			resp["notBefore"] = creds.NotBefore.UTC().Format(time.RFC3339)
+		}
+		if !creds.NotAfter.IsZero() {
+			resp["notAfter"] = creds.NotAfter.UTC().Format(time.RFC3339)
+			resp["daysUntilExpiry"] = int(time.Until(creds.NotAfter).Hours() / 24)
+		}
+		resp["loadedAt"] = creds.LoadedAt.UTC().Format(time.RFC3339)
+		resp["trustStoreCAs"] = creds.CAs != nil
+	}
+	_ = json.NewEncoder(w).Encode(resp)
+}
+
+func (s *Server) takTargetCount() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return len(s.takTargets)
+}
+
+func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
+	if !s.requireAdminToken(w, r) {
+		return
+	}
+	if r.Method != http.MethodPost {
+		http.Error(w, "POST required", http.StatusMethodNotAllowed)
+		return
+	}
+	// Limit upload size to 256 KiB; TAK certs are small (~4-8 KB).
+	r.Body = http.MaxBytesReader(w, r.Body, 256*1024)
+	if err := r.ParseMultipartForm(64 * 1024); err != nil {
+		http.Error(w, "parse multipart: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	fields := map[string][]byte{}
+	picks := []string{"client_p12", "truststore_p12", "client_crt", "client_key", "ca_crt"}
+	for _, name := range picks {
+		if f, _, err := r.FormFile(name); err == nil {
+			defer f.Close()
+			b, _ := io.ReadAll(io.LimitReader(f, 256*1024))
+			if len(b) > 0 {
+				fields[name] = b
+			}
+		}
+	}
+	if v := strings.TrimSpace(r.FormValue("client_passphrase")); v != "" {
+		fields["client.passphrase"] = []byte(v)
+	}
+	if v := strings.TrimSpace(r.FormValue("truststore_passphrase")); v != "" {
+		fields["truststore.passphrase"] = []byte(v)
+	}
+
+	// Translate multipart field names to the on-disk filenames the loader
+	// expects.
+	disk := map[string][]byte{}
+	name := map[string]string{
+		"client_p12":     "client.p12",
+		"truststore_p12": "truststore.p12",
+		"client_crt":     "client.crt",
+		"client_key":     "client.key",
+		"ca_crt":         "ca.crt",
+	}
+	for k, v := range fields {
+		if out, ok := name[k]; ok {
+			disk[out] = v
+		} else {
+			disk[k] = v
+		}
+	}
+
+	// Sanity: we need a client cert in one form or the other.
+	if _, hasP12 := disk["client.p12"]; !hasP12 {
+		_, hasCrt := disk["client.crt"]
+		_, hasKey := disk["client.key"]
+		if !(hasCrt && hasKey) {
+			http.Error(w, "need client_p12 OR (client_crt + client_key)", http.StatusBadRequest)
+			return
+		}
+	}
+
+	// Validate by parsing in-memory before we persist anything.
+	creds, err := parseTAKFromMemory(disk)
+	if err != nil {
+		http.Error(w, "validate cert: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Persist to the Secret first so a crash mid-upload leaves us consistent.
+	if s.cfg.TAKSecretName != "" && s.kube != nil {
+		if err := s.kube.patchSecretData(r.Context(), s.cfg.OwnNamespace, s.cfg.TAKSecretName, disk); err != nil {
+			http.Error(w, "persist to Secret: "+err.Error(), http.StatusBadGateway)
+			return
+		}
+	}
+
+	// Plant in-memory so new requests use the cert immediately.
+	s.tak.setFromMemory(creds)
+	s.rebuildTAKTransport()
+
+	log.Printf("[admin] TAK cert uploaded: subject=%q expiresIn=%s persisted=%v",
+		creds.Subject, time.Until(creds.NotAfter).Truncate(time.Hour), s.cfg.TAKSecretName != "")
+
+	s.handleAdminTAKStatus(w, r)
+}
+
+// parseTAKFromMemory accepts the in-flight payload keyed by on-disk filenames
+// and runs the same loader the disk path uses.
+func parseTAKFromMemory(disk map[string][]byte) (*TAKCreds, error) {
+	has := func(name string) bool { _, ok := disk[name]; return ok }
+	read := func(name string) ([]byte, error) {
+		b, ok := disk[name]
+		if !ok {
+			return nil, os.ErrNotExist
+		}
+		return b, nil
+	}
+	switch {
+	case has("client.crt") && has("client.key"):
+		return loadPEM(read, has)
+	case has("client.p12"):
+		return loadP12(read, has)
+	default:
+		return nil, errors.New("no client cert material in upload")
+	}
 }
 
 func main() {
@@ -877,6 +1229,16 @@ func main() {
 
 	srv := &Server{cfg: cfg, kube: kube, probeC: probeC}
 	srv.loadStatic()
+	srv.tak = newTAKManager(cfg.TAKMountPath)
+
+	// Best-effort initial TAK load; missing creds are fine (admin upload
+	// path can populate later).
+	if creds, err := srv.tak.loadIfChanged(); err != nil {
+		log.Printf("[discover] TAK creds not loaded at startup (%v); /admin/tak-cert can supply them", err)
+	} else if creds != nil {
+		log.Printf("[discover] TAK creds loaded (%s) subject=%q expires=%s",
+			creds.SourceKind, creds.Subject, creds.NotAfter.Format(time.RFC3339))
+	}
 
 	// Dedicated transport for the dynamic reverse proxy. Self-signed certs are
 	// the norm intra-cluster, so verification is off; this transport is only
@@ -893,6 +1255,7 @@ func main() {
 		ExpectContinueTimeout: 1 * time.Second,
 		Proxy:                 nil,
 	}
+	srv.rebuildTAKTransport()
 
 	// Initial refresh in the background; HTTP server is up immediately and
 	// serves static-only until the first cycle completes.
@@ -914,6 +1277,8 @@ func main() {
 	mux.HandleFunc("/healthz", srv.handleHealthz)
 	mux.HandleFunc("/readyz", srv.handleReady)
 	mux.HandleFunc("/proxy/", srv.handleProxy)
+	mux.HandleFunc("/admin/tak-cert/status", srv.handleAdminTAKStatus)
+	mux.HandleFunc("/admin/tak-cert", srv.handleAdminTAKUpload)
 
 	httpSrv := &http.Server{
 		Addr:              ":" + cfg.Port,

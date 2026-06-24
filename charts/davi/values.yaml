@@ -213,6 +213,50 @@ discovery:
     rbac:
       create: true
 
+    # ── TAK Server mTLS ──────────────────────────────────────────────────
+    # Mounts an operator-supplied K8s Secret containing TAK client cert
+    # material at /etc/davi-discover/tak in the sidecar. The sidecar uses
+    # this cert + truststore on every outbound connection to a discovered
+    # service whose type is "tak", and falls back to InsecureSkipVerify for
+    # all other services.
+    #
+    # Accepted layouts (auto-detected):
+    #   PEM   client.crt + client.key (+ optional ca.crt)
+    #   P12   client.p12 (+ optional client.passphrase)
+    #         truststore.p12 (+ optional truststore.passphrase)
+    #
+    # Operator workflow (PKCS#12, what TAK Server normally hands you):
+    #   kubectl -n isak-davi create secret generic davi-tak-client \
+    #     --from-file=client.p12=./operator.p12 \
+    #     --from-file=truststore.p12=./truststore-root.p12 \
+    #     --from-literal=client.passphrase='atakatak' \
+    #     --from-literal=truststore.passphrase='atakatak'
+    #   helm upgrade ... --set discovery.sidecar.tak.certSecret=davi-tak-client
+    #
+    # When admin.enabled is true, operators can ALSO upload the cert via the
+    # DaVi UI; the sidecar PATCHes the same Secret (scoped Role, this name
+    # only) so the cert survives pod restarts. Cert rotation works without
+    # restart — kubelet re-projects the Secret within ~60s and the sidecar
+    # reloads on its next refresh tick.
+    tak:
+      certSecret: ""    # e.g. "davi-tak-client" — empty disables TAK mTLS
+
+    # ── Admin endpoints (TAK cert UI uploader) ───────────────────────────
+    # Exposes /discover-proxy-admin/tak-cert on the public ingress, gated by
+    # an X-DaVi-Admin-Token header. The chart auto-generates the token on
+    # first install (preserved on upgrade) and prints the kubectl one-liner
+    # to retrieve it in NOTES.txt.
+    #
+    # Disable this if your accreditation forbids in-cluster Secret writes; the
+    # Helm-driven workflow (kubectl create secret + helm upgrade) still works
+    # with admin.enabled=false.
+    admin:
+      enabled: true
+      # Reference a pre-existing Secret instead of auto-generating one.
+      # Useful for `helm template` rendering and out-of-cluster pipelines.
+      tokenSecret: ""           # e.g. "my-admin-token"
+      tokenSecretKey: "token"
+
 service:
   type: ClusterIP
   port: 8080

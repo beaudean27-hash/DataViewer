@@ -20,9 +20,9 @@ ARG RUN_IMAGE=gcr.io/distroless/static-debian12:nonroot
 
 FROM ${GO_IMAGE} AS build
 WORKDIR /src
-COPY go.mod ./
-# (no external deps, no go.sum)
-COPY main.go ./
+COPY go.mod go.sum ./
+RUN go mod download
+COPY *.go ./
 # Static, stripped, no DWARF, no cgo. Trimmed paths so the binary is reproducible.
 RUN CGO_ENABLED=0 GOFLAGS="-trimpath" go build \
     -ldflags="-s -w -extldflags=-static" \
