@@ -144,6 +144,9 @@ For day-to-day development against your own ISAK box you can sideload images
 directly (no Iron Bank, no Harbor); see *Dev workflow* below. Iron Bank only
 becomes mandatory at accreditation / fielded-install time.
 
+For distributing a build to other ISAK installs (operator hands it off,
+deploys at a different site) see *Shareable install package* below.
+
 ### Dev workflow — build here, sideload to your ISAK
 
 Pre-reqs: `docker`, `ssh`/`scp` access to the ISAK node, `helm` either locally
@@ -153,11 +156,36 @@ or on the node.
 # One-shot: build, scp, k3s ctr images import
 scripts/sideload.sh isak2.army.mil root dev
 
-# Same, but also helm upgrade --install in isak-davi
-DO_INSTALL=1 \
-  ES_HOST=elasticsearch.isak-data.svc.cluster.local \
-  TILES_HOST=tiles.isak-data.svc.cluster.local \
-  scripts/sideload.sh isak2.army.mil root dev
+# Same, but also helm upgrade --install in isak-davi (with discovery sidecar)
+WITH_SIDECAR=1 DO_INSTALL=1 \
+  scripts/sideload.sh isak2.army.mil root v0.3.0-sidecar
+```
+
+### Shareable install package — build once, deploy anywhere
+
+Produces a single self-contained tarball that an operator can carry to any
+ISAK install (USB stick, air-gap copy, etc.) and run with one command on the
+node.
+
+```bash
+# On your workstation (needs docker)
+scripts/build-isak-package.sh v0.3.0-sidecar
+# → dist/davi-isak-v0.3.0-sidecar.tar.gz (~30 MB)
+```
+
+The tarball contains both image tarballs (main app + discovery sidecar), the
+Helm chart, an operator README, and an `install.sh` that auto-detects
+`HOSTNAME`/`DOMAIN` from `/root/tacticalsetup/config/isak_inputs.json`,
+imports the images into K3s containerd, and runs `helm upgrade --install`.
+
+```bash
+# Operator, on the ISAK node:
+scp davi-isak-v0.3.0-sidecar.tar.gz root@<isak-host>:/root/
+ssh root@<isak-host>
+cd /root && tar xzf davi-isak-v0.3.0-sidecar.tar.gz
+cd davi-isak-v0.3.0-sidecar
+sha256sum -c SHA256SUMS
+./install.sh
 ```
 
 Postgres is opt-in. To bring up an in-chart PostgREST gateway pointed at an
