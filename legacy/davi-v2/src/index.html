@@ -1991,40 +1991,127 @@
         return tryNext(0);
       }
 
-      // TAK Server (Marti API) — minimal: list missions, fetch CoT for a mission.
+      // TAK Server (Marti API) — datasets: missions, data packages, SA tracks.
       function exListDatasets_tak(entry) {
         var base = entry.proxyPath || "";
         var api = (entry.hints && entry.hints.apiBase) || "Marti/api";
-        return fetch(base + api + "/missions", { credentials: "include", headers: { "Accept": "application/json" } })
-          .then(function(r) { if (!r.ok) throw new Error("TAK " + r.status); return r.json(); })
+
+        // Missions
+        var missionsP = fetch(base + api + "/missions", { credentials: "include", headers: { "Accept": "application/json" } })
+          .then(function(r) { if (!r.ok) return []; return r.json(); })
           .then(function(body) {
             var arr = (body && (body.data || body)) || [];
             if (!Array.isArray(arr)) arr = [];
             return arr.map(function(m) {
               var nm = m.name || m.id || String(m);
-              return { id: "mission/" + nm, label: nm, kind: "mission", hasLoc: true, missionName: nm };
+              return { id: "mission/" + nm, label: nm + " (mission)", kind: "mission", hasLoc: true, missionName: nm };
             });
-          });
+          }).catch(function() { return []; });
+
+        // Data packages (tactical overlays uploaded to TAK Server)
+        var packagesP = fetch(base + "Marti/sync/search", { credentials: "include", headers: { "Accept": "application/json" } })
+          .then(function(r) { if (!r.ok) return []; return r.json(); })
+          .then(function(body) {
+            var results = (body && body.results) || [];
+            // Deduplicate by name: keep the most recently submitted version.
+            var byName = {};
+            results.forEach(function(pkg) {
+              var nm = pkg.Name || pkg.UID;
+              if (!byName[nm] || pkg.SubmissionDateTime > byName[nm].SubmissionDateTime) {
+                byName[nm] = pkg;
+              }
+            });
+            return Object.keys(byName).map(function(nm) {
+              var pkg = byName[nm];
+              return { id: "pkg/" + pkg.Hash, label: nm + " (package)", kind: "package",
+                       hasLoc: true, hash: pkg.Hash, mimeType: pkg.MIMEType, pkgName: nm };
+            });
+          }).catch(function() { return []; });
+
+        // SA tracks — always present as a virtual dataset (live connected clients).
+        var saDs = [{ id: "sa-live", label: "SA Tracks (live)", kind: "sa-live", hasLoc: false }];
+
+        return Promise.all([missionsP, packagesP]).then(function(res) {
+          return saDs.concat(res[0]).concat(res[1]);
+        });
       }
+
+      // Parse a CoT XML string into flat row objects with latitude/longitude.
+      function parseCotXml(xmlText) {
+        var rows = [];
+        try {
+          var doc = new DOMParser().parseFromString(xmlText, "text/xml");
+          var events = doc.querySelectorAll("event");
+          events.forEach(function(ev) {
+            var row = {
+              uid:  ev.getAttribute("uid")  || "",
+              type: ev.getAttribute("type") || "",
+              time: ev.getAttribute("time") || "",
+            };
+            var pt = ev.querySelector("point");
+            if (pt) {
+              var lat = parseFloat(pt.getAttribute("lat"));
+              var lon = parseFloat(pt.getAttribute("lon"));
+              if (isFinite(lat) && isFinite(lon)) {
+                row.latitude  = lat;
+                row.longitude = lon;
+                row.hae = parseFloat(pt.getAttribute("hae") || "0");
+              }
+            }
+            var contact = ev.querySelector("contact");
+            if (contact) row.callsign = contact.getAttribute("callsign") || "";
+            var remarks = ev.querySelector("remarks");
+            if (remarks && remarks.textContent) row.remarks = remarks.textContent.trim();
+            var link = ev.querySelector("link");
+            if (link) row.relation = link.getAttribute("relation") || "";
+            rows.push(exNormalizeRow(row, null));
+          });
+        } catch(e) { console.warn("[tak] parseCotXml error:", e); }
+        return rows;
+      }
+
       function exFetchDataset_tak(entry, ds) {
         var base = entry.proxyPath || "";
         var api = (entry.hints && entry.hints.apiBase) || "Marti/api";
-        var url = base + api + "/missions/" + encodeURIComponent(ds.missionName) + "/cot";
-        return fetch(url, { credentials: "include", headers: { "Accept": "application/json" } })
-          .then(function(r) { if (!r.ok) throw new Error("TAK " + r.status); return r.json(); })
-          .then(function(body) {
-            var arr = (body && (body.data || body.events || body)) || [];
-            if (!Array.isArray(arr)) arr = [];
-            // TAK CoT events expose lat/lon directly on point.{lat,lon}; lift.
-            return arr.map(function(ev) {
-              var data = Object.assign({}, ev);
-              if (ev.point) {
-                if (data.latitude === undefined && ev.point.lat !== undefined) data.latitude = ev.point.lat;
-                if (data.longitude === undefined && ev.point.lon !== undefined) data.longitude = ev.point.lon;
-              }
-              return exNormalizeRow(data, null);
+
+        // Named mission → CoT events
+        if (ds.kind === "mission") {
+          var url = base + api + "/missions/" + encodeURIComponent(ds.missionName) + "/cot";
+          return fetch(url, { credentials: "include", headers: { "Accept": "application/json" } })
+            .then(function(r) { if (!r.ok) throw new Error("TAK " + r.status); return r.json(); })
+            .then(function(body) {
+              var arr = (body && (body.data || body.events || body)) || [];
+              if (!Array.isArray(arr)) arr = [];
+              return arr.map(function(ev) {
+                var data = Object.assign({}, ev);
+                if (ev.point) {
+                  if (data.latitude  === undefined && ev.point.lat !== undefined) data.latitude  = ev.point.lat;
+                  if (data.longitude === undefined && ev.point.lon !== undefined) data.longitude = ev.point.lon;
+                }
+                return exNormalizeRow(data, null);
+              });
             });
-          });
+        }
+
+        // Data package → download XML, parse CoT events
+        if (ds.kind === "package") {
+          var pkgUrl = base + "Marti/sync/content?hash=" + encodeURIComponent(ds.hash);
+          return fetch(pkgUrl, { credentials: "include" })
+            .then(function(r) { if (!r.ok) throw new Error("TAK pkg " + r.status); return r.text(); })
+            .then(function(text) { return parseCotXml(text); });
+        }
+
+        // SA Tracks → connected clients (callsign / team / role / status; no map pin)
+        if (ds.kind === "sa-live") {
+          return fetch(base + api + "/clientEndPoints", { credentials: "include", headers: { "Accept": "application/json" } })
+            .then(function(r) { if (!r.ok) throw new Error("TAK SA " + r.status); return r.json(); })
+            .then(function(body) {
+              var arr = (body && body.data) || [];
+              return arr.map(function(c) { return exNormalizeRow(c, null); });
+            });
+        }
+
+        return Promise.resolve([]);
       }
 
       // Secondary Elasticsearch / OpenSearch cluster.
