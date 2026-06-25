@@ -2028,8 +2028,11 @@
             });
           }).catch(function() { return []; });
 
-        // SA tracks — always present as a virtual dataset (live connected clients).
-        var saDs = [{ id: "sa-live", label: "SA Tracks (live)", kind: "sa-live", hasLoc: false }];
+        // Virtual SA datasets — always present.
+        var saDs = [
+          { id: "sa-pos",  label: "Live SA Positions",      kind: "sa-pos",  hasLoc: true  },
+          { id: "sa-live", label: "SA Tracks (status only)", kind: "sa-live", hasLoc: false }
+        ];
 
         return Promise.all([missionsP, packagesP]).then(function(res) {
           return saDs.concat(res[0]).concat(res[1]);
@@ -2064,6 +2067,17 @@
             if (remarks && remarks.textContent) row.remarks = remarks.textContent.trim();
             var link = ev.querySelector("link");
             if (link) row.relation = link.getAttribute("relation") || "";
+            // ADS-B / air tracks: speed and course from <track>
+            var track = ev.querySelector("track");
+            if (track) {
+              var spd = parseFloat(track.getAttribute("speed") || "");
+              var crs = parseFloat(track.getAttribute("course") || "");
+              if (isFinite(spd)) row.speed_ms = spd;
+              if (isFinite(crs)) row.course_deg = crs;
+            }
+            // <detail><uid Droid=…> for display name fallback
+            var droid = ev.querySelector("uid[Droid]");
+            if (droid && !row.callsign) row.callsign = droid.getAttribute("Droid") || "";
             rows.push(exNormalizeRow(row, null));
           });
         } catch(e) { console.warn("[tak] parseCotXml error:", e); }
@@ -2098,6 +2112,13 @@
           var pkgUrl = base + "Marti/sync/content?hash=" + encodeURIComponent(ds.hash);
           return fetch(pkgUrl, { credentials: "include" })
             .then(function(r) { if (!r.ok) throw new Error("TAK pkg " + r.status); return r.text(); })
+            .then(function(text) { return parseCotXml(text); });
+        }
+
+        // Live SA Positions → last-known CoT positions for all SA including ADS-B
+        if (ds.kind === "sa-pos") {
+          return fetch(base + api + "/cot/sa", { credentials: "include", headers: { "Accept": "application/xml, text/xml" } })
+            .then(function(r) { if (!r.ok) throw new Error("TAK cot/sa " + r.status); return r.text(); })
             .then(function(text) { return parseCotXml(text); });
         }
 
