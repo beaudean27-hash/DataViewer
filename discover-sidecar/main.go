@@ -566,9 +566,48 @@ type Server struct {
 	// self-signed certs are the norm).
 	proxyTransport *http.Transport
 	// takTransport is rebuilt whenever TAK creds change. nil until creds load.
-	takTransport    *http.Transport
-	takTransportMu  sync.RWMutex
-	tak             *TAKManager
+	takTransport   *http.Transport
+	takTransportMu sync.RWMutex
+	tak            *TAKManager
+	// takRuntimeEntry is the catalog entry for the admin-uploaded TAK server
+	// address. Injected into every catalog refresh so allowedTargets/takTargets
+	// stay correct. Guarded by mu.
+	takRuntimeEntry *CatalogEntry
+}
+
+// buildRuntimeTAKEntry constructs a CatalogEntry for a TAK server specified
+// by the operator at runtime (via the Admin panel). Uses the discover-proxy
+// path so requests are routed through the sidecar's mTLS transport.
+func buildRuntimeTAKEntry(host string, port int, scheme string) *CatalogEntry {
+	proxyPath := fmt.Sprintf("/discover-proxy/%s/%s/%d/", scheme, host, port)
+	return &CatalogEntry{
+		Name:      "takserver-runtime",
+		Label:     fmt.Sprintf("TAK Server (%s)", host),
+		Type:      "tak",
+		ProxyPath: proxyPath,
+		Source:    "admin-upload",
+		Hints: map[string]interface{}{
+			"apiBase": "Marti/api",
+			"service": host,
+			"port":    port,
+			"scheme":  scheme,
+		},
+	}
+}
+
+// injectRuntimeEntry merges takRuntimeEntry into entries: replaces an existing
+// entry with the same name, or prepends if absent. Returns the updated slice.
+func injectRuntimeEntry(entries []CatalogEntry, rte *CatalogEntry) []CatalogEntry {
+	if rte == nil {
+		return entries
+	}
+	for i, e := range entries {
+		if e.Name == rte.Name {
+			entries[i] = *rte
+			return entries
+		}
+	}
+	return append([]CatalogEntry{*rte}, entries...)
 }
 
 func (s *Server) loadStatic() {
@@ -697,13 +736,18 @@ func (s *Server) refresh(ctx context.Context) {
 		return strings.ToLower(merged.Entries[i].Label) < strings.ToLower(merged.Entries[j].Label)
 	})
 
+	// Inject admin-uploaded runtime TAK entry (takes precedence over the
+	// baked-in static catalog entry so the operator's choice always wins).
+	s.mu.RLock()
+	rte := s.takRuntimeEntry
+	s.mu.RUnlock()
+	merged.Entries = injectRuntimeEntry(merged.Entries, rte)
+
 	s.mu.Lock()
 	s.current = merged
 	s.allowedTargets = buildAllowedTargets(merged.Entries)
 	s.takTargets = buildTAKTargets(merged.Entries)
 	s.mu.Unlock()
-
-	// Reload TAK creds from disk if the mounted Secret has changed since last
 	// refresh. Rebuilds takTransport so new outbound connections use the new
 	// cert without a pod restart.
 	if s.tak != nil {
@@ -1065,10 +1109,10 @@ func (s *Server) handleAdminTAKStatus(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	resp := map[string]interface{}{
-		"loaded":      false,
-		"secretName":  s.cfg.TAKSecretName,
-		"mountPath":   s.cfg.TAKMountPath,
-		"takTargets":  s.takTargetCount(),
+		"loaded":     false,
+		"secretName": s.cfg.TAKSecretName,
+		"mountPath":  s.cfg.TAKMountPath,
+		"takTargets": s.takTargetCount(),
 	}
 	if creds, ok := s.tak.status(); ok {
 		resp["loaded"] = true
@@ -1086,6 +1130,18 @@ func (s *Server) handleAdminTAKStatus(w http.ResponseWriter, r *http.Request) {
 		resp["trustStoreCAs"] = creds.CAs != nil
 		if creds.TruststoreWarning != "" {
 			resp["truststoreWarning"] = creds.TruststoreWarning
+		}
+	}
+	// Include the currently configured TAK server address so the UI can
+	// pre-populate the fields on re-open.
+	s.mu.RLock()
+	rte := s.takRuntimeEntry
+	s.mu.RUnlock()
+	if rte != nil {
+		resp["takServer"] = map[string]interface{}{
+			"host":   rte.Hints["service"],
+			"port":   rte.Hints["port"],
+			"scheme": rte.Hints["scheme"],
 		}
 	}
 	_ = json.NewEncoder(w).Encode(resp)
@@ -1128,6 +1184,24 @@ func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
 	}
 	if v := strings.TrimSpace(r.FormValue("truststore_passphrase")); v != "" {
 		fields["truststore.passphrase"] = []byte(v)
+	}
+
+	// TAK server address (optional — operator can set on first upload or update
+	// later without re-uploading the cert by uploading the same cert again with
+	// new address fields).
+	takHost := strings.TrimSpace(r.FormValue("tak_host"))
+	takScheme := strings.TrimSpace(r.FormValue("tak_scheme"))
+	if takScheme == "" {
+		takScheme = "https"
+	}
+	takPort := 8443
+	if p, err := strconv.Atoi(strings.TrimSpace(r.FormValue("tak_port"))); err == nil && p > 0 {
+		takPort = p
+	}
+	if takHost != "" {
+		fields["tak.host"] = []byte(takHost)
+		fields["tak.port"] = []byte(strconv.Itoa(takPort))
+		fields["tak.scheme"] = []byte(takScheme)
 	}
 
 	// Translate multipart field names to the on-disk filenames the loader
@@ -1176,6 +1250,19 @@ func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
 	// Plant in-memory so new requests use the cert immediately.
 	s.tak.setFromMemory(creds)
 	s.rebuildTAKTransport()
+
+	// If the operator specified a TAK server address, build a runtime catalog
+	// entry and inject it into the allow-list immediately (no wait for refresh).
+	if takHost != "" {
+		rte := buildRuntimeTAKEntry(takHost, takPort, takScheme)
+		s.mu.Lock()
+		s.takRuntimeEntry = rte
+		curEntries := injectRuntimeEntry(append([]CatalogEntry(nil), s.current.Entries...), rte)
+		s.allowedTargets = buildAllowedTargets(curEntries)
+		s.takTargets = buildTAKTargets(curEntries)
+		s.mu.Unlock()
+		log.Printf("[admin] TAK server set: %s://%s:%d", takScheme, takHost, takPort)
+	}
 
 	log.Printf("[admin] TAK cert uploaded: subject=%q expiresIn=%s persisted=%v",
 		creds.Subject, time.Until(creds.NotAfter).Truncate(time.Hour), s.cfg.TAKSecretName != "")
@@ -1241,6 +1328,13 @@ func main() {
 	} else if creds != nil {
 		log.Printf("[discover] TAK creds loaded (%s) subject=%q expires=%s",
 			creds.SourceKind, creds.Subject, creds.NotAfter.Format(time.RFC3339))
+	}
+
+	// Restore admin-uploaded TAK server address from the Secret mount so the
+	// runtime catalog entry survives pod restarts without operator re-entry.
+	if tgt := loadTAKTargetFrom(cfg.TAKMountPath); tgt.Host != "" {
+		srv.takRuntimeEntry = buildRuntimeTAKEntry(tgt.Host, tgt.Port, tgt.Scheme)
+		log.Printf("[discover] TAK server restored from mount: %s://%s:%d", tgt.Scheme, tgt.Host, tgt.Port)
 	}
 
 	// Dedicated transport for the dynamic reverse proxy. Self-signed certs are

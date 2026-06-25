@@ -13,9 +13,10 @@
 //     within ~60s, so cert rotation works without a pod restart).
 //
 // Files recognised at the mount path (all optional unless paired):
-//   PEM:    client.crt + client.key (+ optional ca.crt)
-//   P12:    client.p12 (+ optional client.passphrase)
-//           truststore.p12 (+ optional truststore.passphrase)
+//
+//	PEM:    client.crt + client.key (+ optional ca.crt)
+//	P12:    client.p12 (+ optional client.passphrase)
+//	        truststore.p12 (+ optional truststore.passphrase)
 //
 // Passphrase files are stripped of trailing whitespace before use. Empty
 // passphrase is supported (operator can omit the *.passphrase file).
@@ -32,6 +33,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -342,4 +344,38 @@ func readPassphrase(read func(string) ([]byte, error), name string) string {
 		return ""
 	}
 	return strings.TrimRight(string(b), " \t\r\n")
+}
+
+// TAKTarget holds the operator-specified TAK Server address (separate from
+// the mTLS credentials). Persisted alongside the cert in the Secret mount so
+// it survives pod restarts without re-entry.
+type TAKTarget struct {
+	Host   string
+	Port   int
+	Scheme string
+}
+
+// loadTAKTargetFrom reads tak.host / tak.port / tak.scheme from mountPath.
+// Returns a zero-value TAKTarget (Host=="") when no address has been saved.
+func loadTAKTargetFrom(mountPath string) TAKTarget {
+	read := func(name string) string {
+		b, err := os.ReadFile(filepath.Join(mountPath, name))
+		if err != nil {
+			return ""
+		}
+		return strings.TrimSpace(string(b))
+	}
+	host := read("tak.host")
+	if host == "" {
+		return TAKTarget{}
+	}
+	port := 8443
+	if p, err := strconv.Atoi(read("tak.port")); err == nil && p > 0 {
+		port = p
+	}
+	scheme := read("tak.scheme")
+	if scheme == "" {
+		scheme = "https"
+	}
+	return TAKTarget{Host: host, Port: port, Scheme: scheme}
 }

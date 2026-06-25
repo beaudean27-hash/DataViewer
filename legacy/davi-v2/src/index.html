@@ -8320,9 +8320,8 @@
         </div>
         <div style="padding:14px 16px; overflow-y:auto; font-size:11px; color:var(--text);">
           <div style="color:var(--muted); margin-bottom:10px; line-height:1.5;">
-            Uploads an operator-issued TAK Server cert to the discovery sidecar.
-            The cert is attached to every outbound connection to a discovered
-            <code>type:tak</code> service. Stored in a K8s Secret for restart persistence.
+            Configure the TAK Server address and upload an operator-issued client cert.
+            The sidecar proxies mTLS connections to the server and lists its missions in the discovery panel.
           </div>
 
           <div id="adminTakStatus" style="background:rgba(0,200,255,0.05); border:1px solid var(--border); border-radius:3px; padding:8px 10px; margin-bottom:12px; color:var(--muted);">
@@ -8336,6 +8335,32 @@
           </div>
 
           <div style="border-top:1px solid var(--border); padding-top:10px; margin-bottom:8px;">
+            <label style="display:block; font-size:10px; letter-spacing:0.1em; color:var(--accent); margin-bottom:6px;">TAK SERVER ADDRESS</label>
+            <div style="display:flex; gap:6px; margin-bottom:4px;">
+              <div style="flex:0 0 72px;">
+                <div style="font-size:9px; color:var(--muted); margin-bottom:2px;">SCHEME</div>
+                <select id="adminTakScheme" style="width:100%; padding:6px 4px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px;">
+                  <option value="https" selected>https</option>
+                  <option value="http">http</option>
+                </select>
+              </div>
+              <div style="flex:1 1 auto;">
+                <div style="font-size:9px; color:var(--muted); margin-bottom:2px;">HOST / IP</div>
+                <input id="adminTakHost" type="text" autocomplete="off" placeholder="takserver-web.isak-tak.svc.cluster.local" style="width:100%; padding:6px 8px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px; box-sizing:border-box;" />
+              </div>
+              <div style="flex:0 0 68px;">
+                <div style="font-size:9px; color:var(--muted); margin-bottom:2px;">PORT</div>
+                <input id="adminTakPort" type="number" min="1" max="65535" placeholder="8443" style="width:100%; padding:6px 6px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px;" />
+              </div>
+            </div>
+            <div style="font-size:10px; color:var(--muted); margin-bottom:10px; line-height:1.4;">
+              Use the <em>in-cluster</em> FQDN and port (preferred — DaVi runs inside the cluster).<br>
+              e.g. <code>takserver-web.isak-tak.svc.cluster.local</code> port <code>8443</code><br>
+              External IPs/NodePorts also work if reachable from the cluster.
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--border); padding-top:10px; margin-bottom:8px;">
             <label style="display:block; font-size:10px; letter-spacing:0.1em; color:var(--accent); margin-bottom:4px;">CLIENT CERT (.p12)</label>
             <input id="adminClientP12" type="file" accept=".p12,.pfx" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
             <input id="adminClientPass" type="password" autocomplete="off" placeholder="client passphrase (default: atakatak)" style="width:100%; padding:6px 8px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px; margin-bottom:10px;" />
@@ -8344,7 +8369,6 @@
             <input id="adminTrustP12" type="file" accept=".p12,.pfx" style="width:100%; font-family:var(--mono); font-size:11px; color:var(--text); margin-bottom:6px;" />
             <input id="adminTrustPass" type="password" autocomplete="off" placeholder="truststore passphrase" style="width:100%; padding:6px 8px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px; margin-bottom:10px;" />
           </div>
-
           <details style="margin-bottom:12px;">
             <summary style="cursor:pointer; color:var(--muted); font-size:10px;">PEM alternative (client.crt + client.key + ca.crt)</summary>
             <div style="padding-top:8px;">
@@ -8380,6 +8404,15 @@
         document.getElementById('adminOverlay').style.display = 'none';
       }
 
+      function populateTakServerFields(srv) {
+        var h = document.getElementById('adminTakHost');
+        var p = document.getElementById('adminTakPort');
+        var s = document.getElementById('adminTakScheme');
+        if (h && srv.host) h.value = srv.host;
+        if (p && srv.port) p.value = srv.port;
+        if (s && srv.scheme) s.value = srv.scheme;
+      }
+
       function adminTokenHeader() {
         var t = (document.getElementById('adminToken').value || '').trim();
         if (t) sessionStorage.setItem(ADMIN_TOKEN_KEY, t);
@@ -8406,14 +8439,19 @@
                 (j.secretName ? ('Will persist to Secret <code>' + j.secretName + '</code>.') : 'No Secret configured for persistence.') +
                 '</span>';
               if (sline) sline.textContent = 'TAK cert: not loaded';
+              // Still populate server fields if a server was previously configured.
+              if (j.takServer) populateTakServerFields(j.takServer);
               return;
             }
             var exp = j.notAfter ? (' · expires ' + j.notAfter + ' (' + j.daysUntilExpiry + 'd)') : '';
+            var warnHtml = j.truststoreWarning ? ('<br><span style="color:var(--warning);">&#9888; ' + j.truststoreWarning + '</span>') : '';
             box.innerHTML = '<span style="color:var(--accent);">LOADED</span> · <code>' + (j.sourceKind || '') + '</code> · ' +
               (j.takTargets || 0) + ' TAK target(s)<br>' +
               '<span style="color:var(--muted);">' + (j.subject || '(no subject)') + exp +
-              (j.trustStoreCAs ? ' · truststore: yes' : ' · truststore: no (skip-verify)') + '</span>';
+              (j.trustStoreCAs ? ' · truststore: yes' : ' · truststore: no (skip-verify)') + '</span>' + warnHtml +
+              (j.takServer ? ('<br><span style="color:var(--muted);">server: ' + j.takServer.scheme + '://' + j.takServer.host + ':' + j.takServer.port + '</span>') : '');
             if (sline) sline.textContent = 'TAK cert: loaded';
+            if (j.takServer) populateTakServerFields(j.takServer);
           })
           .catch(function(e) {
             box.innerHTML = '<span style="color:var(--danger);">Status fetch failed: ' + e.message + '</span>';
@@ -8443,6 +8481,15 @@
         var tpass = (document.getElementById('adminTrustPass').value  || '').trim();
         if (cpass) fd.append('client_passphrase', cpass);
         if (tpass) fd.append('truststore_passphrase', tpass);
+
+        var takHost   = (document.getElementById('adminTakHost').value   || '').trim();
+        var takPort   = (document.getElementById('adminTakPort').value   || '').trim();
+        var takScheme = (document.getElementById('adminTakScheme').value || 'https').trim();
+        if (takHost) {
+          fd.append('tak_host', takHost);
+          fd.append('tak_port', takPort || '8443');
+          fd.append('tak_scheme', takScheme);
+        }
 
         if (!clientP12 && !(clientCrt && clientKey)) {
           resultEl.textContent = 'Select client.p12 OR (client.crt + client.key).';
