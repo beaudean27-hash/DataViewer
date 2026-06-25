@@ -42,7 +42,22 @@ data:
                 "hints" (default (dict) $extra.hints)
           -}}
           {{- if $extra.service -}}
-            {{- $_ := set $obj "proxyPath" (printf "/extras/%s/" $extra.name) -}}
+            {{- /*
+              TAK Server requires mutual TLS. The client cert is injected ONLY
+              by the discovery sidecar's reverse proxy, so TAK entries must
+              route through /discover-proxy/<scheme>/<host>/<port>/... (NOT the
+              plain /extras/<name>/ nginx block, which presents no client cert
+              and would fail with a TLS/401 handshake error). All other types
+              keep the simple /extras/<name>/ proxy.
+            */ -}}
+            {{- if and (eq (lower (default "" $extra.type)) "tak") $.Values.discovery.sidecar.enabled -}}
+              {{- $takScheme := default "https" $extra.scheme -}}
+              {{- $takPort := default 8443 $extra.port -}}
+              {{- $takBase := trimSuffix "/" (default "" $extra.basePath) -}}
+              {{- $_ := set $obj "proxyPath" (printf "/discover-proxy/%s/%s/%v%s/" $takScheme $extra.service $takPort $takBase) -}}
+            {{- else -}}
+              {{- $_ := set $obj "proxyPath" (printf "/extras/%s/" $extra.name) -}}
+            {{- end -}}
           {{- end -}}
           {{- if $extra.linkOut -}}
             {{- $_ := set $obj "linkOut" $extra.linkOut -}}

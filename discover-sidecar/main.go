@@ -1084,6 +1084,9 @@ func (s *Server) handleAdminTAKStatus(w http.ResponseWriter, r *http.Request) {
 		}
 		resp["loadedAt"] = creds.LoadedAt.UTC().Format(time.RFC3339)
 		resp["trustStoreCAs"] = creds.CAs != nil
+		if creds.TruststoreWarning != "" {
+			resp["truststoreWarning"] = creds.TruststoreWarning
+		}
 	}
 	_ = json.NewEncoder(w).Encode(resp)
 }

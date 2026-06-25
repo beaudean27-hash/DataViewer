@@ -122,7 +122,29 @@ backends:
   #   unknown        Reserved for future sidecar discovery (Option B)
   #
   # Set the whole list empty to disable the third backend entirely.
-  extras: []
+  extras:
+    # TAK Server (Marti API) on this ISAK. Verified on isak2 2026-06-25:
+    # service `takserver-web` in namespace `isak-tak`, NodePort exposing
+    # 8443 (Marti API / client-cert mTLS). The browser TAK adapter lists
+    # `Marti/api/missions` and fetches `<mission>/cot` CoT events; the
+    # sidecar proxies the mTLS handshake using the operator cert uploaded
+    # through the Admin panel.
+    #
+    # NOTE: service/port/scheme are duplicated into `hints` on purpose —
+    # the sidecar's buildTAKTargets()/buildAllowedTargets() read those
+    # values from `hints`, so omitting them silently drops the TAK target.
+    - name: takserver
+      label: "TAK Server"
+      type: tak
+      service: "takserver-web.isak-tak.svc.cluster.local"
+      port: 8443
+      scheme: "https"
+      basePath: ""
+      hints:
+        apiBase: "Marti/api"
+        service: "takserver-web.isak-tak.svc.cluster.local"
+        port: 8443
+        scheme: "https"
   #   - name: geoserver
   #     label: "GeoServer (OGC)"
   #     type: ogc

@@ -3,6 +3,9 @@ dist/
 .zip_build/
 legacy/.zip_build/
 
+# Compiled Go sidecar binary (built by go build during local testing)
+discover-sidecar/discover-sidecar
+
 # Editor / OS
 .DS_Store
 Thumbs.db

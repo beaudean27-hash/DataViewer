@@ -29,6 +29,7 @@ import (
 	"crypto/x509"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -44,14 +45,15 @@ const defaultTAKMountPath = "/etc/davi-discover/tak"
 // of metadata fields for the /admin/tak-cert/status endpoint. Private key
 // material is never serialised to JSON (no struct tags).
 type TAKCreds struct {
-	Cert       tls.Certificate
-	CAs        *x509.CertPool
-	Subject    string
-	Issuer     string
-	NotBefore  time.Time
-	NotAfter   time.Time
-	SourceKind string // "pem" | "pkcs12"
-	LoadedAt   time.Time
+	Cert              tls.Certificate
+	CAs               *x509.CertPool
+	Subject           string
+	Issuer            string
+	NotBefore         time.Time
+	NotAfter          time.Time
+	SourceKind        string // "pem" | "pkcs12"
+	LoadedAt          time.Time
+	TruststoreWarning string // non-empty when truststore passphrase failed and InsecureSkipVerify is active
 }
 
 // TAKManager owns the cert lifecycle. Safe for concurrent use.
@@ -233,21 +235,36 @@ func loadP12(read func(string) ([]byte, error), has func(string) bool) (*TAKCred
 	}
 
 	var cas *x509.CertPool
+	var truststoreWarning string
 	if has("truststore.p12") {
 		tsBytes, err := read("truststore.p12")
 		if err == nil && len(tsBytes) > 0 {
 			tsPass := readPassphrase(read, "truststore.passphrase")
 			pool, perr := parseTruststoreP12(tsBytes, tsPass)
+			// Fallback 1: empty passphrase (operator omitted the *.passphrase file).
 			if perr != nil && tsPass != "" {
 				pool, perr = parseTruststoreP12(tsBytes, "")
 			}
-			if perr != nil {
-				return nil, fmt.Errorf("decode truststore.p12: %w", perr)
+			// Fallback 2: TAK Server default passphrase used in many generated bundles.
+			if perr != nil && tsPass != "atakatak" {
+				pool, perr = parseTruststoreP12(tsBytes, "atakatak")
 			}
-			cas = pool
+			if perr != nil {
+				// Soft-fail: the truststore passphrase is wrong but the client
+				// cert parsed fine.  Proceed with cas=nil so tlsConfig() uses
+				// InsecureSkipVerify for server-cert verification while still
+				// presenting the client cert.  A warning is included in the
+				// status JSON so the operator knows verification is degraded.
+				truststoreWarning = "truststore.p12 passphrase incorrect – server cert verification disabled (InsecureSkipVerify active)"
+				log.Printf("[tak] %s: %v", truststoreWarning, perr)
+			} else {
+				cas = pool
+			}
 		}
 	}
-	return finalize(cert, cas, "pkcs12"), nil
+	creds := finalize(cert, cas, "pkcs12")
+	creds.TruststoreWarning = truststoreWarning
+	return creds, nil
 }
 
 func parseClientP12(p12Bytes []byte, pass string) (tls.Certificate, error) {
