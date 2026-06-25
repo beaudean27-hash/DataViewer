@@ -2115,11 +2115,20 @@
             .then(function(text) { return parseCotXml(text); });
         }
 
-        // Live SA Positions → last-known CoT positions for all SA including ADS-B
+        // Live SA Positions → last-known CoT positions for all SA including ADS-B.
+        // Requires admin-level cert on TAK Server; gracefully returns [] if denied.
         if (ds.kind === "sa-pos") {
           return fetch(base + api + "/cot/sa", { credentials: "include", headers: { "Accept": "application/xml, text/xml" } })
-            .then(function(r) { if (!r.ok) throw new Error("TAK cot/sa " + r.status); return r.text(); })
-            .then(function(text) { return parseCotXml(text); });
+            .then(function(r) {
+              if (!r.ok) { console.warn("[tak] cot/sa HTTP " + r.status + " (cert may lack permission)"); return ""; }
+              return r.text();
+            })
+            .then(function(text) {
+              var rows = parseCotXml(text);
+              if (rows.length === 0) console.warn("[tak] cot/sa returned no CoT events (check cert role or endpoint availability)");
+              return rows;
+            })
+            .catch(function(e) { console.warn("[tak] cot/sa error:", e); return []; });
         }
 
         // SA Tracks → connected clients (callsign / team / role / status; no map pin)
