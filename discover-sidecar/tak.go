@@ -350,9 +350,10 @@ func readPassphrase(read func(string) ([]byte, error), name string) string {
 // the mTLS credentials). Persisted alongside the cert in the Secret mount so
 // it survives pod restarts without re-entry.
 type TAKTarget struct {
-	Host   string
-	Port   int
-	Scheme string
+	Host       string
+	Port       int
+	Scheme     string
+	StreamPort int // CoT TCP/TLS streaming port; 0 = streaming disabled
 }
 
 // loadTAKTargetFrom reads tak.host / tak.port / tak.scheme from mountPath.
@@ -377,5 +378,9 @@ func loadTAKTargetFrom(mountPath string) TAKTarget {
 	if scheme == "" {
 		scheme = "https"
 	}
-	return TAKTarget{Host: host, Port: port, Scheme: scheme}
+	streamPort := 0
+	if p, err := strconv.Atoi(read("tak.stream_port")); err == nil && p > 0 {
+		streamPort = p
+	}
+	return TAKTarget{Host: host, Port: port, Scheme: scheme, StreamPort: streamPort}
 }

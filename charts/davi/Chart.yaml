@@ -2,8 +2,8 @@ apiVersion: v2
 name: davi
 description: DaVi (Data Viewer) — Cesium-based tactical viewer for ISAK
 type: application
-version: 0.5.5
-appVersion: "2026.06.25-tak"
+version: 0.6.0
+appVersion: "2026.06.25-tak-stream"
 kubeVersion: ">=1.30.0"
 keywords:
   - cesium

@@ -569,6 +569,9 @@ type Server struct {
 	takTransport   *http.Transport
 	takTransportMu sync.RWMutex
 	tak            *TAKManager
+	// takStream subscribes to the operator-selected TAK Server CoT streaming
+	// port (default 8089/mTLS) and exposes live tracks via /discover-tak/sa.
+	takStream *TAKStreamer
 	// takRuntimeEntry is the catalog entry for the admin-uploaded TAK server
 	// address. Injected into every catalog refresh so allowedTargets/takTargets
 	// stay correct. Guarded by mu.
@@ -1144,6 +1147,14 @@ func (s *Server) handleAdminTAKStatus(w http.ResponseWriter, r *http.Request) {
 			"scheme": rte.Hints["scheme"],
 		}
 	}
+	// Stream subsystem status (live CoT subscription).
+	if s.takStream != nil {
+		st := s.takStream.status()
+		resp["stream"] = st
+		if srv, ok := resp["takServer"].(map[string]interface{}); ok && st.Port > 0 {
+			srv["stream_port"] = st.Port
+		}
+	}
 	_ = json.NewEncoder(w).Encode(resp)
 }
 
@@ -1151,6 +1162,38 @@ func (s *Server) takTargetCount() int {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	return len(s.takTargets)
+}
+
+// handleTAKStreamSA returns the current cached CoT track snapshot as JSON.
+// Not auth-gated: tracks are already filtered upstream by TAK's group ACLs
+// (we connect with the operator-supplied cert).
+func (s *Server) handleTAKStreamSA(w http.ResponseWriter, r *http.Request) {
+	if s.takStream == nil {
+		http.Error(w, "tak stream subsystem disabled", http.StatusServiceUnavailable)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	tracks := s.takStream.snapshot()
+	resp := map[string]interface{}{
+		"version": 1,
+		"count":   len(tracks),
+		"tracks":  tracks,
+	}
+	_ = json.NewEncoder(w).Encode(resp)
+}
+
+// handleTAKStreamStatus exposes subscriber health (connected/last_event/etc).
+// Admin token required because last_error may include host details.
+func (s *Server) handleTAKStreamStatus(w http.ResponseWriter, r *http.Request) {
+	if !s.requireAdminToken(w, r) {
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if s.takStream == nil {
+		_ = json.NewEncoder(w).Encode(map[string]interface{}{"enabled": false})
+		return
+	}
+	_ = json.NewEncoder(w).Encode(s.takStream.status())
 }
 
 func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
@@ -1198,10 +1241,17 @@ func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
 	if p, err := strconv.Atoi(strings.TrimSpace(r.FormValue("tak_port"))); err == nil && p > 0 {
 		takPort = p
 	}
+	takStreamPort := 0
+	if p, err := strconv.Atoi(strings.TrimSpace(r.FormValue("tak_stream_port"))); err == nil && p > 0 {
+		takStreamPort = p
+	}
 	if takHost != "" {
 		fields["tak.host"] = []byte(takHost)
 		fields["tak.port"] = []byte(strconv.Itoa(takPort))
 		fields["tak.scheme"] = []byte(takScheme)
+		if takStreamPort > 0 {
+			fields["tak.stream_port"] = []byte(strconv.Itoa(takStreamPort))
+		}
 	}
 
 	// Translate multipart field names to the on-disk filenames the loader
@@ -1262,6 +1312,15 @@ func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
 		s.takTargets = buildTAKTargets(curEntries)
 		s.mu.Unlock()
 		log.Printf("[admin] TAK server set: %s://%s:%d", takScheme, takHost, takPort)
+
+		// (Re)launch the CoT stream subscriber if a stream port is configured.
+		if s.takStream != nil {
+			if takStreamPort > 0 {
+				s.takStream.start(takHost, takStreamPort, s.tak.tlsConfig)
+			} else {
+				s.takStream.stop()
+			}
+		}
 	}
 
 	log.Printf("[admin] TAK cert uploaded: subject=%q expiresIn=%s persisted=%v",
@@ -1332,9 +1391,11 @@ func main() {
 
 	// Restore admin-uploaded TAK server address from the Secret mount so the
 	// runtime catalog entry survives pod restarts without operator re-entry.
+	var restoredTarget TAKTarget
 	if tgt := loadTAKTargetFrom(cfg.TAKMountPath); tgt.Host != "" {
 		srv.takRuntimeEntry = buildRuntimeTAKEntry(tgt.Host, tgt.Port, tgt.Scheme)
-		log.Printf("[discover] TAK server restored from mount: %s://%s:%d", tgt.Scheme, tgt.Host, tgt.Port)
+		restoredTarget = tgt
+		log.Printf("[discover] TAK server restored from mount: %s://%s:%d (stream port=%d)", tgt.Scheme, tgt.Host, tgt.Port, tgt.StreamPort)
 	}
 
 	// Dedicated transport for the dynamic reverse proxy. Self-signed certs are
@@ -1353,6 +1414,14 @@ func main() {
 		Proxy:                 nil,
 	}
 	srv.rebuildTAKTransport()
+
+	// Bring up the CoT stream subscriber if creds + host + stream port are all
+	// known. It will auto-reconnect on failure and refresh its TLS config from
+	// TAKManager on every dial.
+	srv.takStream = newTAKStreamer()
+	if restoredTarget.Host != "" && restoredTarget.StreamPort > 0 && srv.tak.loaded() {
+		srv.takStream.start(restoredTarget.Host, restoredTarget.StreamPort, srv.tak.tlsConfig)
+	}
 
 	// Initial refresh in the background; HTTP server is up immediately and
 	// serves static-only until the first cycle completes.
@@ -1376,6 +1445,8 @@ func main() {
 	mux.HandleFunc("/proxy/", srv.handleProxy)
 	mux.HandleFunc("/admin/tak-cert/status", srv.handleAdminTAKStatus)
 	mux.HandleFunc("/admin/tak-cert", srv.handleAdminTAKUpload)
+	mux.HandleFunc("/discover-tak/sa", srv.handleTAKStreamSA)
+	mux.HandleFunc("/discover-tak/status", srv.handleTAKStreamStatus)
 
 	httpSrv := &http.Server{
 		Addr:              ":" + cfg.Port,

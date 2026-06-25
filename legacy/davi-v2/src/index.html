@@ -2115,20 +2115,23 @@
             .then(function(text) { return parseCotXml(text); });
         }
 
-        // Live SA Positions → last-known CoT positions for all SA including ADS-B.
-        // Requires admin-level cert on TAK Server; gracefully returns [] if denied.
+        // Live SA Positions → last-known CoT positions from the sidecar's CoT stream
+        // subscriber (port 8089 on TAK Server). The sidecar maintains a persistent
+        // mTLS connection and caches positions per UID; we just GET the snapshot here.
+        // The /discover-tak/ path is served by the sidecar via nginx, NOT via the
+        // TAK reverse proxy (TAK Server 5.6 has no REST GET for live positions).
         if (ds.kind === "sa-pos") {
-          return fetch(base + api + "/cot/sa", { credentials: "include", headers: { "Accept": "application/xml, text/xml" } })
+          return fetch("/discover-tak/sa", { credentials: "include", headers: { "Accept": "application/json" } })
             .then(function(r) {
-              if (!r.ok) { console.warn("[tak] cot/sa HTTP " + r.status + " (cert may lack permission)"); return ""; }
-              return r.text();
+              if (!r.ok) { console.warn("[tak] discover-tak/sa HTTP " + r.status); return { tracks: [] }; }
+              return r.json();
             })
-            .then(function(text) {
-              var rows = parseCotXml(text);
-              if (rows.length === 0) console.warn("[tak] cot/sa returned no CoT events (check cert role or endpoint availability)");
-              return rows;
+            .then(function(body) {
+              var tracks = (body && body.tracks) || [];
+              if (tracks.length === 0) console.warn("[tak] discover-tak/sa returned no tracks (stream may be disconnected; check Admin panel)");
+              return tracks.map(function(t) { return exNormalizeRow(t, null); });
             })
-            .catch(function(e) { console.warn("[tak] cot/sa error:", e); return []; });
+            .catch(function(e) { console.warn("[tak] discover-tak/sa error:", e); return []; });
         }
 
         // SA Tracks → connected clients (callsign / team / role / status; no map pin)
@@ -8469,11 +8472,16 @@
                 <div style="font-size:9px; color:var(--muted); margin-bottom:2px;">PORT</div>
                 <input id="adminTakPort" type="number" min="1" max="65535" placeholder="8443" style="width:100%; padding:6px 6px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px;" />
               </div>
+              <div style="flex:0 0 86px;">
+                <div style="font-size:9px; color:var(--muted); margin-bottom:2px;">STREAM PORT</div>
+                <input id="adminTakStreamPort" type="number" min="0" max="65535" placeholder="8089" title="CoT TCP/TLS streaming port. Leave blank or 0 to disable live tracks." style="width:100%; padding:6px 6px; background:rgba(0,0,0,0.4); color:var(--text); border:1px solid var(--border); border-radius:3px; font-family:var(--mono); font-size:11px;" />
+              </div>
             </div>
             <div style="font-size:10px; color:var(--muted); margin-bottom:10px; line-height:1.4;">
               Use the <em>in-cluster</em> FQDN and port (preferred — DaVi runs inside the cluster).<br>
               e.g. <code>takserver-web.isak-tak.svc.cluster.local</code> port <code>8443</code><br>
-              External IPs/NodePorts also work if reachable from the cluster.
+              External IPs/NodePorts also work if reachable from the cluster.<br>
+              <strong>Stream port</strong> (default <code>8089</code>) enables live CoT tracks (ADS-B, SA) on the map.
             </div>
           </div>
 
@@ -8525,9 +8533,11 @@
         var h = document.getElementById('adminTakHost');
         var p = document.getElementById('adminTakPort');
         var s = document.getElementById('adminTakScheme');
+        var sp = document.getElementById('adminTakStreamPort');
         if (h && srv.host) h.value = srv.host;
         if (p && srv.port) p.value = srv.port;
         if (s && srv.scheme) s.value = srv.scheme;
+        if (sp && srv.stream_port) sp.value = srv.stream_port;
       }
 
       function adminTokenHeader() {
@@ -8566,7 +8576,8 @@
               (j.takTargets || 0) + ' TAK target(s)<br>' +
               '<span style="color:var(--muted);">' + (j.subject || '(no subject)') + exp +
               (j.trustStoreCAs ? ' · truststore: yes' : ' · truststore: no (skip-verify)') + '</span>' + warnHtml +
-              (j.takServer ? ('<br><span style="color:var(--muted);">server: ' + j.takServer.scheme + '://' + j.takServer.host + ':' + j.takServer.port + '</span>') : '');
+              (j.takServer ? ('<br><span style="color:var(--muted);">server: ' + j.takServer.scheme + '://' + j.takServer.host + ':' + j.takServer.port + (j.takServer.stream_port ? (' (stream: ' + j.takServer.stream_port + ')') : '') + '</span>') : '') +
+              (j.stream ? ('<br><span style="color:var(--muted);">stream: ' + (j.stream.connected ? '<span style="color:var(--accent);">connected</span>' : 'disconnected') + ' · ' + j.stream.track_count + ' track(s) · ' + j.stream.event_count + ' events received' + (j.stream.last_error ? (' · last error: ' + j.stream.last_error.replace(/[<>]/g,'')) : '') + '</span>') : '');
             if (sline) sline.textContent = 'TAK cert: loaded';
             if (j.takServer) populateTakServerFields(j.takServer);
           })
@@ -8602,10 +8613,12 @@
         var takHost   = (document.getElementById('adminTakHost').value   || '').trim();
         var takPort   = (document.getElementById('adminTakPort').value   || '').trim();
         var takScheme = (document.getElementById('adminTakScheme').value || 'https').trim();
+        var takStream = (document.getElementById('adminTakStreamPort').value || '').trim();
         if (takHost) {
           fd.append('tak_host', takHost);
           fd.append('tak_port', takPort || '8443');
           fd.append('tak_scheme', takScheme);
+          if (takStream) fd.append('tak_stream_port', takStream);
         }
 
         if (!clientP12 && !(clientCrt && clientKey)) {
