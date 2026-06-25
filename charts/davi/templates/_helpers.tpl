@@ -4,6 +4,20 @@
 {{- printf "%s-%s" .Release.Name (include "davi.name" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+TAK cert Secret name. When the operator sets discovery.sidecar.tak.certSecret
+explicitly that name is used; otherwise the chart defaults to
+"<release>-tak-client" so persistence is enabled out-of-the-box without
+operator configuration.
+*/}}
+{{- define "davi.takCertSecret" -}}
+{{- if .Values.discovery.sidecar.tak.certSecret -}}
+  {{- .Values.discovery.sidecar.tak.certSecret -}}
+{{- else -}}
+  {{- printf "%s-tak-client" .Release.Name -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "davi.host" -}}
 {{- printf "%s.public.%s.%s" .Values.subdomain .Values.hostname .Values.domain -}}
 {{- end -}}

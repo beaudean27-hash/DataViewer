@@ -23,7 +23,7 @@ rules:
   Scoped via resourceNames so the sidecar cannot touch any other Secret in
   the namespace — tight blast radius for the operator-facing upload path.
 */}}
-{{- if and .Values.discovery.sidecar.admin.enabled .Values.discovery.sidecar.tak.certSecret }}
+{{- if and .Values.discovery.sidecar.admin.enabled .Values.discovery.sidecar.enabled }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -34,7 +34,7 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
-    resourceNames: ["{{ .Values.discovery.sidecar.tak.certSecret }}"]
+    resourceNames: ["{{ include "davi.takCertSecret" . }}"]
     verbs: ["get", "patch", "update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1

@@ -261,7 +261,10 @@ discovery:
     # restart — kubelet re-projects the Secret within ~60s and the sidecar
     # reloads on its next refresh tick.
     tak:
-      certSecret: ""    # e.g. "davi-tak-client" — empty disables TAK mTLS
+      certSecret: ""    # Secret that holds the TAK mTLS cert. Set automatically
+                        # to "<release>-tak-client" when left empty and
+                        # discovery.sidecar.enabled=true (chart creates the
+                        # Secret on first install; UI upload PATCHes it in-place).
 
     # ── Admin endpoints (TAK cert UI uploader) ───────────────────────────
     # Exposes /discover-proxy-admin/tak-cert on the public ingress, gated by
