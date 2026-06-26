@@ -349,15 +349,32 @@ func readPassphrase(read func(string) ([]byte, error), name string) string {
 // TAKTarget holds the operator-specified TAK Server address (separate from
 // the mTLS credentials). Persisted alongside the cert in the Secret mount so
 // it survives pod restarts without re-entry.
+//
+// Host/Port/Scheme describe the Marti REST endpoint (typically the
+// `takserver-web` Service on TAK Server 5.x). StreamHost/StreamPort describe
+// the CoT TCP/TLS messaging endpoint (typically a separate `takserver-tcp`
+// or `takserver-messaging` Service exposing 8089). When StreamHost is empty
+// the streamer falls back to Host for backwards compatibility with v0.5.x
+// operators who only configured a single hostname.
 type TAKTarget struct {
 	Host       string
 	Port       int
 	Scheme     string
-	StreamPort int // CoT TCP/TLS streaming port; 0 = streaming disabled
+	StreamHost string // CoT streaming hostname; empty → fall back to Host
+	StreamPort int    // CoT TCP/TLS streaming port; 0 = streaming disabled
 }
 
-// loadTAKTargetFrom reads tak.host / tak.port / tak.scheme from mountPath.
-// Returns a zero-value TAKTarget (Host=="") when no address has been saved.
+// EffectiveStreamHost returns the hostname the CoT subscriber should dial.
+func (t TAKTarget) EffectiveStreamHost() string {
+	if t.StreamHost != "" {
+		return t.StreamHost
+	}
+	return t.Host
+}
+
+// loadTAKTargetFrom reads tak.host / tak.port / tak.scheme / tak.stream_host /
+// tak.stream_port from mountPath. Returns a zero-value TAKTarget (Host=="")
+// when no address has been saved.
 func loadTAKTargetFrom(mountPath string) TAKTarget {
 	read := func(name string) string {
 		b, err := os.ReadFile(filepath.Join(mountPath, name))
@@ -378,9 +395,10 @@ func loadTAKTargetFrom(mountPath string) TAKTarget {
 	if scheme == "" {
 		scheme = "https"
 	}
+	streamHost := read("tak.stream_host")
 	streamPort := 0
 	if p, err := strconv.Atoi(read("tak.stream_port")); err == nil && p > 0 {
 		streamPort = p
 	}
-	return TAKTarget{Host: host, Port: port, Scheme: scheme, StreamPort: streamPort}
+	return TAKTarget{Host: host, Port: port, Scheme: scheme, StreamHost: streamHost, StreamPort: streamPort}
 }

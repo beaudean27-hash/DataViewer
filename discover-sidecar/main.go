@@ -1151,8 +1151,13 @@ func (s *Server) handleAdminTAKStatus(w http.ResponseWriter, r *http.Request) {
 	if s.takStream != nil {
 		st := s.takStream.status()
 		resp["stream"] = st
-		if srv, ok := resp["takServer"].(map[string]interface{}); ok && st.Port > 0 {
-			srv["stream_port"] = st.Port
+		if srv, ok := resp["takServer"].(map[string]interface{}); ok {
+			if st.Port > 0 {
+				srv["stream_port"] = st.Port
+			}
+			if st.Host != "" {
+				srv["stream_host"] = st.Host
+			}
 		}
 	}
 	_ = json.NewEncoder(w).Encode(resp)
@@ -1245,12 +1250,20 @@ func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
 	if p, err := strconv.Atoi(strings.TrimSpace(r.FormValue("tak_stream_port"))); err == nil && p > 0 {
 		takStreamPort = p
 	}
+	// Optional separate hostname for the CoT stream socket. TAK Server 5.x
+	// commonly exposes Marti REST (8443) on `takserver-web` and CoT TLS (8089)
+	// on a different Service (`takserver-tcp` / `takserver-messaging`).
+	// When blank the streamer dials takHost (legacy single-host behaviour).
+	takStreamHost := strings.TrimSpace(r.FormValue("tak_stream_host"))
 	if takHost != "" {
 		fields["tak.host"] = []byte(takHost)
 		fields["tak.port"] = []byte(strconv.Itoa(takPort))
 		fields["tak.scheme"] = []byte(takScheme)
 		if takStreamPort > 0 {
 			fields["tak.stream_port"] = []byte(strconv.Itoa(takStreamPort))
+		}
+		if takStreamHost != "" {
+			fields["tak.stream_host"] = []byte(takStreamHost)
 		}
 	}
 
@@ -1314,9 +1327,16 @@ func (s *Server) handleAdminTAKUpload(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[admin] TAK server set: %s://%s:%d", takScheme, takHost, takPort)
 
 		// (Re)launch the CoT stream subscriber if a stream port is configured.
+		// Use a dedicated stream host when supplied (TAK Server 5.x commonly
+		// puts CoT TLS on a different Service than Marti REST); fall back to
+		// the Marti host for single-Service deployments.
 		if s.takStream != nil {
 			if takStreamPort > 0 {
-				s.takStream.start(takHost, takStreamPort, s.tak.tlsConfig)
+				streamHost := takStreamHost
+				if streamHost == "" {
+					streamHost = takHost
+				}
+				s.takStream.start(streamHost, takStreamPort, s.tak.tlsConfig)
 			} else {
 				s.takStream.stop()
 			}
@@ -1395,7 +1415,8 @@ func main() {
 	if tgt := loadTAKTargetFrom(cfg.TAKMountPath); tgt.Host != "" {
 		srv.takRuntimeEntry = buildRuntimeTAKEntry(tgt.Host, tgt.Port, tgt.Scheme)
 		restoredTarget = tgt
-		log.Printf("[discover] TAK server restored from mount: %s://%s:%d (stream port=%d)", tgt.Scheme, tgt.Host, tgt.Port, tgt.StreamPort)
+		log.Printf("[discover] TAK server restored from mount: %s://%s:%d (stream %s:%d)",
+			tgt.Scheme, tgt.Host, tgt.Port, tgt.EffectiveStreamHost(), tgt.StreamPort)
 	}
 
 	// Dedicated transport for the dynamic reverse proxy. Self-signed certs are
@@ -1420,7 +1441,7 @@ func main() {
 	// TAKManager on every dial.
 	srv.takStream = newTAKStreamer()
 	if restoredTarget.Host != "" && restoredTarget.StreamPort > 0 && srv.tak.loaded() {
-		srv.takStream.start(restoredTarget.Host, restoredTarget.StreamPort, srv.tak.tlsConfig)
+		srv.takStream.start(restoredTarget.EffectiveStreamHost(), restoredTarget.StreamPort, srv.tak.tlsConfig)
 	}
 
 	// Initial refresh in the background; HTTP server is up immediately and
